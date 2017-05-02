@@ -1,9 +1,0 @@
-# IDEs and editors
-/.idea
-
-# Cache
-/app/cache
-/app/logs
-
-/bin
-/web
