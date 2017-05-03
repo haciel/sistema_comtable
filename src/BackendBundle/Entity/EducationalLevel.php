@@ -28,6 +28,12 @@ class EducationalLevel
      */
     private $title;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Company", mappedBy="educationallevel_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $companies;
 
     /**
      * Get id
@@ -60,5 +66,25 @@ class EducationalLevel
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Remove companies
+     *
+     * @param \BackendBundle\Entity\Company $companies
+     */
+    public function removeCompanies(\BackendBundle\Entity\Company $companies)
+    {
+        $this->companies->removeElement($companies);
+    }
+
+    /**
+     * Get companies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
     }
 }

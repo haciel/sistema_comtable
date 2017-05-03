@@ -24,9 +24,11 @@ class Operations
     /**
      * @var int
      *
-     * @ORM\Column(name="account_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Account", inversedBy="operations", cascade={"persist"})
+     * @ORM\JoinColumn(name="account_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $accountId;
+    private $account_id;
 
     /**
      * @var string
@@ -45,10 +47,11 @@ class Operations
     /**
      * @var int
      *
-     * @ORM\Column(name="accountmove_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\AccountantMove", inversedBy="operations", cascade={"persist"})
+     * @ORM\JoinColumn(name="accountmove_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $accountmoveId;
-
+    private $accountmove_id;
 
     /**
      * Get id
@@ -58,29 +61,6 @@ class Operations
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set accountId
-     *
-     * @param integer $accountId
-     * @return Operations
-     */
-    public function setAccountId($accountId)
-    {
-        $this->accountId = $accountId;
-
-        return $this;
-    }
-
-    /**
-     * Get accountId
-     *
-     * @return integer 
-     */
-    public function getAccountId()
-    {
-        return $this->accountId;
     }
 
     /**
@@ -127,28 +107,5 @@ class Operations
     public function getHaber()
     {
         return $this->haber;
-    }
-
-    /**
-     * Set accountmoveId
-     *
-     * @param integer $accountmoveId
-     * @return Operations
-     */
-    public function setAccountmoveId($accountmoveId)
-    {
-        $this->accountmoveId = $accountmoveId;
-
-        return $this;
-    }
-
-    /**
-     * Get accountmoveId
-     *
-     * @return integer 
-     */
-    public function getAccountmoveId()
-    {
-        return $this->accountmoveId;
     }
 }

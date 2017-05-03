@@ -31,17 +31,20 @@ class AnswerTask
     /**
      * @var int
      *
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="answers", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $userId;
+    private $user_id;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="task_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Task", inversedBy="answers", cascade={"persist"})
+     * @ORM\JoinColumn(name="task_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $taskId;
-
+    private $task_id;
 
     /**
      * Get id
@@ -74,51 +77,5 @@ class AnswerTask
     public function getFile()
     {
         return $this->file;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return AnswerTask
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Set taskId
-     *
-     * @param integer $taskId
-     * @return AnswerTask
-     */
-    public function setTaskId($taskId)
-    {
-        $this->taskId = $taskId;
-
-        return $this;
-    }
-
-    /**
-     * Get taskId
-     *
-     * @return integer 
-     */
-    public function getTaskId()
-    {
-        return $this->taskId;
     }
 }

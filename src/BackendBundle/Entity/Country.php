@@ -28,6 +28,12 @@ class Country
      */
     private $name;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Province", mappedBy="country_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $provinces;
 
     /**
      * Get id
@@ -60,5 +66,25 @@ class Country
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Remove provinces
+     *
+     * @param \BackendBundle\Entity\Province $provinces
+     */
+    public function removeProvinces(\BackendBundle\Entity\Province $provinces)
+    {
+        $this->provinces->removeElement($provinces);
+    }
+
+    /**
+     * Get provinces
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProvinces()
+    {
+        return $this->provinces;
     }
 }

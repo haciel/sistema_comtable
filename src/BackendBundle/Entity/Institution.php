@@ -4,6 +4,7 @@ namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Institution
  *
@@ -31,23 +32,25 @@ class Institution
     /**
      * @var int
      *
-     * @ORM\Column(name="levels", type="integer")
-     */
-    private $levels;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="number_estudent", type="integer")
      */
-    private $numberEstudent;
+    private $number_estudent;
 
     /**
-     * @var string
+     * @var city
      *
-     * @ORM\Column(name="city_id", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\City", inversedBy="institution", cascade={"persist"})
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $cityId;
+    private $city_id;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Company", mappedBy="institution_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $companies;
 
     /**
      * @var bool
@@ -91,72 +94,69 @@ class Institution
     }
 
     /**
-     * Set levels
+     * Set number_estudent
      *
-     * @param integer $levels
+     * @param integer $number_estudent
      * @return Institution
      */
-    public function setLevels($levels)
+    public function setNumber_estudent($number_estudent)
     {
-        $this->levels = $levels;
+        $this->number_estudent = $number_estudent;
 
         return $this;
     }
 
     /**
-     * Get levels
+     * Get number_estudent
      *
      * @return integer 
      */
-    public function getLevels()
+    public function getNumber_estudent()
     {
-        return $this->levels;
+        return $this->number_estudent;
     }
 
     /**
-     * Set numberEstudent
+     * Set city_id
      *
-     * @param integer $numberEstudent
+     * @param \BackendBundle\Entity\City $city_id
      * @return Institution
      */
-    public function setNumberEstudent($numberEstudent)
+    public function setCity_id(\BackendBundle\Entity\City $city_id = null)
     {
-        $this->numberEstudent = $numberEstudent;
+        $this->city_id = $city_id;
 
         return $this;
     }
 
     /**
-     * Get numberEstudent
+     * Get city_id
      *
-     * @return integer 
+     * @return \BackendBundle\Entity\City
      */
-    public function getNumberEstudent()
+    public function getCity_id()
     {
-        return $this->numberEstudent;
+        return $this->city_id;
     }
 
     /**
-     * Set cityId
+     * Remove companies
      *
-     * @param string $cityId
-     * @return Institution
+     * @param \BackendBundle\Entity\Company $companies
      */
-    public function setCityId($cityId)
+    public function removeCompanies(\BackendBundle\Entity\Company $companies)
     {
-        $this->cityId = $cityId;
-
-        return $this;
+        $this->companies->removeElement($companies);
     }
 
     /**
-     * Get cityId
+     * Get companies
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCityId()
+    public function getCompanies()
     {
-        return $this->cityId;
+        return $this->companies;
     }
 
     /**

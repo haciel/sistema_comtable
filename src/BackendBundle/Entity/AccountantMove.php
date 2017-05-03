@@ -22,18 +22,22 @@ class AccountantMove
     private $id;
 
     /**
-     * @var string
+     * * @var int
      *
-     * @ORM\Column(name="number_move", type="string", length=255)
+     * @ORM\Column(name="numberMove", type="integer")
+     * @ORM\NumberMove
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $numberMove;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="company_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Company", inversedBy="accountans_move", cascade={"persist"})
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $companyId;
+    private $company_id;
 
     /**
      * @var \DateTime
@@ -52,9 +56,11 @@ class AccountantMove
     /**
      * @var int
      *
-     * @ORM\Column(name="slipe_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\SlipType", inversedBy="accountans_move", cascade={"persist"})
+     * @ORM\JoinColumn(name="slipe_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $slipeId;
+    private $slipe_id ;
 
     /**
      * @var string
@@ -95,29 +101,6 @@ class AccountantMove
     public function getNumberMove()
     {
         return $this->numberMove;
-    }
-
-    /**
-     * Set companyId
-     *
-     * @param integer $companyId
-     * @return AccountantMove
-     */
-    public function setCompanyId($companyId)
-    {
-        $this->companyId = $companyId;
-
-        return $this;
-    }
-
-    /**
-     * Get companyId
-     *
-     * @return integer 
-     */
-    public function getCompanyId()
-    {
-        return $this->companyId;
     }
 
     /**
@@ -164,29 +147,6 @@ class AccountantMove
     public function getSlipeNumber()
     {
         return $this->slipeNumber;
-    }
-
-    /**
-     * Set slipeId
-     *
-     * @param integer $slipeId
-     * @return AccountantMove
-     */
-    public function setSlipeId($slipeId)
-    {
-        $this->slipeId = $slipeId;
-
-        return $this;
-    }
-
-    /**
-     * Get slipeId
-     *
-     * @return integer 
-     */
-    public function getSlipeId()
-    {
-        return $this->slipeId;
     }
 
     /**

@@ -29,12 +29,20 @@ class Province
     private $name;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="country", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Country", inversedBy="provinces", cascade={"persist"})
+     *  @ORM\JoinColumn(name="country_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $country;
+    private $country_id;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\City", mappedBy="province_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $cities;
 
     /**
      * Get id
@@ -62,7 +70,7 @@ class Province
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -70,25 +78,45 @@ class Province
     }
 
     /**
-     * Set country
+     * Set country_id
      *
-     * @param string $country
+     * @param \BackendBundle\Entity\Country $country_id
      * @return Province
      */
-    public function setCountry($country)
+    public function setCountry_id(\BackendBundle\Entity\Country $country_id = null)
     {
-        $this->country = $country;
+        $this->country_id = $country_id;
 
         return $this;
     }
 
     /**
-     * Get country
+     * Get country_id
      *
-     * @return string 
+     * @return \BackendBundle\Entity\Country
      */
-    public function getCountry()
+    public function getCountry_id()
     {
-        return $this->country;
+        return $this->country_id;
+    }
+
+    /**
+     * Remove cities
+     *
+     * @param \BackendBundle\Entity\City $cities
+     */
+    public function removeCities(\BackendBundle\Entity\City $cities)
+    {
+        $this->cities->removeElement($cities);
+    }
+
+    /**
+     * Get cities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCities()
+    {
+        return $this->cities;
     }
 }

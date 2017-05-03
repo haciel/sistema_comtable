@@ -45,17 +45,27 @@ class Task
     /**
      * @var int
      *
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="tasks", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $userId;
+    private $user_id;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="company_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\User", inversedBy="tasks", cascade={"persist"})
+     * @ORM\JoinColumn(name="company_id ", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $companyId;
+    private $company_id;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Account", mappedBy="task_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $answer;
 
     /**
      * Get id
@@ -137,48 +147,68 @@ class Task
     }
 
     /**
-     * Set userId
+     * Set user_id
      *
-     * @param integer $userId
+     * @param \UserBundle\Entity\User $user_id
      * @return Task
      */
-    public function setUserId($userId)
+    public function setUser_id(\UserBundle\Entity\User $user_id = null)
     {
-        $this->userId = $userId;
+        $this->user_id =$user_id;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get user_id
      *
-     * @return integer 
+     * @return \BackendBundle\Entity\User
      */
-    public function getUserId()
+    public function getUser_id()
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
     /**
-     * Set companyId
+     * Set company_id
      *
-     * @param integer $companyId
+     * @param \BackendBundle\Entity\Company $company_id
      * @return Task
      */
-    public function setCompanyId($companyId)
+    public function setCompany_id(\BackendBundle\Entity\Company $company_id = null)
     {
-        $this->companyId = $companyId;
+        $this->company_id =$company_id;
 
         return $this;
     }
 
     /**
-     * Get companyId
+     * Get company_id
      *
-     * @return integer 
+     * @return \BackendBundle\Entity\Company
      */
-    public function getCompanyId()
+    public function getCompany_id()
     {
-        return $this->companyId;
+        return $this->company_id;
+    }
+
+    /**
+     * Remove answer
+     *
+     * @param \BackendBundle\Entity\AnswerTask $answer
+     */
+    public function removeAnswer(\BackendBundle\Entity\AnswerTask $answer)
+    {
+        $this->answer->removeElement($answer);
+    }
+
+    /**
+     * Get answer
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
     }
 }

@@ -28,6 +28,12 @@ class AccountType
      */
     private $name;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Account", mappedBy="accounttype_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $accounts;
 
     /**
      * Get id

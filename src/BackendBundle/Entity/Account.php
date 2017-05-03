@@ -38,18 +38,27 @@ class Account
     /**
      * @var int
      *
-     * @ORM\Column(name="accounttype_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\AccountType", inversedBy="accounts", cascade={"persist"})
+     * @ORM\JoinColumn(name="accounttype_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $accounttypeId;
+    private $accounttype_id;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="company_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Company", inversedBy="accounts", cascade={"persist"})
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
      */
-    private $companyId;
+    private $company_id;
 
-
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Operations", mappedBy="account_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $operations;
     /**
      * Get id
      *
@@ -104,51 +113,5 @@ class Account
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set accounttypeId
-     *
-     * @param integer $accounttypeId
-     * @return Account
-     */
-    public function setAccounttypeId($accounttypeId)
-    {
-        $this->accounttypeId = $accounttypeId;
-
-        return $this;
-    }
-
-    /**
-     * Get accounttypeId
-     *
-     * @return integer 
-     */
-    public function getAccounttypeId()
-    {
-        return $this->accounttypeId;
-    }
-
-    /**
-     * Set companyId
-     *
-     * @param integer $companyId
-     * @return Account
-     */
-    public function setCompanyId($companyId)
-    {
-        $this->companyId = $companyId;
-
-        return $this;
-    }
-
-    /**
-     * Get companyId
-     *
-     * @return integer 
-     */
-    public function getCompanyId()
-    {
-        return $this->companyId;
     }
 }

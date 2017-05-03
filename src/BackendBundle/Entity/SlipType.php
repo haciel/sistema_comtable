@@ -28,6 +28,12 @@ class SlipType
      */
     private $name;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\AccountantMove", mappedBy="slipe_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $accountans_move;
 
     /**
      * Get id
