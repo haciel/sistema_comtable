@@ -3,6 +3,9 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * SlipType
@@ -66,5 +69,25 @@ class SlipType
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Remove accountans_move
+     *
+     * @param \BackendBundle\Entity\SlipType $accountans_move
+     */
+    public function removeAccountans_move(\BackendBundle\Entity\SlipType $accountans_move)
+    {
+        $this->accountans_move->removeElement($accountans_move);
+    }
+
+    /**
+     * Get accountans_move
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAccountans_move()
+    {
+        return $this->accountans_move;
     }
 }

@@ -3,6 +3,9 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * AccountType
@@ -66,5 +69,25 @@ class AccountType
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Remove accounts
+     *
+     * @param \BackendBundle\Entity\Account $accounts
+     */
+    public function removeAccounts(\BackendBundle\Entity\Account $accounts)
+    {
+        $this->accounts->removeElement($accounts);
+    }
+
+    /**
+     * Get accounts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAccounts()
+    {
+        return $this->accounts;
     }
 }

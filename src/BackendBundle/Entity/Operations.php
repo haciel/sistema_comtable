@@ -3,6 +3,9 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Operations
@@ -64,6 +67,29 @@ class Operations
     }
 
     /**
+     * Set account_id
+     *
+     * @param \BackendBundle\Entity\Operations $account_id
+     * @return Operations
+     */
+    public function setAccount_id(\BackendBundle\Entity\Operations $account_id = null)
+    {
+        $this->account_id =$account_id;
+
+        return $this;
+    }
+
+    /**
+     * Get account_id
+     *
+     * @return \BackendBundle\Entity\Account
+     */
+    public function getAccount_id()
+    {
+        return $this->account_id;
+    }
+
+    /**
      * Set deve
      *
      * @param string $deve
@@ -107,5 +133,28 @@ class Operations
     public function getHaber()
     {
         return $this->haber;
+    }
+
+    /**
+     * Set accountmove_id
+     *
+     * @param \BackendBundle\Entity\AccountantMove $accountmove_id
+     * @return Operations
+     */
+    public function setAccountmove_id(\BackendBundle\Entity\AccountantMove $accountmove_id = null)
+    {
+        $this->accountmove_id =$accountmove_id;
+
+        return $this;
+    }
+
+    /**
+     * Get accountmove_id
+     *
+     * @return \BackendBundle\Entity\SlipType
+     */
+    public function getAccountmove_id()
+    {
+        return $this->accountmove_id;
     }
 }

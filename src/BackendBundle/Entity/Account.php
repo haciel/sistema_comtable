@@ -3,6 +3,9 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Account
@@ -113,5 +116,71 @@ class Account
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set accounttype_id
+     *
+     * @param \BackendBundle\Entity\AccountType $accounttype_id
+     * @return Account
+     */
+    public function setAccounttype_id(\BackendBundle\Entity\AccountType $accounttype_id= null)
+    {
+        $this->accounttype_id =$accounttype_id;
+
+        return $this;
+    }
+
+    /**
+     * Get accounttype_id
+     *
+     * @return \BackendBundle\Entity\AccountType
+     */
+    public function getAccounttype_id()
+    {
+        return $this->accounttype_id;
+    }
+
+    /**
+     * Set company_id
+     *
+     * @param \BackendBundle\Entity\Company $company_id
+     * @return Account
+     */
+    public function setCompany_id(\BackendBundle\Entity\Company $company_id= null)
+    {
+        $this->company_id =$company_id;
+
+        return $this;
+    }
+
+    /**
+     * Get company_id
+     *
+     * @return \BackendBundle\Entity\Company
+     */
+    public function getCompany_id()
+    {
+        return $this->company_id;
+    }
+
+    /**
+     * Remove operations
+     *
+     * @param \BackendBundle\Entity\Operations $operations
+     */
+    public function removeOperations(\BackendBundle\Entity\Operations $operations)
+    {
+        $this->operations->removeElement($operations);
+    }
+
+    /**
+     * Get operations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOperations()
+    {
+        return $this->operations;
     }
 }

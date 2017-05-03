@@ -3,6 +3,9 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * AccountantMove
@@ -103,6 +106,30 @@ class AccountantMove
         return $this->numberMove;
     }
 
+
+    /**
+     * Set company_id
+     *
+     * @param \BackendBundle\Entity\Company $company_id
+     * @return AccountantMove
+     */
+    public function setCompany_id(\BackendBundle\Entity\Company $company_id = null)
+    {
+        $this->company_id =$company_id;
+
+        return $this;
+    }
+
+    /**
+     * Get company_id
+     *
+     * @return \BackendBundle\Entity\Company
+     */
+    public function getCompany_id()
+    {
+        return $this->company_id;
+    }
+
     /**
      * Set date
      *
@@ -147,6 +174,29 @@ class AccountantMove
     public function getSlipeNumber()
     {
         return $this->slipeNumber;
+    }
+
+    /**
+     * Set slipe_id
+     *
+     * @param \BackendBundle\Entity\SlipType $slipe_id
+     * @return AccountantMove
+     */
+    public function setSlipe_id(\BackendBundle\Entity\SlipType $slipe_id = null)
+    {
+        $this->slipe_id =$slipe_id;
+
+        return $this;
+    }
+
+    /**
+     * Get slipe_id
+     *
+     * @return \BackendBundle\Entity\SlipType
+     */
+    public function getSlipe_id()
+    {
+        return $this->slipe_id;
     }
 
     /**

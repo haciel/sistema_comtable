@@ -3,6 +3,9 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Task
@@ -65,7 +68,7 @@ class Task
      *
      * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Account", mappedBy="task_id" ,cascade={"persist"},orphanRemoval=true)
      */
-    private $answer;
+    private $answers;
 
     /**
      * Get id
@@ -193,22 +196,22 @@ class Task
     }
 
     /**
-     * Remove answer
+     * Remove answers
      *
-     * @param \BackendBundle\Entity\AnswerTask $answer
+     * @param \BackendBundle\Entity\AnswerTask $answers
      */
-    public function removeAnswer(\BackendBundle\Entity\AnswerTask $answer)
+    public function removeAnswers(\BackendBundle\Entity\AnswerTask $answers)
     {
-        $this->answer->removeElement($answer);
+        $this->answers->removeElement($answers);
     }
 
     /**
-     * Get answer
+     * Get answers
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAnswer()
+    public function getAnswers()
     {
-        return $this->answer;
+        return $this->answers;
     }
 }

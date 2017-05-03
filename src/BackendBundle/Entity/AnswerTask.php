@@ -3,6 +3,9 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * AnswerTask
@@ -77,5 +80,51 @@ class AnswerTask
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * Set user_id
+     *
+     * @param \UserBundle\Entity\User $user_id
+     * @return AnswerTask
+     */
+    public function setUser_id(\UserBundle\Entity\User $user_id = null)
+    {
+        $this->user_id =$user_id;
+
+        return $this;
+    }
+
+    /**
+     * Get user_id
+     *
+     * @return \BackendBundle\Entity\User
+     */
+    public function getUser_id()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set task_id
+     *
+     * @param \BackendBundle\Entity\Task $task_id
+     * @return AnswerTask
+     */
+    public function setTask_id(\BackendBundle\Entity\Task $task_id = null)
+    {
+        $this->task_id =$task_id;
+
+        return $this;
+    }
+
+    /**
+     * Get task_id
+     *
+     * @return \BackendBundle\Entity\Task
+     */
+    public function getTask_id()
+    {
+        return $this->task_id;
     }
 }
