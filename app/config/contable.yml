@@ -1,0 +1,8 @@
+parameters:
+    project_name: sistema_contable
+    first_part: sistema
+    second_part: contable
+    locale: es
+    directories:
+        global: '../web/upload/'
+        relative: 'upload/'

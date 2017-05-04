@@ -57,7 +57,7 @@ class Task
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\User", inversedBy="tasks", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Company", inversedBy="tasks", cascade={"persist"})
      * @ORM\JoinColumn(name="company_id ", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */

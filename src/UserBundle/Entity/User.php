@@ -11,10 +11,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
+ * @DoctrineAssert\UniqueEntity(fields={"username"},message="Este nombre de usuario ya está en uso.")
+ * @DoctrineAssert\UniqueEntity(fields={"email"},message="Esta dirección de correo ya está en uso.")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
@@ -23,7 +25,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var ArrayCollection

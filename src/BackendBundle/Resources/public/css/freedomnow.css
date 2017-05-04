@@ -1,0 +1,32 @@
+.skin-purple-light .main-header .navbar {
+    background-color: #333;
+}
+.skin-purple-light .main-header .logo {
+    background-color: #333;
+}
+.box-list{
+    margin-top: 15px;
+}
+
+.user-panel img{
+    width: 45px;
+}
+
+.sidebar-collapse .user-panel img{
+    width: 30px;
+}
+
+.pagination a{
+    border-radius: 0 !important;
+}
+
+.fixed header{
+    box-shadow: 0 6px 6px rgba(0,0,0,0.3);
+}
+img.center {
+    display: block;
+    margin: 0 auto;
+}
+.logo .logo-mini img{
+    height: 40px;
+}

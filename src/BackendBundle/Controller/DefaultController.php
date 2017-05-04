@@ -4,14 +4,15 @@ namespace BackendBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/flash_bag", name="flash_bag", defaults={"_format"="json"})
      */
-    public function indexAction()
+    public function flashBagAction()
     {
-        return $this->render('BackendBundle:Default:index.html.twig');
+        return new JsonResponse($this->get('session')->getFlashBag()->all());
     }
 }

@@ -1,3 +1,7 @@
+user_user:
+    resource: "@UserBundle/Controller/UserController.php"
+    type:     annotation
+
 frontend:
     resource: "@FrontendBundle/Controller/"
     type:     annotation

@@ -1,0 +1,8 @@
+$directions: top right bottom left;
+@each $direction in $directions {
+  @for $i from 1 through 50 {
+    .padding-#{$direction}-#{$i} {
+      padding-#{$direction}: #{$i}px;
+    }
+  }
+}

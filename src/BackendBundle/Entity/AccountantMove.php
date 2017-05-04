@@ -25,15 +25,6 @@ class AccountantMove
     private $id;
 
     /**
-     * * @var int
-     *
-     * @ORM\Column(name="numberMove", type="integer")
-     * @ORM\NumberMove
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $numberMove;
-
-    /**
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Company", inversedBy="accountans_move", cascade={"persist"})
@@ -220,5 +211,51 @@ class AccountantMove
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set company_id
+     *
+     * @param \BackendBundle\Entity\Company $companyId
+     * @return AccountantMove
+     */
+    public function setCompanyId(\BackendBundle\Entity\Company $companyId = null)
+    {
+        $this->company_id = $companyId;
+
+        return $this;
+    }
+
+    /**
+     * Get company_id
+     *
+     * @return \BackendBundle\Entity\Company 
+     */
+    public function getCompanyId()
+    {
+        return $this->company_id;
+    }
+
+    /**
+     * Set slipe_id
+     *
+     * @param \BackendBundle\Entity\SlipType $slipeId
+     * @return AccountantMove
+     */
+    public function setSlipeId(\BackendBundle\Entity\SlipType $slipeId = null)
+    {
+        $this->slipe_id = $slipeId;
+
+        return $this;
+    }
+
+    /**
+     * Get slipe_id
+     *
+     * @return \BackendBundle\Entity\SlipType 
+     */
+    public function getSlipeId()
+    {
+        return $this->slipe_id;
     }
 }
