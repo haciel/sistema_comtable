@@ -1,7 +1,7 @@
 backend:
-    sign_in: 'Sign In'
+    sign_in: 'Entrar'
     remember_me: 'Olvide mi contraseña'
-    login_message: 'Ingrese sus datos por favor'
+    login_message: 'Ingreso al Sistema'
     register_message: 'Registrate'
     login_title: 'Login'
     register_title: 'Register'
@@ -49,3 +49,24 @@ user:
     delete_successfull: 'User deleted successfull'
 fileupload:
     acceptFileTypes: 'Tipo de archivo no permitido'
+home:
+    title: 'Administración'
+institution:
+    create_new: 'Crear Institución'
+    name: 'Nombre'
+    number_estudent: 'Cantidad de estudiantes'
+    city_id: 'Ciudad'
+    enabled: 'Activo'
+    title_nav: 'Institución'
+    title: 'Institución'
+    create_successfull: 'Institución creada con éxito'
+    edit_successfull: 'Institución editada con éxito'
+    delete_successfull: 'Institución eliminada con éxito'
+country:
+    create_new: 'Crear País'
+    name: 'Nombre'
+    title_nav: 'País'
+    title: 'País'
+    create_successfull: 'País creado con éxito'
+    edit_successfull: 'País editado con éxito'
+    delete_successfull: 'País eliminado con éxito'

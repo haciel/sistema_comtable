@@ -1,0 +1,65 @@
+<section class="sidebar">
+    <div class="user-panel">
+        <div class="pull-left">
+            <img class="img-circle" src="{{ asset('bundles/backend/img/avatar_default.png') }}">
+            {# {% if app.user.image %}
+                 <img class="img-circle" src="{{ asset(getAvatar(app.user.email)) }}">
+                 {% else %}
+                     <img class="img-circle" src="{{ asset('bundles/app/img/avatar_default.png') }}">
+                 {% endif %}#}
+        </div>
+        <div class="pull-left info">
+            <p>{{ app.user.username }}</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
+    <ul data-active-menu="true" class="sidebar-menu" data-active="{{ active }}">
+        <li class="header"></li>
+        <li id="user" class="treeview">
+            <a href="#"><i class="fa fa-user"></i> <span>{{ 'user.title_nav'|trans|title }}</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li id="all_user"><a href="{{ path('user_index') }}"><i
+                                class="fa fa-circle-o"></i>{{ 'backend.list'|trans~' '~'user.title_nav'|trans }}</a>
+                </li>
+                <li id="new_user"><a href="{{ path('user_new') }}"><i
+                                class="fa fa-circle-o"></i>{{ 'backend.create'|trans~' '~'user.title'|trans }}</a></li>
+            </ul>
+        </li>
+
+        <li id="institution" class="treeview">
+            <a href="#"><i class="fa fa-info-circle"></i>
+                <span>{{ 'institution.title_nav' |trans }}</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li id="all_institution"><a href="{{ path('institution_index') }}"><i
+                                class="fa fa-circle-o"></i>{{ 'backend.list'|trans~' '~'institution.title_nav'|trans }}</a>
+                </li>
+                <li id="new_institution"><a href="{{ path('institution_new') }}"><i
+                                class="fa fa-circle-o"></i>{{ 'backend.create'|trans~' '~'institution.title'|trans }}</a></li>
+            </ul>
+        </li>
+        <li id="country" class="treeview">
+            <a href="#"><i class="fa fa-info-circle"></i>
+                <span>{{ 'country.title_nav' |trans }}</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li id="all_country"><a href="{{ path('country_index') }}"><i
+                                class="fa fa-circle-o"></i>{{ 'backend.list'|trans~' '~'country.title_nav'|trans }}</a>
+                </li>
+                <li id="new_country"><a href="{{ path('country_new') }}"><i
+                                class="fa fa-circle-o"></i>{{ 'backend.create'|trans~' '~'country.title'|trans }}</a></li>
+            </ul>
+        </li>
+    </ul>
+    <!-- /.sidebar-menu -->
+</section>

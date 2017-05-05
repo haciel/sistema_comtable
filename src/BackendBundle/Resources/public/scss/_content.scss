@@ -1,0 +1,25 @@
+$directions: top right bottom left;
+@each $direction in $directions {
+  @for $i from 1 through 50 {
+    .padding-#{$direction}-#{$i} {
+      padding-#{$direction}: #{$i}px;
+    }
+  }
+}
+.skin-purple-light .main-header .navbar {
+  background-color: $color-primary;
+}
+.skin-purple-light .main-header .logo {
+  background-color: $color-primary;
+}
+.login-page, .register-page {
+  background: $color-primary !important;
+}
+.login-box-msg{
+  font-size: 20px;
+}
+.user-panel{
+  img{
+    width: 45px;
+  }
+}
