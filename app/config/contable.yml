@@ -6,3 +6,5 @@ parameters:
     directories:
         global: '../web/upload/'
         relative: 'upload/'
+        answerTask:
+            files: 'answerTask/files/'

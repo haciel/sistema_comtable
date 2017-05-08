@@ -32,22 +32,22 @@ class AnswerTask
     private $file;
 
     /**
-     * @var int
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="answers", cascade={"persist"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $user_id;
+    private $userId;
 
     /**
-     * @var int
+     * @var Task
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Task", inversedBy="answers", cascade={"persist"})
      * @ORM\JoinColumn(name="task_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $task_id;
+    private $taskId;
 
     /**
      * Get id
@@ -82,49 +82,50 @@ class AnswerTask
         return $this->file;
     }
 
+
     /**
-     * Set user_id
+     * Set userId
      *
-     * @param \UserBundle\Entity\User $user_id
+     * @param \UserBundle\Entity\User $userId
      * @return AnswerTask
      */
-    public function setUser_id(\UserBundle\Entity\User $user_id = null)
+    public function setUserId(\UserBundle\Entity\User $userId = null)
     {
-        $this->user_id =$user_id;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Get user_id
+     * Get userId
      *
-     * @return \BackendBundle\Entity\User
+     * @return \UserBundle\Entity\User 
      */
-    public function getUser_id()
+    public function getUserId()
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     /**
-     * Set task_id
+     * Set taskId
      *
-     * @param \BackendBundle\Entity\Task $task_id
+     * @param \BackendBundle\Entity\Task $taskId
      * @return AnswerTask
      */
-    public function setTask_id(\BackendBundle\Entity\Task $task_id = null)
+    public function setTaskId(\BackendBundle\Entity\Task $taskId = null)
     {
-        $this->task_id =$task_id;
+        $this->taskId = $taskId;
 
         return $this;
     }
 
     /**
-     * Get task_id
+     * Get taskId
      *
-     * @return \BackendBundle\Entity\Task
+     * @return \BackendBundle\Entity\Task 
      */
-    public function getTask_id()
+    public function getTaskId()
     {
-        return $this->task_id;
+        return $this->taskId;
     }
 }

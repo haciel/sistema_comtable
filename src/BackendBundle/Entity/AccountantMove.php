@@ -25,13 +25,13 @@ class AccountantMove
     private $id;
 
     /**
-     * @var int
+     * @var Company
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Company", inversedBy="accountans_move", cascade={"persist"})
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $company_id;
+    private $companyId;
 
     /**
      * @var \DateTime
@@ -41,20 +41,20 @@ class AccountantMove
     private $date;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="slipe_number", type="string", length=255)
+     * @ORM\Column(name="slipe_number", type="integer")
      */
     private $slipeNumber;
 
     /**
-     * @var int
+     * @var SlipType
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\SlipType", inversedBy="accountans_move", cascade={"persist"})
      * @ORM\JoinColumn(name="slipe_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $slipe_id ;
+    private $slipeId;
 
     /**
      * @var string
@@ -74,52 +74,6 @@ class AccountantMove
         return $this->id;
     }
 
-    /**
-     * Set numberMove
-     *
-     * @param string $numberMove
-     * @return AccountantMove
-     */
-    public function setNumberMove($numberMove)
-    {
-        $this->numberMove = $numberMove;
-
-        return $this;
-    }
-
-    /**
-     * Get numberMove
-     *
-     * @return string 
-     */
-    public function getNumberMove()
-    {
-        return $this->numberMove;
-    }
-
-
-    /**
-     * Set company_id
-     *
-     * @param \BackendBundle\Entity\Company $company_id
-     * @return AccountantMove
-     */
-    public function setCompany_id(\BackendBundle\Entity\Company $company_id = null)
-    {
-        $this->company_id =$company_id;
-
-        return $this;
-    }
-
-    /**
-     * Get company_id
-     *
-     * @return \BackendBundle\Entity\Company
-     */
-    public function getCompany_id()
-    {
-        return $this->company_id;
-    }
 
     /**
      * Set date
@@ -144,51 +98,6 @@ class AccountantMove
         return $this->date;
     }
 
-    /**
-     * Set slipeNumber
-     *
-     * @param string $slipeNumber
-     * @return AccountantMove
-     */
-    public function setSlipeNumber($slipeNumber)
-    {
-        $this->slipeNumber = $slipeNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get slipeNumber
-     *
-     * @return string 
-     */
-    public function getSlipeNumber()
-    {
-        return $this->slipeNumber;
-    }
-
-    /**
-     * Set slipe_id
-     *
-     * @param \BackendBundle\Entity\SlipType $slipe_id
-     * @return AccountantMove
-     */
-    public function setSlipe_id(\BackendBundle\Entity\SlipType $slipe_id = null)
-    {
-        $this->slipe_id =$slipe_id;
-
-        return $this;
-    }
-
-    /**
-     * Get slipe_id
-     *
-     * @return \BackendBundle\Entity\SlipType
-     */
-    public function getSlipe_id()
-    {
-        return $this->slipe_id;
-    }
 
     /**
      * Set description
@@ -213,49 +122,74 @@ class AccountantMove
         return $this->description;
     }
 
+
+
     /**
-     * Set company_id
+     * Set slipeNumber
+     *
+     * @param integer $slipeNumber
+     * @return AccountantMove
+     */
+    public function setSlipeNumber($slipeNumber)
+    {
+        $this->slipeNumber = $slipeNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get slipeNumber
+     *
+     * @return integer 
+     */
+    public function getSlipeNumber()
+    {
+        return $this->slipeNumber;
+    }
+
+    /**
+     * Set companyId
      *
      * @param \BackendBundle\Entity\Company $companyId
      * @return AccountantMove
      */
     public function setCompanyId(\BackendBundle\Entity\Company $companyId = null)
     {
-        $this->company_id = $companyId;
+        $this->companyId = $companyId;
 
         return $this;
     }
 
     /**
-     * Get company_id
+     * Get companyId
      *
      * @return \BackendBundle\Entity\Company 
      */
     public function getCompanyId()
     {
-        return $this->company_id;
+        return $this->companyId;
     }
 
     /**
-     * Set slipe_id
+     * Set slipeId
      *
      * @param \BackendBundle\Entity\SlipType $slipeId
      * @return AccountantMove
      */
     public function setSlipeId(\BackendBundle\Entity\SlipType $slipeId = null)
     {
-        $this->slipe_id = $slipeId;
+        $this->slipeId = $slipeId;
 
         return $this;
     }
 
     /**
-     * Get slipe_id
+     * Get slipeId
      *
      * @return \BackendBundle\Entity\SlipType 
      */
     public function getSlipeId()
     {
-        return $this->slipe_id;
+        return $this->slipeId;
     }
 }

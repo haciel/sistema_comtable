@@ -46,22 +46,22 @@ class Task
     private $dateLimit;
 
     /**
-     * @var int
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="tasks", cascade={"persist"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $user_id;
+    private $userId;
 
     /**
-     * @var int
+     * @var Company
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Company", inversedBy="tasks", cascade={"persist"})
      * @ORM\JoinColumn(name="company_id ", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $company_id;
+    private $companyId;
 
     /**
      * @var ArrayCollection
@@ -149,61 +149,7 @@ class Task
         return $this->dateLimit;
     }
 
-    /**
-     * Set user_id
-     *
-     * @param \UserBundle\Entity\User $user_id
-     * @return Task
-     */
-    public function setUser_id(\UserBundle\Entity\User $user_id = null)
-    {
-        $this->user_id =$user_id;
 
-        return $this;
-    }
-
-    /**
-     * Get user_id
-     *
-     * @return \BackendBundle\Entity\User
-     */
-    public function getUser_id()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * Set company_id
-     *
-     * @param \BackendBundle\Entity\Company $company_id
-     * @return Task
-     */
-    public function setCompany_id(\BackendBundle\Entity\Company $company_id = null)
-    {
-        $this->company_id =$company_id;
-
-        return $this;
-    }
-
-    /**
-     * Get company_id
-     *
-     * @return \BackendBundle\Entity\Company
-     */
-    public function getCompany_id()
-    {
-        return $this->company_id;
-    }
-
-    /**
-     * Remove answers
-     *
-     * @param \BackendBundle\Entity\AnswerTask $answers
-     */
-    public function removeAnswers(\BackendBundle\Entity\AnswerTask $answers)
-    {
-        $this->answers->removeElement($answers);
-    }
 
     /**
      * Get answers
@@ -213,5 +159,81 @@ class Task
     public function getAnswers()
     {
         return $this->answers;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set userId
+     *
+     * @param \UserBundle\Entity\User $userId
+     * @return Task
+     */
+    public function setUserId(\UserBundle\Entity\User $userId = null)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \UserBundle\Entity\User 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set companyId
+     *
+     * @param \BackendBundle\Entity\Company $companyId
+     * @return Task
+     */
+    public function setCompanyId(\BackendBundle\Entity\Company $companyId = null)
+    {
+        $this->companyId = $companyId;
+
+        return $this;
+    }
+
+    /**
+     * Get companyId
+     *
+     * @return \BackendBundle\Entity\Company 
+     */
+    public function getCompanyId()
+    {
+        return $this->companyId;
+    }
+
+    /**
+     * Add answers
+     *
+     * @param \BackendBundle\Entity\Account $answers
+     * @return Task
+     */
+    public function addAnswer(\BackendBundle\Entity\Account $answers)
+    {
+        $this->answers[] = $answers;
+
+        return $this;
+    }
+
+    /**
+     * Remove answers
+     *
+     * @param \BackendBundle\Entity\Account $answers
+     */
+    public function removeAnswer(\BackendBundle\Entity\Account $answers)
+    {
+        $this->answers->removeElement($answers);
     }
 }

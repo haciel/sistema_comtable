@@ -72,11 +72,32 @@ class AccountType
     }
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->accounts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add accounts
+     *
+     * @param \BackendBundle\Entity\Account $accounts
+     * @return AccountType
+     */
+    public function addAccount(\BackendBundle\Entity\Account $accounts)
+    {
+        $this->accounts[] = $accounts;
+
+        return $this;
+    }
+
+    /**
      * Remove accounts
      *
      * @param \BackendBundle\Entity\Account $accounts
      */
-    public function removeAccounts(\BackendBundle\Entity\Account $accounts)
+    public function removeAccount(\BackendBundle\Entity\Account $accounts)
     {
         $this->accounts->removeElement($accounts);
     }
@@ -84,7 +105,7 @@ class AccountType
     /**
      * Get accounts
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getAccounts()
     {

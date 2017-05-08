@@ -1,0 +1,39 @@
+{% extends 'BackendBundle:CRUD:show.html.twig' %}
+{% block path_edit path('task_edit',{'id':task.id}) %}
+{% block show_body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>{{ 'task.name'|trans }}</th>
+            <td>
+                {{ task.title}}
+            </td>
+        </tr>
+        <tr>
+            <th>{{ 'task.desciption'|trans }}</th>
+            <td>
+                {{ task.desciption}}
+            </td>
+        </tr>
+        <tr>
+            <th>{{ 'task.dateLimit'|trans }}</th>
+            <td>
+                {{ task.dateLimit}}
+            </td>
+        </tr>
+        <tr>
+            <th>{{ 'task.userId'|trans }}</th>
+            <td>
+                {{ task.userId}}
+            </td>
+        </tr>
+        <tr>
+            <th>{{ 'task.companyId'|trans }}</th>
+            <td>
+                {{ task.companyId}}
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+{% endblock %}

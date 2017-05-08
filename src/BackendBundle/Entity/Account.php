@@ -39,22 +39,22 @@ class Account
     private $name;
 
     /**
-     * @var int
+     * @var AccountType
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\AccountType", inversedBy="accounts", cascade={"persist"})
      * @ORM\JoinColumn(name="accounttype_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $accounttype_id;
+    private $accounttypeId;
 
     /**
-     * @var int
+     * @var Company
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Company", inversedBy="accounts", cascade={"persist"})
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $company_id;
+    private $companyId;
 
     /**
      * @var ArrayCollection
@@ -111,57 +111,79 @@ class Account
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
 
+
     /**
-     * Set accounttype_id
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set accounttypeId
      *
-     * @param \BackendBundle\Entity\AccountType $accounttype_id
+     * @param \BackendBundle\Entity\AccountType $accounttypeId
      * @return Account
      */
-    public function setAccounttype_id(\BackendBundle\Entity\AccountType $accounttype_id= null)
+    public function setAccounttypeId(\BackendBundle\Entity\AccountType $accounttypeId = null)
     {
-        $this->accounttype_id =$accounttype_id;
+        $this->accounttypeId = $accounttypeId;
 
         return $this;
     }
 
     /**
-     * Get accounttype_id
+     * Get accounttypeId
      *
-     * @return \BackendBundle\Entity\AccountType
+     * @return \BackendBundle\Entity\AccountType 
      */
-    public function getAccounttype_id()
+    public function getAccounttypeId()
     {
-        return $this->accounttype_id;
+        return $this->accounttypeId;
     }
 
     /**
-     * Set company_id
+     * Set companyId
      *
-     * @param \BackendBundle\Entity\Company $company_id
+     * @param \BackendBundle\Entity\Company $companyId
      * @return Account
      */
-    public function setCompany_id(\BackendBundle\Entity\Company $company_id= null)
+    public function setCompanyId(\BackendBundle\Entity\Company $companyId = null)
     {
-        $this->company_id =$company_id;
+        $this->companyId = $companyId;
 
         return $this;
     }
 
     /**
-     * Get company_id
+     * Get companyId
      *
-     * @return \BackendBundle\Entity\Company
+     * @return \BackendBundle\Entity\Company 
      */
-    public function getCompany_id()
+    public function getCompanyId()
     {
-        return $this->company_id;
+        return $this->companyId;
+    }
+
+    /**
+     * Add operations
+     *
+     * @param \BackendBundle\Entity\Operations $operations
+     * @return Account
+     */
+    public function addOperation(\BackendBundle\Entity\Operations $operations)
+    {
+        $this->operations[] = $operations;
+
+        return $this;
     }
 
     /**
@@ -169,7 +191,7 @@ class Account
      *
      * @param \BackendBundle\Entity\Operations $operations
      */
-    public function removeOperations(\BackendBundle\Entity\Operations $operations)
+    public function removeOperation(\BackendBundle\Entity\Operations $operations)
     {
         $this->operations->removeElement($operations);
     }
@@ -177,7 +199,7 @@ class Account
     /**
      * Get operations
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getOperations()
     {

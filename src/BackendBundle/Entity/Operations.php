@@ -25,13 +25,13 @@ class Operations
     private $id;
 
     /**
-     * @var int
+     * @var Account
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Account", inversedBy="operations", cascade={"persist"})
      * @ORM\JoinColumn(name="account_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $account_id;
+    private $accountId;
 
     /**
      * @var string
@@ -48,13 +48,13 @@ class Operations
     private $haber;
 
     /**
-     * @var int
+     * @var AccountantMove
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\AccountantMove", inversedBy="operations", cascade={"persist"})
      * @ORM\JoinColumn(name="accountmove_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $accountmove_id;
+    private $accountmoveId;
 
     /**
      * Get id
@@ -66,28 +66,6 @@ class Operations
         return $this->id;
     }
 
-    /**
-     * Set account_id
-     *
-     * @param \BackendBundle\Entity\Operations $account_id
-     * @return Operations
-     */
-    public function setAccount_id(\BackendBundle\Entity\Operations $account_id = null)
-    {
-        $this->account_id =$account_id;
-
-        return $this;
-    }
-
-    /**
-     * Get account_id
-     *
-     * @return \BackendBundle\Entity\Account
-     */
-    public function getAccount_id()
-    {
-        return $this->account_id;
-    }
 
     /**
      * Set deve
@@ -135,26 +113,51 @@ class Operations
         return $this->haber;
     }
 
+
+
     /**
-     * Set accountmove_id
+     * Set accountId
      *
-     * @param \BackendBundle\Entity\AccountantMove $accountmove_id
+     * @param \BackendBundle\Entity\Account $accountId
      * @return Operations
      */
-    public function setAccountmove_id(\BackendBundle\Entity\AccountantMove $accountmove_id = null)
+    public function setAccountId(\BackendBundle\Entity\Account $accountId = null)
     {
-        $this->accountmove_id =$accountmove_id;
+        $this->accountId = $accountId;
 
         return $this;
     }
 
     /**
-     * Get accountmove_id
+     * Get accountId
      *
-     * @return \BackendBundle\Entity\SlipType
+     * @return \BackendBundle\Entity\Account 
      */
-    public function getAccountmove_id()
+    public function getAccountId()
     {
-        return $this->accountmove_id;
+        return $this->accountId;
+    }
+
+    /**
+     * Set accountmoveId
+     *
+     * @param \BackendBundle\Entity\AccountantMove $accountmoveId
+     * @return Operations
+     */
+    public function setAccountmoveId(\BackendBundle\Entity\AccountantMove $accountmoveId = null)
+    {
+        $this->accountmoveId = $accountmoveId;
+
+        return $this;
+    }
+
+    /**
+     * Get accountmoveId
+     *
+     * @return \BackendBundle\Entity\AccountantMove 
+     */
+    public function getAccountmoveId()
+    {
+        return $this->accountmoveId;
     }
 }

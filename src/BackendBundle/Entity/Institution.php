@@ -46,7 +46,7 @@ class Institution
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $city_id;
+    private $cityId;
 
     /**
      * @var ArrayCollection
@@ -98,28 +98,6 @@ class Institution
 
 
 
-    /**
-     * Set city_id
-     *
-     * @param \BackendBundle\Entity\City $city_id
-     * @return Institution
-     */
-    public function setCity_id(\BackendBundle\Entity\City $city_id = null)
-    {
-        $this->city_id = $city_id;
-
-        return $this;
-    }
-
-    /**
-     * Get city_id
-     *
-     * @return \BackendBundle\Entity\City
-     */
-    public function getCity_id()
-    {
-        return $this->city_id;
-    }
 
     /**
      * Remove companies
@@ -202,7 +180,7 @@ class Institution
      */
     public function setCityId(\BackendBundle\Entity\City $cityId = null)
     {
-        $this->city_id = $cityId;
+        $this->cityId = $cityId;
 
         return $this;
     }
@@ -214,7 +192,7 @@ class Institution
      */
     public function getCityId()
     {
-        return $this->city_id;
+        return $this->cityId;
     }
 
     /**

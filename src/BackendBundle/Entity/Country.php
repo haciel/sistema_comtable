@@ -3,7 +3,6 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -15,6 +14,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Country
 {
+
+    public function __construct()
+    {
+        $this->provinces=new ArrayCollection();
+
+    }
     /**
      * @var int
      *
@@ -34,7 +39,7 @@ class Country
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Province", mappedBy="country_id" ,cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Province", mappedBy="countryId" ,cascade={"persist"},orphanRemoval=true)
      */
     private $provinces;
 
@@ -71,12 +76,26 @@ class Country
         return $this->name;
     }
 
+
+    /**
+     * Add provinces
+     *
+     * @param \BackendBundle\Entity\Province $provinces
+     * @return Country
+     */
+    public function addProvince(\BackendBundle\Entity\Province $provinces)
+    {
+        $this->provinces[] = $provinces;
+
+        return $this;
+    }
+
     /**
      * Remove provinces
      *
      * @param \BackendBundle\Entity\Province $provinces
      */
-    public function removeProvinces(\BackendBundle\Entity\Province $provinces)
+    public function removeProvince(\BackendBundle\Entity\Province $provinces)
     {
         $this->provinces->removeElement($provinces);
     }
@@ -84,7 +103,7 @@ class Country
     /**
      * Get provinces
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getProvinces()
     {

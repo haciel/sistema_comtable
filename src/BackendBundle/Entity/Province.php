@@ -3,7 +3,6 @@
 namespace BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -32,13 +31,13 @@ class Province
     private $name;
 
     /**
-     * @var int
+     * @var Country
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Country", inversedBy="provinces", cascade={"persist"})
      *  @ORM\JoinColumn(name="country_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $country_id;
+    private $countryId;
 
     /**
      * @var ArrayCollection
@@ -80,28 +79,7 @@ class Province
         return $this->name;
     }
 
-    /**
-     * Set country_id
-     *
-     * @param \BackendBundle\Entity\Country $country_id
-     * @return Province
-     */
-    public function setCountry_id(\BackendBundle\Entity\Country $country_id = null)
-    {
-        $this->country_id = $country_id;
 
-        return $this;
-    }
-
-    /**
-     * Get country_id
-     *
-     * @return \BackendBundle\Entity\Country
-     */
-    public function getCountry_id()
-    {
-        return $this->country_id;
-    }
 
     /**
      * Remove cities
@@ -121,5 +99,60 @@ class Province
     public function getCities()
     {
         return $this->cities;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+
+    /**
+     * Add cities
+     *
+     * @param \BackendBundle\Entity\City $cities
+     * @return Province
+     */
+    public function addCity(\BackendBundle\Entity\City $cities)
+    {
+        $this->cities[] = $cities;
+
+        return $this;
+    }
+
+    /**
+     * Remove cities
+     *
+     * @param \BackendBundle\Entity\City $cities
+     */
+    public function removeCity(\BackendBundle\Entity\City $cities)
+    {
+        $this->cities->removeElement($cities);
+    }
+
+    /**
+     * Set countryId
+     *
+     * @param \BackendBundle\Entity\Country $countryId
+     * @return Province
+     */
+    public function setCountryId(\BackendBundle\Entity\Country $countryId = null)
+    {
+        $this->countryId = $countryId;
+
+        return $this;
+    }
+
+    /**
+     * Get countryId
+     *
+     * @return \BackendBundle\Entity\Country 
+     */
+    public function getCountryId()
+    {
+        return $this->countryId;
     }
 }

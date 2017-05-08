@@ -32,31 +32,31 @@ class Company
     private $name;
 
     /**
-     * @var int
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="companies", cascade={"persist"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $user_id;
+    private $userId;
 
     /**
-     * @var int
+     * @var Institution
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Institution", inversedBy="companies", cascade={"persist"})
      * @ORM\JoinColumn(name="institution_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $institution_id;
+    private $institutionId;
 
     /**
-     * @var int
+     * @var EducationalLevel
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\EducationalLevel", inversedBy="companies", cascade={"persist"})
      * @ORM\JoinColumn(name="educationallevel_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $educationallevel_id;
+    private $educationallevelId;
 
     /**
      * @var ArrayCollection
@@ -70,7 +70,7 @@ class Company
      *
      * @ORM\OneToMany(targetEntity="BackendBundle\Entity\AccountantMove", mappedBy="company_id" ,cascade={"persist"},orphanRemoval=true)
      */
-    private $accountans_move;
+    private $accountansMove;
 
     /**
      * @var ArrayCollection
@@ -113,72 +113,95 @@ class Company
     }
 
     /**
-     * Set user_id
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->accountansMove = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->accounts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set userId
      *
-     * @param \UserBundle\Entity\User $user_id
+     * @param \UserBundle\Entity\User $userId
      * @return Company
      */
-    public function setUser_id(\UserBundle\Entity\User $user_id = null)
+    public function setUserId(\UserBundle\Entity\User $userId = null)
     {
-        $this->user_id =$user_id;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Get user_id
+     * Get userId
      *
-     * @return \BackendBundle\Entity\User
+     * @return \UserBundle\Entity\User 
      */
-    public function getUser_id()
+    public function getUserId()
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     /**
-     * Set institution_id
+     * Set institutionId
      *
-     * @param \BackendBundle\Entity\Institution $institution_id
+     * @param \BackendBundle\Entity\Institution $institutionId
      * @return Company
      */
-    public function setInstitution_id(\BackendBundle\Entity\Institution $institution_id = null)
+    public function setInstitutionId(\BackendBundle\Entity\Institution $institutionId = null)
     {
-        $this->institution_id =$institution_id;
+        $this->institutionId = $institutionId;
 
         return $this;
     }
 
     /**
-     * Get institution_id
+     * Get institutionId
      *
-     * @return \BackendBundle\Entity\Institution
+     * @return \BackendBundle\Entity\Institution 
      */
-    public function getInstitution_id()
+    public function getInstitutionId()
     {
-        return $this->institution_id;
+        return $this->institutionId;
     }
 
     /**
-     * Set educationallevel_id
+     * Set educationallevelId
      *
-     * @param \BackendBundle\Entity\EducationalLevel $educationallevel_id
+     * @param \BackendBundle\Entity\EducationalLevel $educationallevelId
      * @return Company
      */
-    public function setEducationallevel_id(\BackendBundle\Entity\EducationalLevel $educationallevel_id = null)
+    public function setEducationallevelId(\BackendBundle\Entity\EducationalLevel $educationallevelId = null)
     {
-        $this->educationallevel_id =$educationallevel_id;
+        $this->educationallevelId = $educationallevelId;
 
         return $this;
     }
 
     /**
-     * Get educationallevel_id
+     * Get educationallevelId
      *
-     * @return \BackendBundle\Entity\EducationalLevel
+     * @return \BackendBundle\Entity\EducationalLevel 
      */
-    public function getEducationallevel_id()
+    public function getEducationallevelId()
     {
-        return $this->$educationallevel_id;
+        return $this->educationallevelId;
+    }
+
+    /**
+     * Add tasks
+     *
+     * @param \BackendBundle\Entity\Task $tasks
+     * @return Company
+     */
+    public function addTask(\BackendBundle\Entity\Task $tasks)
+    {
+        $this->tasks[] = $tasks;
+
+        return $this;
     }
 
     /**
@@ -194,31 +217,57 @@ class Company
     /**
      * Get tasks
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getTask()
+    public function getTasks()
     {
         return $this->tasks;
     }
 
     /**
-     * Remove accountans_move
+     * Add accountansMove
      *
-     * @param \BackendBundle\Entity\AccountantMove $accountans_move
+     * @param \BackendBundle\Entity\AccountantMove $accountansMove
+     * @return Company
      */
-    public function removeAccountans_move(\BackendBundle\Entity\AccountantMove $accountans_move)
+    public function addAccountansMove(\BackendBundle\Entity\AccountantMove $accountansMove)
     {
-        $this->accountans_move->removeElement($accountans_move);
+        $this->accountansMove[] = $accountansMove;
+
+        return $this;
     }
 
     /**
-     * Get accountans_move
+     * Remove accountansMove
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \BackendBundle\Entity\AccountantMove $accountansMove
      */
-    public function getAccountans_move()
+    public function removeAccountansMove(\BackendBundle\Entity\AccountantMove $accountansMove)
     {
-        return $this->accountans_move;
+        $this->accountansMove->removeElement($accountansMove);
+    }
+
+    /**
+     * Get accountansMove
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAccountansMove()
+    {
+        return $this->accountansMove;
+    }
+
+    /**
+     * Add accounts
+     *
+     * @param \BackendBundle\Entity\Account $accounts
+     * @return Company
+     */
+    public function addAccount(\BackendBundle\Entity\Account $accounts)
+    {
+        $this->accounts[] = $accounts;
+
+        return $this;
     }
 
     /**
@@ -232,13 +281,12 @@ class Company
     }
 
     /**
-     * Get account
+     * Get accounts
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getAccount()
+    public function getAccounts()
     {
         return $this->accounts;
     }
-
 }

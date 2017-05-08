@@ -32,13 +32,13 @@ class City
     private $name;
 
     /**
-     * @var int
+     * @var Province
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Province", inversedBy="cities", cascade={"persist"})
      *  @ORM\JoinColumn(name="province_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    private $province_id;
+    private $provinceId;
 
     /**
      * @var ArrayCollection
@@ -80,27 +80,49 @@ class City
         return $this->name;
     }
 
+
     /**
-     * Set province_id
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->institution = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set provinceId
      *
-     * @param \BackendBundle\Entity\Province $province_id
+     * @param \BackendBundle\Entity\Province $provinceId
      * @return City
      */
-    public function setProvince_id(\BackendBundle\Entity\Province $province_id = null)
+    public function setProvinceId(\BackendBundle\Entity\Province $provinceId = null)
     {
-        $this->province_id =$province_id;
+        $this->provinceId = $provinceId;
 
         return $this;
     }
 
     /**
-     * Get province_id
+     * Get provinceId
      *
-     * @return \BackendBundle\Entity\Province
+     * @return \BackendBundle\Entity\Province 
      */
-    public function getProvince_id()
+    public function getProvinceId()
     {
-        return $this->province_id;
+        return $this->provinceId;
+    }
+
+    /**
+     * Add institution
+     *
+     * @param \BackendBundle\Entity\Institution $institution
+     * @return City
+     */
+    public function addInstitution(\BackendBundle\Entity\Institution $institution)
+    {
+        $this->institution[] = $institution;
+
+        return $this;
     }
 
     /**
@@ -116,11 +138,10 @@ class City
     /**
      * Get institution
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getInstitution()
     {
         return $this->institution;
     }
-
 }

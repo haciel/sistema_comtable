@@ -36,7 +36,7 @@ class SlipType
      *
      * @ORM\OneToMany(targetEntity="BackendBundle\Entity\AccountantMove", mappedBy="slipe_id" ,cascade={"persist"},orphanRemoval=true)
      */
-    private $accountans_move;
+    private $accountansMove;
 
     /**
      * Get id
@@ -72,22 +72,43 @@ class SlipType
     }
 
     /**
-     * Remove accountans_move
-     *
-     * @param \BackendBundle\Entity\SlipType $accountans_move
+     * Constructor
      */
-    public function removeAccountans_move(\BackendBundle\Entity\SlipType $accountans_move)
+    public function __construct()
     {
-        $this->accountans_move->removeElement($accountans_move);
+        $this->accountansMove = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get accountans_move
+     * Add accountansMove
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \BackendBundle\Entity\AccountantMove $accountansMove
+     * @return SlipType
      */
-    public function getAccountans_move()
+    public function addAccountansMove(\BackendBundle\Entity\AccountantMove $accountansMove)
     {
-        return $this->accountans_move;
+        $this->accountansMove[] = $accountansMove;
+
+        return $this;
+    }
+
+    /**
+     * Remove accountansMove
+     *
+     * @param \BackendBundle\Entity\AccountantMove $accountansMove
+     */
+    public function removeAccountansMove(\BackendBundle\Entity\AccountantMove $accountansMove)
+    {
+        $this->accountansMove->removeElement($accountansMove);
+    }
+
+    /**
+     * Get accountansMove
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAccountansMove()
+    {
+        return $this->accountansMove;
     }
 }
