@@ -25,9 +25,9 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ task.title }}</td>
                 <td>{{ task.desciption }}</td>
-                <td>{{ task.dateLimit }}</td>
+                <td>{{ task.dateLimit|date('d/m/Y')  }}</td>
                 <td>{{ task.userId }}</td>
-                <td>{{ task.companyId }}</td>
+                <td>{{ task.companyId.name }}</td>
                 <td class="action">
                     <div class="btn-group">
                         <div class="btn-group">

@@ -12,19 +12,19 @@
         <tr>
             <th>{{ 'accountantMove.companyId'|trans }}</th>
             <td>
-                {{ accountantMove.companyId}}
+                {{ accountantMove.companyId.name}}
             </td>
         </tr>
         <tr>
             <th>{{ 'accountantMove.slipeId'|trans }}</th>
             <td>
-                {{ accountantMove.slipeId}}
+                {{ accountantMove.slipeId.name}}
             </td>
         </tr>
         <tr>
             <th>{{ 'accountantMove.date'|trans }}</th>
             <td>
-                {{ accountantMove.date}}
+                {{ accountantMove.date|date('d/m/Y')}}
             </td>
         </tr>
         <tr>

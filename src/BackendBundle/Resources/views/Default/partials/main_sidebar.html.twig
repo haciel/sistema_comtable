@@ -45,6 +45,21 @@
                                 class="fa fa-circle-o"></i>{{ 'backend.create'|trans~' '~'institution.title'|trans }}</a></li>
             </ul>
         </li>
+        <li id="educationalLevel" class="treeview">
+            <a href="#"><i class="fa fa-info-circle"></i>
+                <span>{{ 'educationalLevel.title_nav' |trans }}</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li id="all_educationalLevel"><a href="{{ path('educationalLevel_index') }}"><i
+                                class="fa fa-circle-o"></i>{{ 'backend.list'|trans~' '~'educationalLevel.title_nav'|trans }}</a>
+                </li>
+                <li id="new_educationalLevel"><a href="{{ path('educationalLevel_new') }}"><i
+                                class="fa fa-circle-o"></i>{{ 'backend.create'|trans~' '~'educationalLevel.title'|trans }}</a></li>
+            </ul>
+        </li>
         <li id="country" class="treeview">
             <a href="#"><i class="fa fa-info-circle"></i>
                 <span>{{ 'country.title_nav' |trans }}</span>

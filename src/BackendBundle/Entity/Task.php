@@ -39,9 +39,9 @@ class Task
     private $desciption;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateLimit", type="string", length=255)
+     * @ORM\Column(name="dateLimit", type="date")
      */
     private $dateLimit;
 
@@ -125,30 +125,6 @@ class Task
     {
         return $this->desciption;
     }
-
-    /**
-     * Set dateLimit
-     *
-     * @param string $dateLimit
-     * @return Task
-     */
-    public function setDateLimit($dateLimit)
-    {
-        $this->dateLimit = $dateLimit;
-
-        return $this;
-    }
-
-    /**
-     * Get dateLimit
-     *
-     * @return string 
-     */
-    public function getDateLimit()
-    {
-        return $this->dateLimit;
-    }
-
 
 
     /**
@@ -235,5 +211,28 @@ class Task
     public function removeAnswer(\BackendBundle\Entity\Account $answers)
     {
         $this->answers->removeElement($answers);
+    }
+
+    /**
+     * Set dateLimit
+     *
+     * @param \DateTime $dateLimit
+     * @return Task
+     */
+    public function setDateLimit($dateLimit)
+    {
+        $this->dateLimit = $dateLimit;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLimit
+     *
+     * @return \DateTime 
+     */
+    public function getDateLimit()
+    {
+        return $this->dateLimit;
     }
 }

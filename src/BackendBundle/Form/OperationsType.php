@@ -13,10 +13,24 @@ class OperationsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('accountId',null,['label' => 'operations.accountId'])
+        $builder->add('accountId', 'entity', array(
+                'class' => 'BackendBundle:Account',
+                'query_builder' => function ($repository) {
+                    return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC');
+                },
+                'property' => 'code',
+                'label' => 'operations.accountId',
+            ))
             ->add('deve',null,['label' => 'operations.deve'])
             ->add('haber',null,['label' => 'operations.haber'])
-            ->add('accountmoveId',null,['label' => 'operations.accountmoveId']);
+            ->add('accountmoveId', 'entity', array(
+                'class' => 'BackendBundle:AccountantMove',
+                'query_builder' => function ($repository) {
+                    return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC');
+                },
+                'property' => 'id',
+                'label' => 'operations.accountmoveId',
+            ));
     }
     
     /**

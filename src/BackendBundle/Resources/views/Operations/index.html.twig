@@ -21,7 +21,7 @@
         {% for operations in operationss %}
             <tr>
                 <td>{{ loop.index }}</td>
-                <td>{{ operations.accountId }}</td>
+                <td>{{ operations.accountId.code }}</td>
                 <td>{{ operations.deve }}</td>
                 <td>{{ operations.haber }}</td>
                 <td class="action">

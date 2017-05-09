@@ -20,7 +20,15 @@ class AnswerTaskType extends AbstractType
                 'acceptFileTypes'=>['doc','docx','pdf','xls','xlsx']
             ])
             ->add('userId',null,['label' => 'answerTask.userId'])
-            ->add('taskId',null,['label' => 'answerTask.taskId']);
+            ->add('taskId',null,['label' => 'answerTask.taskId'])
+            ->add('taskId', 'entity', array(
+                'class' => 'BackendBundle:task',
+                'query_builder' => function ($repository) {
+                    return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC');
+                },
+                'property' => 'title',
+                'label' => 'answerTask.taskId',
+            ));
     }
     
     /**

@@ -39,9 +39,9 @@ class Task
     private $desciption;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateLimit", type="string", length=255)
+     * @ORM\Column(name="dateLimit", type="date")
      */
     private $dateLimit;
 
@@ -126,40 +126,6 @@ class Task
         return $this->desciption;
     }
 
-    /**
-     * Set dateLimit
-     *
-     * @param string $dateLimit
-     * @return Task
-     */
-    public function setDateLimit($dateLimit)
-    {
-        $this->dateLimit = $dateLimit;
-
-        return $this;
-    }
-
-    /**
-     * Get dateLimit
-     *
-     * @return string 
-     */
-    public function getDateLimit()
-    {
-        return $this->dateLimit;
-    }
-
-
-
-    /**
-     * Remove answers
-     *
-     * @param \BackendBundle\Entity\AnswerTask $answers
-     */
-    public function removeAnswers(\BackendBundle\Entity\AnswerTask $answers)
-    {
-        $this->answers->removeElement($answers);
-    }
 
     /**
      * Get answers
@@ -169,5 +135,81 @@ class Task
     public function getAnswers()
     {
         return $this->answers;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set userId
+     *
+     * @param \UserBundle\Entity\User $userId
+     * @return Task
+     */
+    public function setUserId(\UserBundle\Entity\User $userId = null)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \UserBundle\Entity\User 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set companyId
+     *
+     * @param \BackendBundle\Entity\Company $companyId
+     * @return Task
+     */
+    public function setCompanyId(\BackendBundle\Entity\Company $companyId = null)
+    {
+        $this->companyId = $companyId;
+
+        return $this;
+    }
+
+    /**
+     * Get companyId
+     *
+     * @return \BackendBundle\Entity\Company 
+     */
+    public function getCompanyId()
+    {
+        return $this->companyId;
+    }
+
+    /**
+     * Add answers
+     *
+     * @param \BackendBundle\Entity\Account $answers
+     * @return Task
+     */
+    public function addAnswer(\BackendBundle\Entity\Account $answers)
+    {
+        $this->answers[] = $answers;
+
+        return $this;
+    }
+
+    /**
+     * Remove answers
+     *
+     * @param \BackendBundle\Entity\Account $answers
+     */
+    public function removeAnswer(\BackendBundle\Entity\Account $answers)
+    {
+        $this->answers->removeElement($answers);
     }
 }

@@ -23,9 +23,9 @@
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ accountantMove.slipeNumber }}</td>
-                <td>{{ accountantMove.companyId }}</td>
-                <td>{{ accountantMove.slipeId }}</td>
-                <td>{{ accountantMove.date }}</td>
+                <td>{{ accountantMove.companyId.name }}</td>
+                <td>{{ accountantMove.slipeId.name }}</td>
+                <td>{{ accountantMove.date|date('d/m/Y') }}</td>
                 <td class="action">
                     <div class="btn-group">
                         <div class="btn-group">

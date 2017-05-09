@@ -15,8 +15,22 @@ class AccountType extends AbstractType
     {
         $builder->add('code',null,['label' => 'account.code'])
             ->add('name',null,['label' => 'account.name'])
-            ->add('accounttypeId',null,['label' => 'account.accounttypeId'])
-            ->add('companyId',null,['label' => 'account.companyId']);
+            ->add('accounttypeId', 'entity', array(
+                'class' => 'BackendBundle:AccountType',
+                'query_builder' => function ($repository) {
+                    return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC');
+                },
+                'property' => 'name',
+                'label' => 'account.accounttypeId',
+            ))
+            ->add('companyId', 'entity', array(
+                'class' => 'BackendBundle:Company',
+                'query_builder' => function ($repository) {
+                    return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC');
+                },
+                'property' => 'name',
+                'label' => 'account.companyId',
+            ));
     }
     
     /**
