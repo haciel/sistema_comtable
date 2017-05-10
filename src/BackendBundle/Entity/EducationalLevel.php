@@ -39,6 +39,13 @@ class EducationalLevel
     private $companies;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\User", mappedBy="educationallevel_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $users;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -109,5 +116,38 @@ class EducationalLevel
     public function getCompanies()
     {
         return $this->companies;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \UserBundle\Entity\User $users
+     * @return EducationalLevel
+     */
+    public function addUser(\UserBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \UserBundle\Entity\User $users
+     */
+    public function removeUser(\UserBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

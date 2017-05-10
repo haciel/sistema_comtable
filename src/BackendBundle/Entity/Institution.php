@@ -56,6 +56,13 @@ class Institution
     private $companies;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\User", mappedBy="institution_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $users;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="enable", type="boolean")
@@ -216,5 +223,38 @@ class Institution
     public function removeCompany(\BackendBundle\Entity\Company $companies)
     {
         $this->companies->removeElement($companies);
+    }
+
+    /**
+     * Add users
+     *
+     * @param \UserBundle\Entity\User $users
+     * @return Institution
+     */
+    public function addUser(\UserBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \UserBundle\Entity\User $users
+     */
+    public function removeUser(\UserBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

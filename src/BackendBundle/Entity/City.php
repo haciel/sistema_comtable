@@ -48,6 +48,13 @@ class City
     private $institution;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\User", mappedBy="city_id" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $users;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -143,5 +150,38 @@ class City
     public function getInstitution()
     {
         return $this->institution;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \UserBundle\Entity\User $users
+     * @return City
+     */
+    public function addUser(\UserBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \UserBundle\Entity\User $users
+     */
+    public function removeUser(\UserBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

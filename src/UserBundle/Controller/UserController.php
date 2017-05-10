@@ -51,6 +51,10 @@ class UserController extends Controller
         $trans=$this->get('translator');
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $factory = $this->container->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($user);
+            $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+            $user->setPassword($password);
             $em->persist($user);
             $em->flush();
 
@@ -81,6 +85,10 @@ class UserController extends Controller
         $editForm->handleRequest($request);
         $trans=$this->get('translator');
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $factory = $this->container->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($user);
+            $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+            $user->setPassword($password);
             $this->getDoctrine()->getManager()->flush();
 
             $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('user.edit_successfull'));
