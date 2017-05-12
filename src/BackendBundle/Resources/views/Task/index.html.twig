@@ -10,8 +10,9 @@
                 <th>{{ 'task.name'|trans|title }}</th>
                 <th>{{ 'task.desciption'|trans|title }}</th>
                 <th>{{ 'task.dateLimit'|trans|title }}</th>
+                <th>{{ 'company.institutionId'|trans|title }}</th>
+                <th>{{ 'company.educationallevelId'|trans|title }}</th>
                 <th>{{ 'task.userId'|trans|title }}</th>
-                <th>{{ 'task.companyId'|trans|title }}</th>
                 <th>{{ 'backend.action'|trans|title }}</th>
             </tr>
         {% endblock %}
@@ -26,8 +27,9 @@
                 <td>{{ task.title }}</td>
                 <td>{{ task.desciption }}</td>
                 <td>{{ task.dateLimit|date('d/m/Y')  }}</td>
+                <td>{{ task.institutionId.name }}</td>
+                <td>{{ task.educationallevelId.title }}</td>
                 <td>{{ task.userId }}</td>
-                <td>{{ task.companyId.name }}</td>
                 <td class="action">
                     <div class="btn-group">
                         <div class="btn-group">

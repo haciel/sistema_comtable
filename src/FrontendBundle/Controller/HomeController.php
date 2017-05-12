@@ -32,14 +32,25 @@ class HomeController extends Controller
         $empresas = $em->getRepository('BackendBundle:Company')->findBy(array(
             'userId' => $user,
         ));
+        $tareas_pendientes=$this->getTareasPendientes($user);
         $delete_forms = array();
         foreach ($empresas as $entity)
             $delete_forms[$entity->getId()] = $this->createDeleteForm($entity)->createView();
         return $this->render('FrontendBundle:Home:index.html.twig',array(
             'empresas' => $empresas,
+            'tareas' => $tareas_pendientes,
             'delete_forms'=>$delete_forms,
             'active'=>'',
         ));
+    }
+
+    private function getTareasPendientes($user){
+        $em = $this->getDoctrine()->getManager();
+        $tareas = $em->getRepository('BackendBundle:Task')->findBy(array(
+            'institutionId' => $user->getInstitutionId(),
+            'educationallevelId' => $user->getEducationallevelId(),
+        ));
+        return $tareas;
     }
 
     /**
@@ -72,7 +83,36 @@ class HomeController extends Controller
 
         return $this->render('FrontendBundle:Company:new.html.twig', array(
             'company' => $Company,
+            'title'=>'Crear Empresa',
             'form' => $form->createView(),
+            'description_page'=>$trans->trans('company.title'),
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing Company entity.
+     *
+     * @Route("/editar-empresa/{id}", name="company_edit_home")
+     * @Method({"GET", "POST"})
+     */
+    public function editCompanyAction(Request $request, Company $Company)
+    {
+        $editForm = $this->createForm('FrontendBundle\Form\CompanyType', $Company);
+        $editForm->add('submit','Symfony\Component\Form\Extension\Core\Type\SubmitType',['label'=>'Guardar','attr'=>['class'=>'btn btn-success flat']]);
+
+        $editForm->handleRequest($request);
+        $trans=$this->get('translator');
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('company.edit_successfull'));
+
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('FrontendBundle:Company:new.html.twig', array(
+            'company' => $Company,
+            'title'=>'Editar Empresa',
+            'form' => $editForm->createView(),
             'description_page'=>$trans->trans('company.title'),
         ));
     }
@@ -88,10 +128,29 @@ class HomeController extends Controller
     {
         return $this->createFormBuilder()
             ->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label' =>'backend.delete', 'attr' => array('class' => 'btn btn-sm btn-danger flat')))
-            ->setAction($this->generateUrl('company_delete', array('id' => $Company->getId())))
+            ->setAction($this->generateUrl('company_delete_home', array('id' => $Company->getId())))
             ->setMethod('DELETE')
             ->getForm()
             ;
     }
 
+    /**
+     * Deletes a Company entity.
+     *
+     * @Route("/{id}/company-delete", name="company_delete_home")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, Company $Company)
+    {
+        $form = $this->createDeleteForm($Company);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($Company);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('home');
+    }
 }

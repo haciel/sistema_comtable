@@ -58,24 +58,18 @@ class Company
      */
     private $educationallevelId;
 
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Task", mappedBy="company_id" ,cascade={"persist"},orphanRemoval=true)
-     */
-    private $tasks;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\AccountantMove", mappedBy="company_id" ,cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\AccountantMove", mappedBy="companyId" ,cascade={"persist"},orphanRemoval=true)
      */
     private $accountansMove;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Account", mappedBy="company_id" ,cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Account", mappedBy="companyId" ,cascade={"persist"},orphanRemoval=true)
      */
     private $accounts;
 
@@ -189,39 +183,6 @@ class Company
     public function getEducationallevelId()
     {
         return $this->educationallevelId;
-    }
-
-    /**
-     * Add tasks
-     *
-     * @param \BackendBundle\Entity\Task $tasks
-     * @return Company
-     */
-    public function addTask(\BackendBundle\Entity\Task $tasks)
-    {
-        $this->tasks[] = $tasks;
-
-        return $this;
-    }
-
-    /**
-     * Remove tasks
-     *
-     * @param \BackendBundle\Entity\Task $tasks
-     */
-    public function removeTask(\BackendBundle\Entity\Task $tasks)
-    {
-        $this->tasks->removeElement($tasks);
-    }
-
-    /**
-     * Get tasks
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTasks()
-    {
-        return $this->tasks;
     }
 
     /**

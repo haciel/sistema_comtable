@@ -11,7 +11,7 @@
         <section class="content">
             <div class="box box-success">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div class="box-body">
                             <div class="box-header">
                                 <h3>
@@ -22,6 +22,12 @@
                                 </h3>
                             </div>
                             <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th width="80"></th>
+                                </tr>
+                                </thead>
                                 <tbody>
                                 {% for empresa in empresas %}
                                     <tr>
@@ -30,7 +36,7 @@
                                             <div class="btn-group">
                                                 <div class="btn-group">
                                                     <a class="btn btn-sm btn-success flat"
-                                                       href="{{ path('company_edit',{'id':empresa.id}) }}"><i
+                                                       href="{{ path('company_edit_home',{'id':empresa.id}) }}"><i
                                                                 class="fa fa-pencil"></i></a>
                                                 </div>
                                                 {% form_theme delete_forms[empresa.id] 'BackendBundle:CRUD:delete.html.twig' %}
@@ -40,6 +46,33 @@
                                             </div>
 
                                         </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="box-body">
+                            <div class="box-header">
+                                <h3>
+                                    Tareas Pendientes
+                                </h3>
+                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>{{ 'task.name'|trans|title }}</th>
+                                    <th>{{ 'task.desciption'|trans|title }}</th>
+                                    <th>{{ 'task.dateLimit'|trans|title }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for tarea in tareas %}
+                                    <tr>
+                                        <td>{{ tarea.title }}</td>
+                                        <td>{{ tarea.desciption }}</td>
+                                        <td>{{ tarea.dateLimit|date('d/m/Y') }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

@@ -85,21 +85,21 @@ class User extends BaseUser
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Company", mappedBy="user_id" ,cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Company", mappedBy="userId" ,cascade={"persist"},orphanRemoval=true)
      */
     private $companies;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Task", mappedBy="user_id" ,cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Task", mappedBy="userId" ,cascade={"persist"},orphanRemoval=true)
      */
     private $tasks;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\AnswerTask", mappedBy="user_id" ,cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\AnswerTask", mappedBy="userId" ,cascade={"persist"},orphanRemoval=true)
      */
     private $answer_tasks;
 

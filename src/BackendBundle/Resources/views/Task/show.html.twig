@@ -22,18 +22,23 @@
             </td>
         </tr>
         <tr>
+            <th>{{ 'company.institutionId'|trans }}</th>
+            <td>
+                {{ task.institutionId.name}}
+            </td>
+        </tr>
+        <tr>
+            <th>{{ 'company.educationallevelId'|trans }}</th>
+            <td>
+                {{ task.educationallevelId.title}}
+            </td>
+        </tr>
+        <tr>
             <th>{{ 'task.userId'|trans }}</th>
             <td>
                 {{ task.userId}}
             </td>
         </tr>
-        <tr>
-            <th>{{ 'task.companyId'|trans }}</th>
-            <td>
-                {{ task.companyId.name}}
-            </td>
-        </tr>
-
         </tbody>
     </table>
 {% endblock %}

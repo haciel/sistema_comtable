@@ -46,6 +46,24 @@ class Task
     private $dateLimit;
 
     /**
+     * @var Institution
+     *
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Institution", inversedBy="companies", cascade={"persist"})
+     * @ORM\JoinColumn(name="institution_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
+     */
+    private $institutionId;
+
+    /**
+     * @var EducationalLevel
+     *
+     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\EducationalLevel", inversedBy="companies", cascade={"persist"})
+     * @ORM\JoinColumn(name="educationallevel_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotNull()
+     */
+    private $educationallevelId;
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="tasks", cascade={"persist"})
@@ -54,14 +72,6 @@ class Task
      */
     private $userId;
 
-    /**
-     * @var Company
-     *
-     * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Company", inversedBy="tasks", cascade={"persist"})
-     * @ORM\JoinColumn(name="company_id ", referencedColumnName="id", onDelete="CASCADE")
-     * @Assert\NotNull()
-     */
-    private $companyId;
 
     /**
      * @var ArrayCollection
@@ -168,29 +178,6 @@ class Task
     }
 
     /**
-     * Set companyId
-     *
-     * @param \BackendBundle\Entity\Company $companyId
-     * @return Task
-     */
-    public function setCompanyId(\BackendBundle\Entity\Company $companyId = null)
-    {
-        $this->companyId = $companyId;
-
-        return $this;
-    }
-
-    /**
-     * Get companyId
-     *
-     * @return \BackendBundle\Entity\Company 
-     */
-    public function getCompanyId()
-    {
-        return $this->companyId;
-    }
-
-    /**
      * Add answers
      *
      * @param \BackendBundle\Entity\Account $answers
@@ -234,5 +221,51 @@ class Task
     public function getDateLimit()
     {
         return $this->dateLimit;
+    }
+
+    /**
+     * Set institutionId
+     *
+     * @param \BackendBundle\Entity\Institution $institutionId
+     * @return Task
+     */
+    public function setInstitutionId(\BackendBundle\Entity\Institution $institutionId = null)
+    {
+        $this->institutionId = $institutionId;
+
+        return $this;
+    }
+
+    /**
+     * Get institutionId
+     *
+     * @return \BackendBundle\Entity\Institution 
+     */
+    public function getInstitutionId()
+    {
+        return $this->institutionId;
+    }
+
+    /**
+     * Set educationallevelId
+     *
+     * @param \BackendBundle\Entity\EducationalLevel $educationallevelId
+     * @return Task
+     */
+    public function setEducationallevelId(\BackendBundle\Entity\EducationalLevel $educationallevelId = null)
+    {
+        $this->educationallevelId = $educationallevelId;
+
+        return $this;
+    }
+
+    /**
+     * Get educationallevelId
+     *
+     * @return \BackendBundle\Entity\EducationalLevel 
+     */
+    public function getEducationallevelId()
+    {
+        return $this->educationallevelId;
     }
 }

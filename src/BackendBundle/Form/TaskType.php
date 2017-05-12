@@ -17,15 +17,23 @@ class TaskType extends AbstractType
         $builder->add('title',null,['label' => 'task.name'])
             ->add('desciption',null,['label' => 'task.desciption'])
             ->add('dateLimit',DateType::class,['label' => 'task.dateLimit'])
-            ->add('userId',null,['label' => 'task.userId'])
-            ->add('companyId', 'entity', array(
-                'class' => 'BackendBundle:Company',
+            ->add('institutionId', 'entity', array(
+                'class' => 'BackendBundle:Institution',
                 'query_builder' => function ($repository) {
                     return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC');
                 },
                 'property' => 'name',
-                'label' => 'task.companyId',
-            ));
+                'label' => 'company.institutionId',
+            ))
+            ->add('educationallevelId', 'entity', array(
+                'class' => 'BackendBundle:EducationalLevel',
+                'query_builder' => function ($repository) {
+                    return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC');
+                },
+                'property' => 'title',
+                'label' => 'company.educationallevelId',
+            ))
+            ->add('userId',null,['label' => 'task.userId']);
     }
     
     /**
