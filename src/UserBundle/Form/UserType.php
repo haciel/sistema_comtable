@@ -68,7 +68,7 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'choices' => [
                     'ROLE_ESTUDENT' => 'Estudiante',
-                    'ROLE_ADMIN' => 'Usuario',
+                    'ROLE_TEACHER' => 'Profesor',
                     'ROLE_SUPER_ADMIN' => 'Administrador'
                 ],
                 'label' => 'user.roll'

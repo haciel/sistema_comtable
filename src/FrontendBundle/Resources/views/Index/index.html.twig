@@ -10,10 +10,11 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ path('index') }}">Inicio</a></li>
+                        <li><a href="{{ path('index') }}">INICIO</a></li>
                         {% if is_granted('ROLE_USER')==false %}
-                            <li><a href="{{ path('fos_user_security_login') }}">Iniciar sesión</a></li>
-                            <li><a href="{{ path('fos_user_registration_register') }}">Regístrate</a></li>
+                            <li><a href="{{ path('fos_user_security_login') }}">INICIAR SESION</a></li>
+                            <li><a href="{{ path('fos_user_registration_register') }}">REGISTRATE</a></li>
+                            <li><a href="{{ path('index') }}">CONTACTENOS</a></li>
                         {% endif %}
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -21,7 +22,9 @@
         </nav>
 
     </header>
-
+    <div class="container">
+        
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -76,7 +79,15 @@
                         </h3>
                         <div class="padding-top-30 service-content">
                             <ul>
-                                <li>Revisa y clasifica tareas en nuestra plataforma.</li>
+                                <li>Realiza la contablidad y anexos transaccionales al mismo tiempo</li>
+                                <li>Registra los proveedores y clientes una sola vez en la base de datos para el anexo transaccional.</li>
+                                <li>Realiza el cierre del ejercicio anual.</li>
+                                <li>Crea tu propio plan de cuentas para trabajar.</li>
+                                <li>Crea las retenciones de fuente o de IVA.</li>
+                                <li>Numeraciones automáticas para los asientos contables.</li>
+                                <li>Crea y controla varias empresas con sus contabilidades, ATS y reportes de estados financieros independientes</li>
+                                <li>Presenta automáticamente estados financieros como: estado de resultados, estado de situación, balance de comprobación; a la fecha que desees mensual, anual.</li>
+                                <li>Verifica tu Libro Diario, Libro Mayor, Ingresos, Egresos y Diarios a la fecha que desees.</li>
                             </ul>
                         </div>
                     </div>
@@ -89,7 +100,11 @@
                         </h3>
                         <div class="padding-top-30 service-content">
                             <ul>
-                                <li>Revisa y clasifica tareas en nuestra plataforma.</li>
+                                <li>Ingresa a la plataforma desde cualquier dispositivo con acceso a internet, tanto si eres el administrador o residente del condomio.</li>
+                                <li>Consulta la información del condominio clara y oportuna las 24 horas del día.</li>
+                                <li>Revisa las cuentas por cobrar de los residentes.</li>
+                                <li>Controlar cuotas, pagos, ingresos, cuentas por cobrar y egresos del condominio o edificio con su respectivo comprobante impreso.</li>
+                                <li>Las cuentas por cobrar de las alicuotas mensuales se generan automaticamente y se obtiene un recibo al momento de registrar el pago.</li>
                             </ul>
                         </div>
                     </div>
