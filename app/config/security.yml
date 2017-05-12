@@ -4,7 +4,7 @@ security:
 
     role_hierarchy:
         ROLE_ESTUDENT:    ROLE_ESTUDENT
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_TEACHER:    ROLE_TEACHER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
@@ -30,5 +30,5 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/user/document_upload, roles: [ROLE_USER] }
         - { path: ^/admin/, roles: [ROLE_SUPER_ADMIN] }
-        - { path: ^/home, roles: [ROLE_SUPER_ADMIN,ROLE_ADMIN,ROLE_ESTUDENT] }
-        - { path: ^/crear-empresa, roles: [ROLE_SUPER_ADMIN,ROLE_ADMIN,ROLE_ESTUDENT] }
+        - { path: ^/home, roles: [ROLE_SUPER_ADMIN,ROLE_ESTUDENT,ROLE_TEACHER] }
+        - { path: ^/crear-empresa, roles: [ROLE_SUPER_ADMIN,ROLE_ESTUDENT,ROLE_TEACHER] }
