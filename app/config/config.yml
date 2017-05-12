@@ -79,10 +79,10 @@ fos_user:
         confirmation:
             enabled: true
             from_email:
-                address:        tomas@localhost.com
+                address:        hacielopez89@gmail.com
                 sender_name:    Demo Registration
 parameters:
-    from_email: tomas@localhost.com
+    from_email: hacielopez89@gmail.comm
 assetic:
     debug:          '%kernel.debug%'
     use_controller: '%kernel.debug%'
