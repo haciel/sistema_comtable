@@ -1,0 +1,100 @@
+{% extends 'FrontendBundle::frontend_base.html.twig' %}
+{% block content %}
+    <header class="main-header">
+        {% set active=active is defined?active:'' %}
+
+        <!-- Logo -->
+
+        <nav class="navbar navbar-default navbar-top navbar-static-top hidden-xs" role="navigation">
+            <div class="container-fluid">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ path('index') }}">Inicio</a></li>
+                        {% if is_granted('ROLE_USER')==false %}
+                            <li><a href="{{ path('fos_user_security_login') }}">Iniciar sesión</a></li>
+                            <li><a href="{{ path('fos_user_registration_register') }}">Regístrate</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center text-uppercase">
+                    Nuestras plataformas para ti
+                </h1>
+                <div class="divider-border">
+                    <div class="divider-border-inner"></div>
+                </div>
+                <div class="row">
+                    <a class="col-md-4 service-row padding-left-10 padding-right-10" href="{{ path('home') }}">
+                        <div class="text-center">
+                            <span class="fa fa-5x fa-mortar-board"></span>
+                        </div>
+                        <h3 class="text-center text-uppercase">
+                            Plataforma Web Contable Educativa
+                        </h3>
+                        <div class="padding-top-30 service-content">
+                            <p class="text-uppercase text-center">
+                                <strong>Cambia ahora la educación contable</strong>
+                            </p>
+                            <p class="text-center"><strong>Como profesor:</strong></p>
+                            <ul>
+                                <li>Revisa y clasifica tareas en nuestra plataforma.</li>
+                                <li>Crea distintas empresas de servicios, producción y comercio para las actividades.
+                                </li>
+                            </ul>
+                            <p class="text-uppercase text-center">
+                                <strong>Como estudiante</strong>
+                            </p>
+                            <ul>
+                                <li>Ahorra tiempo en procesos y genera más resultados.</li>
+                            </ul>
+                            <p class="text-uppercase text-center">
+                                <strong>Qué puedes hacer en la plataforma?</strong>
+                            </p>
+                            <ul>
+                                <li>Realiza tu propio plan de cuentas.</li>
+                                <li>Ingresa movimiento de diarios, ingresos y egresos.</li>
+                                <li>Obtén estados financieros como balance de comprobación, estados de resultados y estado de situación.</li>
+                                <li>Ten siempre listo: Libro Diario y Libro Mayor.</li>
+                            </ul>
+                        </div>
+
+                    </a>
+                    <div class="col-md-4 service-row padding-left-10 padding-right-10">
+                        <div class="text-center">
+                            <span class="fa fa-5x fa-cloud"></span>
+                        </div>
+                        <h3 class="text-center text-uppercase">
+                            Plataforma Web Contable Tributaria Empresarial
+                        </h3>
+                        <div class="padding-top-30 service-content">
+                            <ul>
+                                <li>Revisa y clasifica tareas en nuestra plataforma.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 service-row padding-left-10 padding-right-10">
+                        <div class="text-center">
+                            <span class="fa fa-5x fa-building-o"></span>
+                        </div>
+                        <h3 class="text-center text-uppercase">
+                            Plataforma Web Contable Condominios
+                        </h3>
+                        <div class="padding-top-30 service-content">
+                            <ul>
+                                <li>Revisa y clasifica tareas en nuestra plataforma.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

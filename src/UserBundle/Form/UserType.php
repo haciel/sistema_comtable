@@ -67,6 +67,7 @@ class UserType extends AbstractType
             ->add('roles', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', [
                 'multiple' => true,
                 'choices' => [
+                    'ROLE_ESTUDENT' => 'Estudiante',
                     'ROLE_ADMIN' => 'Usuario',
                     'ROLE_SUPER_ADMIN' => 'Administrador'
                 ],

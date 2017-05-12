@@ -87,7 +87,7 @@ company:
     name: 'Nombre'
     userId: 'Usuario'
     institutionId: 'Institución'
-    educationallevelId: 'Nivel educacional'
+    educationallevelId: 'Año de Estudio/Semestre'
     title_nav: 'Empresa'
     title: 'Empresa'
     create_successfull: 'Empresa creado con éxito'
