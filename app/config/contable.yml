@@ -1,7 +1,7 @@
 parameters:
-    project_name: sistema_contable
-    first_part: sistema
-    second_part: contable
+    project_name: alexsys
+    first_part: alex
+    second_part: sys
     locale: es
     directories:
         global: '../web/upload/'

@@ -9,16 +9,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 
-class HomeController extends Controller
+class EmpresaController extends Controller
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/empresa/{id}", name="empresa_ver")
      */
-    public function indexAction()
+    public function indexAction(Company $company)
     {
 
-        return $this->render('FrontendBundle:Index:index.html.twig',array(
-            'active'=>'',
+        return $this->render('FrontendBundle:Empresa:index.html.twig',array(
+            'empresa'=>$company,
         ));
     }
+
+
 }

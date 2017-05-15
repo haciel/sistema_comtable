@@ -41,3 +41,16 @@ $directions: top right bottom left;
     }
   }
 }
+
+.login-box{
+  margin: 4% auto !important;
+  .login-logo{
+    font-size: 24px !important;
+    img{
+      padding: 0 40px;
+    }
+    span{
+      color: #fff;
+    }
+  }
+}
