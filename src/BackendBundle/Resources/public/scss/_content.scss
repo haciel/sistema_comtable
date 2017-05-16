@@ -54,3 +54,29 @@ $directions: top right bottom left;
     }
   }
 }
+
+.register-box-full{
+  .login-logo{
+    font-size: 24px !important;
+    img{
+      width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    span{
+      color: #fff;
+    }
+  }
+}
+
+.form-city{
+  .form-group{
+    float: left;
+    width: calc(50%);
+    padding-right: 15px;
+    &:last-child{
+      padding-left: 15px;
+      padding-right: 0 !important;
+    }
+  }
+}

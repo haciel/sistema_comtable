@@ -1,6 +1,9 @@
 <div class="row padding-top-30">
-    <div class="col-md-8 col-md-offset-2">
-
+    <div class="col-md-8 col-md-offset-2 register-box-full">
+        <div class="login-logo">
+            <img class="img-responsive center logo-black" src="{{ asset('bundles/frontend/img/alexsys.png') }}">
+            <span>Plataforma Web Contable Educativa</span>
+        </div>
         <div class="register-box-body">
             <p class="login-box-msg">{{ 'backend.register_message'|trans }}</p>
 
@@ -34,10 +37,7 @@
                     </div>
                 </div>
                 <div class="row padding-top-10">
-                    <div class="col-sm-4">
-
-                    </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-8 form-city">
                         {{ form_label(form.cityId) }}
                         {{ form_widget(form.cityId) }}
                     </div>

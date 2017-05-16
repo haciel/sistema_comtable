@@ -45,7 +45,9 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm('UserBundle\Form\UserType', $user);
+        $form = $this->createForm('UserBundle\Form\UserType', $user,[
+          'province'=>$this->getDoctrine()->getRepository('BackendBundle:Province')->findAll()
+        ]);
         $form->add('submit','Symfony\Component\Form\Extension\Core\Type\SubmitType',['label'=>'backend.create','attr'=>['class'=>'btn btn-success btn-flat']]);
         $form->handleRequest($request);
         $trans=$this->get('translator');
@@ -80,7 +82,12 @@ class UserController extends Controller
     public function editAction(Request $request, User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('UserBundle\Form\UserType', $user);
+        $editForm = $this->createForm('UserBundle\Form\UserType', $user,[
+          'value'=>$user->getCityId()->getId(),
+          'city'=>$this->getDoctrine()->getRepository('BackendBundle:City')->findBy(['provinceId'=>$user->getCityId()->getProvinceId()]),
+          'province'=>$this->getDoctrine()->getRepository('BackendBundle:Province')->findAll(),
+          'province_select'=>$user->getCityId()->getProvinceId()->getId()
+        ]);
         $editForm->add('submit','Symfony\Component\Form\Extension\Core\Type\SubmitType',['label'=>'backend.edit','attr'=>['class'=>'btn btn-success btn-flat']]);
         $editForm->handleRequest($request);
         $trans=$this->get('translator');
