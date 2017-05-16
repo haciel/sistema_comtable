@@ -96,6 +96,12 @@ class City
         $this->institution = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string) $this->getName();
+    }
+
+
     /**
      * Set provinceId
      *

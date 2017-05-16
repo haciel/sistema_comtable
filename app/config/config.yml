@@ -37,6 +37,7 @@ twig:
             - '::bootstrap_3_layout.html.twig'
             - 'BackendBundle:Form:document.html.twig'
             - 'BackendBundle:Form:ckeditor.html.twig'
+            - 'BackendBundle:Form:location.html.twig'
     globals:
         project_name: '%project_name%'
         first_part: '%first_part%'
@@ -81,6 +82,8 @@ fos_user:
             from_email:
                 address:        tomas@localhost.com
                 sender_name:    Demo Registration
+        form:
+            type: app_user_registration
 parameters:
     from_email: tomas@localhost.com
 assetic:

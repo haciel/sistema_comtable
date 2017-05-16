@@ -5,6 +5,7 @@ namespace BackendBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -25,5 +26,24 @@ class DefaultController extends Controller
     {
 
         return $this->render('BackendBundle:Default:partials/main_sidebar.html.twig',['active'=>$active]);
+    }
+
+    /**
+     * @Route("/cities" ,name="get_city")
+     */
+    public function citiesAction(Request $request)
+    {
+        $province=$request->get('id_province');
+        $response=[];
+        if($province)
+        {
+            $locations=$this->getDoctrine()->getRepository('BackendBundle:City')->findBy(['provinceId'=>$province]);
+            foreach($locations as $l)
+            {
+                $response[]=['value'=>$l->getId(),'name'=>$l->getName()];
+            }
+        }
+
+        return new JsonResponse($response);
     }
 }

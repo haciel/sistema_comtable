@@ -9,23 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace FOS\UserBundle\Form\Type;
+namespace UserBundle\Form;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistrationFormType extends AbstractType
 {
-    private $class;
+    private $container;
 
-    /**
-     * @param string $class The User class name
-     */
-    public function __construct($class)
+    public function __construct(ContainerInterface $container)
     {
-        $this->class = $class;
+        $this->container=$container;
     }
+
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -72,20 +71,20 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => $this->class,
-            'intention'  => 'registration',
-            'province' => [],
-            'city' => [],
-            'province_select' => -1,
-            'value' => -1,
-        ));
-    }
 
     public function getName()
     {
+        return 'app_user_registration';
+    }
+
+    public function getParent(){
         return 'fos_user_registration';
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'province' => $this->container->get("doctrine")->getManager()->getRepository('BackendBundle:Province')->findAll()
+        ));
     }
 }
