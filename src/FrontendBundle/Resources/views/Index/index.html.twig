@@ -5,16 +5,15 @@
 
         <!-- Logo -->
 
-        <nav class="navbar navbar-default navbar-top navbar-static-top hidden-xs" role="navigation">
+        <nav class="navbar navbar-default navbar-top navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ path('index') }}">INICIO</a></li>
+                        <li><a data-href="#inicio" class="scroll-efect">INICIO</a></li>
                         {% if is_granted('ROLE_USER')==false %}
-                            <li><a href="{{ path('fos_user_security_login') }}">INICIAR SESION</a></li>
-                            <li><a href="{{ path('fos_user_registration_register') }}">REGISTRATE</a></li>
-                            <li><a href="{{ path('index') }}">CONTACTENOS</a></li>
+                            <li><a data-href="#services" class="scroll-efect">INICIAR SESIÓN</a></li>
+                            <li><a data-href="#contactenos" class="scroll-efect">CONTACTENOS</a></li>
                         {% endif %}
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -22,7 +21,27 @@
         </nav>
 
     </header>
+<<<<<<< HEAD
     <div class="container">
+=======
+    <section id="inicio" class="page section-1">
+        <div class="container">
+            <div class="content cover text-center">
+                <img class="img-responsive" src="{{ asset('bundles/frontend/img/alexsys.png') }}">
+                <div class="col-lg-12">
+                    <h1 class="title"><strong>SOMOS ALEXSYS.EC</strong></h1>
+                    <h3 class="subtitle"><strong>PLATAFORMA WEB CONTABLE ADMNISTRATIVA</strong></h3>
+                    <p>&nbsp;</p>
+
+                    <a class="btn btn-primary flat"
+                       href="{{ path('fos_user_security_login') }}">INICIAR SESIÓN</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section id="services" class="container section-2 padding-top-25 padding-bottom-20">
+>>>>>>> 85e8122803598bf3946b9713ab1fd88fb21c7361
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center text-uppercase">
@@ -31,8 +50,8 @@
                 <div class="divider-border">
                     <div class="divider-border-inner"></div>
                 </div>
-                <div class="row">
-                    <a class="col-md-4 service-row padding-left-10 padding-right-10" href="{{ path('home') }}">
+                <div class="row padding-top-30">
+                    <a class="col-md-4 service-row padding-left-10 padding-right-10" href="{{ path('estudiante') }}">
                         <div class="text-center">
                             <span class="fa fa-5x fa-mortar-board"></span>
                         </div>
@@ -61,7 +80,9 @@
                             <ul>
                                 <li>Realiza tu propio plan de cuentas.</li>
                                 <li>Ingresa movimiento de diarios, ingresos y egresos.</li>
-                                <li>Obtén estados financieros como balance de comprobación, estados de resultados y estado de situación.</li>
+                                <li>Obtén estados financieros como balance de comprobación, estados de resultados y
+                                    estado de situación.
+                                </li>
                                 <li>Ten siempre listo: Libro Diario y Libro Mayor.</li>
                             </ul>
                         </div>
@@ -77,14 +98,22 @@
                         <div class="padding-top-30 service-content">
                             <ul>
                                 <li>Realiza la contablidad y anexos transaccionales al mismo tiempo</li>
-                                <li>Registra los proveedores y clientes una sola vez en la base de datos para el anexo transaccional.</li>
+                                <li>Registra los proveedores y clientes una sola vez en la base de datos para el anexo
+                                    transaccional.
+                                </li>
                                 <li>Realiza el cierre del ejercicio anual.</li>
                                 <li>Crea tu propio plan de cuentas para trabajar.</li>
                                 <li>Crea las retenciones de fuente o de IVA.</li>
                                 <li>Numeraciones automáticas para los asientos contables.</li>
-                                <li>Crea y controla varias empresas con sus contabilidades, ATS y reportes de estados financieros independientes</li>
-                                <li>Presenta automáticamente estados financieros como: estado de resultados, estado de situación, balance de comprobación; a la fecha que desees mensual, anual.</li>
-                                <li>Verifica tu Libro Diario, Libro Mayor, Ingresos, Egresos y Diarios a la fecha que desees.</li>
+                                <li>Crea y controla varias empresas con sus contabilidades, ATS y reportes de estados
+                                    financieros independientes
+                                </li>
+                                <li>Presenta automáticamente estados financieros como: estado de resultados, estado de
+                                    situación, balance de comprobación; a la fecha que desees mensual, anual.
+                                </li>
+                                <li>Verifica tu Libro Diario, Libro Mayor, Ingresos, Egresos y Diarios a la fecha que
+                                    desees.
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -97,16 +126,45 @@
                         </h3>
                         <div class="padding-top-30 service-content">
                             <ul>
-                                <li>Ingresa a la plataforma desde cualquier dispositivo con acceso a internet, tanto si eres el administrador o residente del condomio.</li>
+                                <li>Ingresa a la plataforma desde cualquier dispositivo con acceso a internet, tanto si
+                                    eres el administrador o residente del condomio.
+                                </li>
                                 <li>Consulta la información del condominio clara y oportuna las 24 horas del día.</li>
                                 <li>Revisa las cuentas por cobrar de los residentes.</li>
-                                <li>Controlar cuotas, pagos, ingresos, cuentas por cobrar y egresos del condominio o edificio con su respectivo comprobante impreso.</li>
-                                <li>Las cuentas por cobrar de las alicuotas mensuales se generan automaticamente y se obtiene un recibo al momento de registrar el pago.</li>
+                                <li>Controlar cuotas, pagos, ingresos, cuentas por cobrar y egresos del condominio o
+                                    edificio con su respectivo comprobante impreso.
+                                </li>
+                                <li>Las cuentas por cobrar de las alicuotas mensuales se generan automaticamente y se
+                                    obtiene un recibo al momento de registrar el pago.
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <section class="section-3" id="contactenos">
+        <div class="container">
+            <div class="content cover text-center">
+                <div class="heading">
+                    <h2>PONTE EN CONTACTO CON NOSOTROS! </h2>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <i class="fa fa-map-marker fa-3x"></i>
+                            <a href="#">IBARRA - ECUADOR</a>
+                        </div>
+                        <div class="col-lg-4">
+                            <i class="fa fa-phone fa-3x"></i>
+                            <a href="http://alexsys.ec/tel:9876543210">0989 88 7320 / 0999 762 453</a>
+                        </div>
+                        <div class="col-lg-4">
+                            <i class="fa fa-envelope fa-3x"></i>
+                            <a href="http://alexsys.ec/mailto:john.doe@mail.com">servittec_ecuador@yahoo.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

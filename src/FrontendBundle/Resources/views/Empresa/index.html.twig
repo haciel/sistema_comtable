@@ -1,0 +1,43 @@
+{% extends 'FrontendBundle::frontend_base_blue.html.twig' %}
+{% block content %}
+    {% set username = app.user.name is defined ? app.user.name~' '~app.user.lastname : app.user.username %}
+    {% set institution = app.user.institutionId is defined ? app.user.institutionId.name: '' %}
+    <div class="jumbotron text-center">
+        <h1>Menú Principal</h1>
+        <p>
+            <strong>Empresa: </strong>{{ empresa.name }}
+            <br>
+            <strong>Colegio: </strong>{{ institution }}
+            <br>
+            <strong>Estudiante: </strong>{{ username }}
+        </p>
+    </div>
+    <section class="container padding-top-40 padding-bottom-40 text-white">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="text-center">
+                    <span class="fa fa-5x fa-archive"></span>
+                </div>
+                <h3 class="text-center text-uppercase">
+                    Movimientos Contables
+                </h3>
+            </div>
+            <a class="col-sm-4 row-modules" href="{{ path('plan_ver',{'id':empresa.id}) }}">
+                <div class="text-center">
+                    <span class="fa fa-5x fa-book"></span>
+                </div>
+                <h3 class="text-center text-uppercase">
+                    Plan de Cuentas
+                </h3>
+            </a>
+            <div class="col-sm-4">
+                <div class="text-center">
+                    <span class="fa fa-5x fa-bar-chart-o"></span>
+                </div>
+                <h3 class="text-center text-uppercase">
+                    Reportes Contables
+                </h3>
+            </div>
+        </div>
+    </section>
+{% endblock %}

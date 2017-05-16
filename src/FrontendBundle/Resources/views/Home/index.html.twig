@@ -16,7 +16,7 @@
                             <div class="box-header">
                                 <h3>
                                     Listado de Empresas
-                                    <a class="pull-right text-success" href="{{ path('company_new_home') }}">
+                                    <a class="pull-right text-success" href="{{ path('company_new_estudiante') }}">
                                         <span class="fa fa-plus"></span>
                                     </a>
                                 </h3>
@@ -31,12 +31,16 @@
                                 <tbody>
                                 {% for empresa in empresas %}
                                     <tr>
-                                        <td>{{ empresa.name }}</td>
+                                        <td>
+                                            <a href="{{ path('empresa_ver',{'id':empresa.id}) }}">
+                                                {{ empresa.name }}
+                                            </a>
+                                        </td>
                                         <td class="action">
                                             <div class="btn-group">
                                                 <div class="btn-group">
                                                     <a class="btn btn-sm btn-success flat"
-                                                       href="{{ path('company_edit_home',{'id':empresa.id}) }}"><i
+                                                       href="{{ path('company_edit_estudiante',{'id':empresa.id}) }}"><i
                                                                 class="fa fa-pencil"></i></a>
                                                 </div>
                                                 {% form_theme delete_forms[empresa.id] 'BackendBundle:CRUD:delete.html.twig' %}

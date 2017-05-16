@@ -59,7 +59,7 @@ class Account
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Operations", mappedBy="account_id" ,cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Operations", mappedBy="accountId" ,cascade={"persist"},orphanRemoval=true)
      */
     private $operations;
     /**

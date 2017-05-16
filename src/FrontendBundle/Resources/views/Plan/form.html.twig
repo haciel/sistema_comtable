@@ -1,0 +1,21 @@
+{% extends 'FrontendBundle::frontend_base.html.twig' %}
+{% block content %}
+    <div class="container">
+        <section class="content-header">
+            <h1 class="text-success">
+                {{ title }}
+            </h1>
+        </section>
+        <section class="content">
+            <div class="box box-success">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{ form(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
