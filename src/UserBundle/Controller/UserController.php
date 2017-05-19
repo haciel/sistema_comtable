@@ -82,11 +82,14 @@ class UserController extends Controller
     public function editAction(Request $request, User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
+        $city_id=$user->getCityId()?$user->getCityId()->getId():null;
+        $province_id=$user->getCityId()?$user->getCityId()->getProvinceId()->getId():null;
+        $province=$user->getCityId()?$user->getCityId()->getProvinceId():null;
         $editForm = $this->createForm('UserBundle\Form\UserType', $user,[
-          'value'=>$user->getCityId()->getId(),
-          'city'=>$this->getDoctrine()->getRepository('BackendBundle:City')->findBy(['provinceId'=>$user->getCityId()->getProvinceId()]),
+          'value'=>$city_id,
+          'city'=>$this->getDoctrine()->getRepository('BackendBundle:City')->findBy(['provinceId'=>$province]),
           'province'=>$this->getDoctrine()->getRepository('BackendBundle:Province')->findAll(),
-          'province_select'=>$user->getCityId()->getProvinceId()->getId()
+          'province_select'=>$province_id
         ]);
         $editForm->add('submit','Symfony\Component\Form\Extension\Core\Type\SubmitType',['label'=>'backend.edit','attr'=>['class'=>'btn btn-success btn-flat']]);
         $editForm->handleRequest($request);

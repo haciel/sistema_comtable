@@ -11,10 +11,8 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a data-href="#inicio" class="scroll-efect">INICIO</a></li>
-                        {% if is_granted('ROLE_USER')==false %}
-                            <li><a data-href="#services" class="scroll-efect">INICIAR SESIÓN</a></li>
-                            <li><a data-href="#contactenos" class="scroll-efect">CONTACTENOS</a></li>
-                        {% endif %}
+                        <li><a data-href="#services" class="scroll-efect">INICIAR SESIÓN</a></li>
+                        <li><a data-href="#contactenos" class="scroll-efect">CONTACTENOS</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -29,9 +27,11 @@
                     <h1 class="title"><strong>SOMOS ALEXSYS.EC</strong></h1>
                     <h3 class="subtitle"><strong>PLATAFORMA WEB CONTABLE ADMNISTRATIVA</strong></h3>
                     <p>&nbsp;</p>
+                    {% if is_granted('ROLE_USER')==false %}
+                        <a class="btn btn-primary flat"
+                           href="{{ path('fos_user_security_login') }}">INICIAR SESIÓN</a>
+                    {% endif %}
 
-                    <a class="btn btn-primary flat"
-                       href="{{ path('fos_user_security_login') }}">INICIAR SESIÓN</a>
                 </div>
             </div>
         </div>

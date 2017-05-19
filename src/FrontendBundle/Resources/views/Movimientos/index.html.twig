@@ -1,0 +1,205 @@
+{% extends 'FrontendBundle::frontend_base.html.twig' %}
+{% block content %}
+    {% set username = app.user.name is defined ? app.user.name : app.user.username %}
+    <div class="container">
+        <section class="content-header text-center">
+            <h1 class="text-success">
+                Asientos Contables
+            </h1>
+        </section>
+        <section class="content">
+            <div class="box box-success">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box-body">
+                            <div class="box-header text-center">
+                                <h3>
+                                    <b>Empresa:</b> {{ empresa.name }}
+                                </h3>
+                            </div>
+                            {{ form_start(form) }}
+                            <div class="well">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                Asiento Nro.
+                                            </label>
+                                            <input type="number" disabled class="form-control" value="{{ numero }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{ form_row(form.date) }}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                {{ form_row(form.slipeNumber) }}
+                                            </div>
+                                            <div class="col-sm-6">
+                                                {{ form_row(form.slipeId) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 padding-top-25">
+                                        {{ form_row(form.description) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Cuenta</th>
+                                    <th>Debe</th>
+                                    <th>Haber</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody id="table-form" data-prototype="
+{% filter escape %}
+             {{ include('FrontendBundle:Operation:prototype.html.twig', { 'form': form.operations.vars.prototype }) }}
+         {% endfilter %}">
+                                {% for operation in form.operations %}
+                                    <tr class="row-form">
+                                        <td>
+                                            {{ form_widget(operation.accountId,{attr:{class:'code-account'}}) }}
+                                        </td>
+                                        <td class="cuenta-name"></td>
+                                        <td>
+                                            {{ form_widget(operation.deve) }}
+                                        </td>
+                                        <td>
+                                            {{ form_widget(operation.haber) }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="pull-right padding-bottom-30">
+                                {{ form_widget(form.submit) }}
+                                <a class="btn btn-primary add_operation flat">
+                                    Nuevo
+                                </a>
+                            </div>
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        var $collectionHolder;
+        // setup an "add a paquete" link
+        var $addPaqueteLink = $('.add_operation');
+        var $newLinkLi = $('<tr></tr>');
+        var cuentas = [];
+        getAccounts();
+        jQuery(document).ready(function () {
+            // Get the ul that holds the collection of paquetes
+            $collectionHolder = $('#table-form');
+
+            // add a delete link to all of the existing paquete form li elements
+            $collectionHolder.find('tr.row-form').each(function (index, item) {
+                addPaqueteFormDeleteLink($(this));
+            });
+            var antes = -1;
+            var $despues = [];
+            $collectionHolder.find('tr').each(function (index, item) {
+                if ($(this).hasClass('row-form')) {
+                    antes = 0;
+                } else if (antes == 0) {
+                    antes = 1;
+                }
+                if (antes > 0) {
+                    $despues.push($(this));
+                }
+            });
+
+            for (var i in $despues) {
+                $collectionHolder[0].removeChild($despues[i][0]);
+            }
+            // add the "add a paquete" anchor and li to the paquetes ul
+            $collectionHolder.append($newLinkLi);
+            for (var i in $despues) {
+                $collectionHolder.append($despues[i][0]);
+            }
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addPaqueteLink.on('click', function (e) {
+
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new paquete form (see next code block)
+                addPaqueteForm($collectionHolder, $newLinkLi);
+                $('.code-account').change(function () {
+                    getAccountName();
+                });
+            });
+
+        });
+        $('.code-account').change(function () {
+            getAccountName();
+        });
+        function getAccountName() {
+            $('tr.row-form').each(function (index, item) {
+                var code = $(item).find('.code-account')[0];
+                code = $(code).val();
+                var name = cuentas.filter(function (item) {
+                    return item.id == code;
+                });
+                var cuenta = $(item).find('.cuenta-name')[0];
+                $(cuenta).text(name[0].name);
+            });
+        }
+
+        function getAccounts() {
+            $.get("{{ path('getAccounts',{'id':empresa.id}) }}", function (data) {
+                cuentas = data;
+                getAccountName();
+            })
+        }
+
+        function addPaqueteForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+            newForm = newForm.replace('div', 'td');
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a paquete" link li
+            var $newFormLi = $('<tr class="row-form"></tr>').append(newForm);
+            $newLinkLi.before($newFormLi);
+            // add a delete link to the new form
+            addPaqueteFormDeleteLink($newFormLi);
+            getAccountName();
+
+        }
+
+        function addPaqueteFormDeleteLink($paqueteFormLi) {
+            var $removeFormA = $('<td><a class="btn btn-danger"><span class="fa fa-trash-o"></span></a></td>');
+            $paqueteFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the paquete form
+                $paqueteFormLi.remove();
+            });
+        }
+    </script>
+{% endblock %}

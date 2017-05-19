@@ -14,14 +14,14 @@
     </div>
     <section class="container padding-top-40 padding-bottom-40 text-white">
         <div class="row">
-            <div class="col-sm-4">
+            <a class="col-sm-4 row-modules" href="{{ path('movimientosContables_ver',{'id':empresa.id}) }}">
                 <div class="text-center">
                     <span class="fa fa-5x fa-archive"></span>
                 </div>
                 <h3 class="text-center text-uppercase">
                     Movimientos Contables
                 </h3>
-            </div>
+            </a>
             <a class="col-sm-4 row-modules" href="{{ path('plan_ver',{'id':empresa.id}) }}">
                 <div class="text-center">
                     <span class="fa fa-5x fa-book"></span>

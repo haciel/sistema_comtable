@@ -2,6 +2,7 @@
 
 namespace BackendBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -36,7 +37,7 @@ class AccountantMove
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date", type="date")
      */
     private $date;
 
@@ -62,7 +63,12 @@ class AccountantMove
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Operations", mappedBy="accountmoveId" ,cascade={"persist"},orphanRemoval=true)
+     */
+    private $operations;
 
     /**
      * Get id
@@ -72,30 +78,6 @@ class AccountantMove
     public function getId()
     {
         return $this->id;
-    }
-
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return AccountantMove
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime 
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
 
@@ -191,5 +173,68 @@ class AccountantMove
     public function getSlipeId()
     {
         return $this->slipeId;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add operations
+     *
+     * @param \BackendBundle\Entity\Operations $operations
+     * @return AccountantMove
+     */
+    public function addOperation(\BackendBundle\Entity\Operations $operations)
+    {
+        $this->operations[] = $operations;
+
+        return $this;
+    }
+
+    /**
+     * Remove operations
+     *
+     * @param \BackendBundle\Entity\Operations $operations
+     */
+    public function removeOperation(\BackendBundle\Entity\Operations $operations)
+    {
+        $this->operations->removeElement($operations);
+    }
+
+    /**
+     * Get operations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOperations()
+    {
+        return $this->operations;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return AccountantMove
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

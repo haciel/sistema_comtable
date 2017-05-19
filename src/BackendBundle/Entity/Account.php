@@ -127,6 +127,11 @@ class Account
         $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getCode().'';
+    }
+
     /**
      * Set accounttypeId
      *
