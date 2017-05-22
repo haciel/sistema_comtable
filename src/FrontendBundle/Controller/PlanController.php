@@ -4,6 +4,7 @@ namespace FrontendBundle\Controller;
 use BackendBundle\Entity\Company;
 use BackendBundle\Entity\Account;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,6 +18,7 @@ class PlanController extends Controller
      */
     public function indexAction(Company $company, Request $request)
     {
+       $this->is_access($company->getUserId());
         $Account = new Account();
         $Account->setCompanyId($company);
         $form = $this->createForm('FrontendBundle\Form\AccountType', $Account);
@@ -46,6 +48,13 @@ class PlanController extends Controller
         ));
     }
 
+    public function is_access(User $user){
+        $account = $this->container->get('security.context')->getToken()->getUser();
+        if($account->getId()!= $user->getId()){
+            throw $this->createAccessDeniedException('No tiene permisos para acceder a esta página!');
+        }
+    }
+
     /**
      * Displays a form to edit an existing Company entity.
      *
@@ -54,6 +63,7 @@ class PlanController extends Controller
      */
     public function editCompanyAction(Request $request, Account $account)
     {
+        $this->is_access($account->getCompanyId()->getUserId());
         $editForm = $this->createForm('FrontendBundle\Form\AccountType', $account);
         $editForm->add('submit','Symfony\Component\Form\Extension\Core\Type\SubmitType',['label'=>'Guardar','attr'=>['class'=>'btn btn-success flat']]);
 
@@ -83,6 +93,7 @@ class PlanController extends Controller
      */
     public function deleteAction(Request $request, Account $Account)
     {
+        $this->is_access($Account->getCompanyId()->getUserId());
         $form = $this->createDeleteForm($Account);
         $form->handleRequest($request);
 

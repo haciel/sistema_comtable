@@ -4,6 +4,8 @@ namespace FrontendBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OperationsType extends AbstractType
@@ -17,7 +19,8 @@ class OperationsType extends AbstractType
             ->add('deve',null,['label' => 'operations.deve'])
             ->add('haber',null,['label' => 'operations.haber']);
     }
-    
+
+
     /**
      * {@inheritdoc}
      */

@@ -128,6 +128,7 @@ slipType:
     delete_successfull: 'Tipo de comprobante eliminado Satisfactoriamente'
 accountantMove:
     create_new: 'Crear Movimientos contables'
+    name: 'Movimiento Contable'
     companyId: 'Empresa'
     date: 'Fecha'
     slipeNumber: 'No Comprobante.'

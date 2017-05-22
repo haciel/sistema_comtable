@@ -1,5 +1,8 @@
 <div class="login-box">
-
+    <div class="login-logo">
+        <img class="img-responsive center logo-black" src="{{ asset('bundles/frontend/img/alexsys.png') }}">
+        <span>Plataforma Web Contable Educativa</span>
+    </div>
     <div class="login-box-body">
 
         <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">

@@ -81,7 +81,7 @@ fos_user:
             enabled: true
             from_email:
                 address:        tomas@localhost.com
-                sender_name:    Demo Registration
+                sender_name:    ALEXSYS Registration
         form:
             type: app_user_registration
 parameters:

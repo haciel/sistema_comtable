@@ -41,7 +41,8 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Código</th>
-                                    <th>Nombre de la Cuenta</th>
+                                    <th>Nombre de la cuenta</th>
+                                    <th>Tipo de cuenta</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -51,6 +52,7 @@
                                         <td>{{ loop.index }}</td>
                                         <td>{{ cuenta.code }}</td>
                                         <td>{{ cuenta.name }}</td>
+                                        <td>{{ cuenta.accounttypeId.name }}</td>
                                         <td class="action">
                                             <div class="btn-group">
                                                 <div class="btn-group">
