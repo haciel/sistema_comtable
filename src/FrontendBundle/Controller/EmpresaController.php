@@ -17,6 +17,7 @@ class EmpresaController extends Controller
     public function indexAction(Company $company)
     {
 
+
         return $this->render('FrontendBundle:Empresa:index.html.twig',array(
             'empresa'=>$company,
         ));

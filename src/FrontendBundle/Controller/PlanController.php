@@ -40,9 +40,19 @@ class PlanController extends Controller
         $delete_forms=array();
         foreach ($cuentas as $entity)
             $delete_forms[$entity->getId()] = $this->createDeleteForm($entity)->createView();
+        $breadcrumb = array();
+        $breadcrumb[] = array(
+            'name' => 'Inicio',
+            'url' => $this->container->get('router')->generate('estudiante'),
+        );
+        $breadcrumb[] = array(
+            'name' => $company->getName(),
+            'url' => $this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId())),
+        );
         return $this->render('FrontendBundle:Plan:index.html.twig', array(
             'cuentas' => $cuentas,
             'empresa' => $company,
+            'breadcrumb' => $breadcrumb,
             'delete_forms'=>$delete_forms,
             'form' => $form->createView(),
         ));
@@ -77,9 +87,15 @@ class PlanController extends Controller
             return $this->redirectToRoute('plan_ver', array('id' => $account->getCompanyId()->getId()));
 
         }
+        $breadcrumb = array();
+        $breadcrumb[] = array(
+            'name' => 'Inicio',
+            'url' => $this->container->get('router')->generate('estudiante'),
+        );
         return $this->render('FrontendBundle:Plan:form.html.twig', array(
             'account' => $account,
             'title'=>'Editar Cuenta',
+            'breadcrumb' => $breadcrumb,
             'form' => $editForm->createView(),
             'description_page'=>$trans->trans('account.title'),
         ));

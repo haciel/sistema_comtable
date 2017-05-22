@@ -70,10 +70,15 @@ class EstudianteController extends Controller
 
             return $this->redirectToRoute('estudiante');
         }
-
+        $breadcrumb = array();
+        $breadcrumb[] = array(
+            'name' => 'Inicio',
+            'url' => $this->container->get('router')->generate('estudiante'),
+        );
         return $this->render('FrontendBundle:Company:new.html.twig', array(
             'company' => $Company,
             'title'=>'Crear Empresa',
+            'breadcrumb' => $breadcrumb,
             'form' => $form->createView(),
             'description_page'=>$trans->trans('company.title'),
         ));
@@ -99,9 +104,15 @@ class EstudianteController extends Controller
 
             return $this->redirectToRoute('estudiante');
         }
+        $breadcrumb = array();
+        $breadcrumb[] = array(
+            'name' => 'Inicio',
+            'url' => $this->container->get('router')->generate('estudiante'),
+        );
         return $this->render('FrontendBundle:Company:new.html.twig', array(
             'company' => $Company,
             'title'=>'Editar Empresa',
+            'breadcrumb' => $breadcrumb,
             'form' => $editForm->createView(),
             'description_page'=>$trans->trans('company.title'),
         ));

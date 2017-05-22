@@ -84,9 +84,23 @@ class MovimientosController extends Controller {
       $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('accountantMove.create_successfull'));
       return $this->redirectToRoute('movimientoContable_show', array('id' => $movimiento->getId()));
     }
+      $breadcrumb = array();
+      $breadcrumb[] = array(
+          'name' => 'Inicio',
+          'url' => $this->container->get('router')->generate('estudiante'),
+      );
+      $breadcrumb[] = array(
+          'name' => $company->getName(),
+          'url' => $this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId())),
+      );
+      $breadcrumb[] = array(
+          'name' => 'Movimiento Contable',
+          'url' => $this->container->get('router')->generate('movimientosContables_ver',array('id'=>$company->getId())),
+      );
     return $this->render('FrontendBundle:Movimientos:show.html.twig', array(
       'empresa' => $company,
       'numero' => $number,
+      'breadcrumb' => $breadcrumb,
       'form' => $form->createView(),
     ));
   }
@@ -116,9 +130,14 @@ class MovimientosController extends Controller {
       $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('accountantMove.create_successfull'));
       return $this->redirectToRoute('movimientoContable_show', array('id' => $movimiento->getId()));
     }
+      $breadcrumb[] = array(
+          'name' => 'Movimiento Contable',
+          'url' => $this->container->get('router')->generate('movimientosContables_ver',array('id'=>$company->getId())),
+          );
     return $this->render('FrontendBundle:Movimientos:show.html.twig', array(
       'empresa' => $company,
       'numero' => $number,
+      'breadcrumb' => $breadcrumb,
       'form' => $form->createView(),
     ));
   }
