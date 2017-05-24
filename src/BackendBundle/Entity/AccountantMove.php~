@@ -44,6 +44,13 @@ class AccountantMove
     /**
      * @var int
      *
+     * @ORM\Column(name="number", type="integer")
+     */
+    private $number;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="slipe_number", type="integer")
      */
     private $slipeNumber;
@@ -66,7 +73,7 @@ class AccountantMove
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Operations", mappedBy="accountId" ,cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Operations", mappedBy="accountmoveId" ,cascade={"persist"},orphanRemoval=true)
      */
     private $operations;
 
@@ -213,5 +220,28 @@ class AccountantMove
     public function getOperations()
     {
         return $this->operations;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return AccountantMove
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

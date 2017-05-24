@@ -93,6 +93,11 @@ class RegistrationController extends ContainerAware
 
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
+        $roles=$user->getRoles();
+        if(empty($roles)) {
+            $roles[] = 'ROLE_ESTUDENT';
+        }
+        $user->setRoles($roles);
         $user->setLastLogin(new \DateTime());
 
         $this->container->get('fos_user.user_manager')->updateUser($user);

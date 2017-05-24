@@ -26,7 +26,7 @@
                                     Crear Movimiento Contable
                                 </a>
                             </div>
-                            <table class="table table-hover">
+                            <table id="datatable" class="table table-hover table-bordered">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
@@ -38,7 +38,7 @@
                                 <tbody>
                                 {% for movimiento in movimientos %}
                                     <tr>
-                                        <td>{{ movimiento.id }}</td>
+                                        <td>{{ movimiento.number }}</td>
                                         <td>{{ movimiento.date|date('d/m/Y') }}</td>
                                         <td>{{ movimiento.slipeId.name }}</td>
                                         <td class="action">
@@ -65,4 +65,10 @@
             </div>
         </section>
     </div>
+    <script>
+        $(function(){
+            $('#datatable').DataTable({});
+
+        });
+    </script>
 {% endblock %}

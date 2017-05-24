@@ -26,11 +26,16 @@ class PlanController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+          if ($this->validateAccount($Account)) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($Account);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('account.create_successfull'));
             return $this->redirectToRoute('plan_ver', array('id' => $company->getId()));
+          }else{
+            $this->get('session')->getFlashBag()->add('error',"El nombre de la cuenta o el código ya existen.");
+            return $this->redirectToRoute('plan_ver', array('id' => $company->getId()));
+          }
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -57,6 +62,19 @@ class PlanController extends Controller
             'form' => $form->createView(),
         ));
     }
+
+  public function validateAccount(Account $account){
+    $em = $this->getDoctrine()->getManager();
+    $cuentasCode = $em->getRepository('BackendBundle:Account')->findBy(array(
+      'companyId' => $account->getCompanyId(),
+      'code'=>$account->getCode()
+    ));
+    $cuentasName = $em->getRepository('BackendBundle:Account')->findBy(array(
+      'companyId' => $account->getCompanyId(),
+      'name'=>$account->getName()
+    ));
+    return !(count($cuentasCode) || count($cuentasName));
+  }
 
     public function is_access(User $user){
         $account = $this->container->get('security.context')->getToken()->getUser();
@@ -91,6 +109,14 @@ class PlanController extends Controller
         $breadcrumb[] = array(
             'name' => 'Inicio',
             'url' => $this->container->get('router')->generate('estudiante'),
+        );
+        $breadcrumb[] = array(
+            'name' => $account->getCompanyId()->getName(),
+            'url' => $this->container->get('router')->generate('empresa_ver', array('id' => $account->getCompanyId()->getId())),
+        );
+        $breadcrumb[] = array(
+            'name' => 'Plan de cuentas',
+            'url' => $this->container->get('router')->generate('plan_ver', array('id' => $account->getCompanyId()->getId())),
         );
         return $this->render('FrontendBundle:Plan:form.html.twig', array(
             'account' => $account,

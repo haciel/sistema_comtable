@@ -23,12 +23,7 @@
                             <div class="well">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">
-                                                Asiento Nro.
-                                            </label>
-                                            <input type="number" disabled class="form-control" value="{{ numero }}">
-                                        </div>
+                                        {{ form_row(form.number,{attr:{readonly:'true'}}) }}
                                     </div>
                                     <div class="col-sm-4">
                                         {{ form_row(form.date) }}
@@ -36,10 +31,10 @@
                                     <div class="col-sm-4">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                {{ form_row(form.slipeNumber) }}
+                                                {{ form_row(form.slipeNumber,{attr:{readonly:'true',class:'slip-number'}}) }}
                                             </div>
                                             <div class="col-sm-6">
-                                                {{ form_row(form.slipeId) }}
+                                                {{ form_row(form.slipeId,{attr:{class:'slipe-type'}}) }}
                                             </div>
                                         </div>
                                     </div>
@@ -48,11 +43,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-input-small">
                                 <thead>
                                 <tr>
                                     <th>Código</th>
-                                    <th>Cuenta</th>
+                                    <th>Nombre de Cuenta</th>
                                     <th>Debe</th>
                                     <th>Haber</th>
                                     <th></th>
@@ -64,10 +59,10 @@
          {% endfilter %}">
                                 {% for operation in form.operations %}
                                     <tr class="row-form">
+                                        <td class="cuenta-name"></td>
                                         <td>
                                             {{ form_widget(operation.accountId,{attr:{class:'code-account'}}) }}
                                         </td>
-                                        <td class="cuenta-name"></td>
                                         <td>
                                             {{ form_widget(operation.deve,{attr:{class:'debe-observe'}}) }}
                                         </td>
@@ -108,11 +103,44 @@
         var $addPaqueteLink = $('.add_operation');
         var $newLinkLi = $('<tr></tr>');
         var cuentas = [];
+        var slipTypes = [];
         getAccounts();
         totales();
+
+        $.get('{{ path('getSlipNumber',{'id':empresa.id}) }}',function(data){
+            slipTypes=data;
+            var number=$('.slip-number').val();
+            var id=$('.slipe-type').val();
+            if(number!=0 && number!=''){
+                slipTypes[id]=number;
+            }
+            $('.slip-number').val(slipTypes[id]);
+        });
+        $('.slipe-type').change(function(){
+            var id=$(this).val();
+            $('.slip-number').val(slipTypes[id]);
+        });
         jQuery(document).ready(function () {
             // Get the ul that holds the collection of paquetes
             $collectionHolder = $('#table-form');
+            disabledDebeHaber();
+
+            $('.debe-observe').each(function(){
+                var value=$(this).val();
+                if(value!=0 && value!=''){
+                    $(this).parent().parent().find('.haber-observe').attr('readonly',true);
+                }else{
+                    $(this).parent().parent().find('.haber-observe').attr('readonly',false);
+                }
+            });
+            $('.haber-observe').each(function(){
+                var value=$(this).val();
+                if(value!=0 && value!=''){
+                    $(this).parent().parent().find('.debe-observe').attr('readonly',true);
+                }else{
+                    $(this).parent().parent().find('.debe-observe').attr('readonly',false);
+                }
+            });
 
             // add a delete link to all of the existing paquete form li elements
             $collectionHolder.find('tr.row-form').each(function (index, item) {
@@ -167,9 +195,10 @@
                     return item.id == code;
                 });
                 var cuenta = $(item).find('.cuenta-name')[0];
-                $(cuenta).text(name[0].name);
+                $(cuenta).text(name[0].code);
             });
         }
+
         $('.debe-observe,.haber-observe').change(function(){
            totales();
         });
@@ -201,10 +230,12 @@
 
         function selectUpdate(){
             $('.code-account').each(function(indes, item){
+                var value=$(item).val();
                 $(item).find('option').remove();
                 cuentas.forEach(function(cuenta){
-                    $(item).append(new Option(cuenta.code,cuenta.id));
-                })
+                    $(item).append(new Option(cuenta.name,cuenta.id));
+                });
+                $(item).val(value);
             })
         }
 
@@ -224,6 +255,10 @@
 
             // Display the form in the page in an li, before the "Add a paquete" link li
             var $newFormLi = $('<tr class="row-form"></tr>').append(newForm);
+            var debe=$($newFormLi).find('.debe-observe');
+            $(debe).val(0);
+            var haber=$($newFormLi).find('.haber-observe');
+            $(haber).val(0);
             $newLinkLi.before($newFormLi);
             // add a delete link to the new form
             addPaqueteFormDeleteLink($newFormLi);
@@ -231,6 +266,26 @@
             getAccountName();
             $('.debe-observe,.haber-observe').change(function(){
                 totales();
+            });
+            disabledDebeHaber();
+        }
+
+        function disabledDebeHaber(){
+            $('.debe-observe').change(function(){
+                var value=$(this).val();
+                if(value!=0 && value!=''){
+                    $(this).parent().parent().find('.haber-observe').attr('readonly',true);
+                }else{
+                    $(this).parent().parent().find('.haber-observe').attr('readonly',false);
+                }
+            });
+            $('.haber-observe').change(function(){
+                var value=$(this).val();
+                if(value!=0 && value!=''){
+                    $(this).parent().parent().find('.debe-observe').attr('readonly',true);
+                }else{
+                    $(this).parent().parent().find('.debe-observe').attr('readonly',false);
+                }
             });
         }
 

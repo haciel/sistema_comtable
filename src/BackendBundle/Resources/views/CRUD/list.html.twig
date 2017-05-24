@@ -15,7 +15,6 @@
     {% endblock %}
         <script>
             var config={% if datatable_config is defined %}{{ datatable_config|json_encode|raw }}{% else %}{}{% endif %};
-
             $(function(){
                 $('#datatable').DataTable(config);
 

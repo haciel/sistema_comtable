@@ -38,7 +38,7 @@
                                     {{ form_end(form) }}
                                 </div>
                             </div>
-                            <table class="table table-hover">
+                            <table id="datatable" class="table table-hover table-bordered">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
@@ -79,4 +79,10 @@
             </div>
         </section>
     </div>
+    <script>
+        $(function(){
+            $('#datatable').DataTable({});
+
+        });
+    </script>
 {% endblock %}

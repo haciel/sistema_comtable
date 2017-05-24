@@ -129,7 +129,7 @@ class Account
 
     public function __toString()
     {
-        return $this->getCode().'';
+        return $this->getName();
     }
 
     /**

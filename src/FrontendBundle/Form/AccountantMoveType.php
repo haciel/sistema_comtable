@@ -16,6 +16,7 @@ class AccountantMoveType extends AbstractType
     {
         $builder
             ->add('date',null,['label' => 'accountantMove.date'])
+            ->add('number',null,['label' => 'accountantMove.number'])
             ->add('slipeNumber',null,['label' => 'accountantMove.slipeNumber'])
             ->add('slipeId', 'entity', array(
                 'class' => 'BackendBundle:SlipType',

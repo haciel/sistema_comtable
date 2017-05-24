@@ -44,6 +44,13 @@ class AccountantMove
     /**
      * @var int
      *
+     * @ORM\Column(name="number", type="integer")
+     */
+    private $number;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="slipe_number", type="integer")
      */
     private $slipeNumber;
@@ -236,5 +243,28 @@ class AccountantMove
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set number
+     *
+     * @param integer $number
+     * @return AccountantMove
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return integer 
+     */
+    public function getNumber()
+    {
+        return $this->number;
     }
 }

@@ -150,3 +150,11 @@ body{
     opacity: 0.5;
   }
 }
+
+.table-input-small{
+  input{
+    max-width: 120px;
+    float: right;
+    text-align: right;
+  }
+}

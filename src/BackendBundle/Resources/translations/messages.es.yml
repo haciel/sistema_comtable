@@ -132,6 +132,7 @@ accountantMove:
     companyId: 'Empresa'
     date: 'Fecha'
     slipeNumber: 'No Comprobante.'
+    number: 'Asiento No.'
     slipeId: 'Tipo de comprobante'
     description: 'Descripción'
     title_nav: 'Movimientos contables'

@@ -2,6 +2,8 @@
  {% block stylesheets %}
      {% stylesheets
      'bundles/backend/bootstrap/css/bootstrap.min.css'
+     'bundles/backend/plugins/datatables/dataTables.bootstrap.css'
+     'bundles/backend/plugins/datatables/select.dataTables.min.css'
      'bundles/backend/plugins/AlertifyJS/css/alertify.min.css'
      'bundles/backend/plugins/AlertifyJS/css/themes/default.css'
      'bundles/backend/plugins/iCheck/square/blue.css'
@@ -56,8 +58,11 @@
     'bundles/backend/plugins/fileupload/js/jquery.fileupload-validate.js'
     'bundles/backend/plugins/FileStyle/bootstrap-filestyle.js'
     'bundles/backend/plugins/loading/dist/jquery.loading.min.js'
+    'bundles/backend/plugins/datatables/jquery.dataTables.min.js'
+    'bundles/backend/plugins/datatables/dataTables.select.min.js'
     'bundles/backend/js/contable.js'
     'bundles/frontend/js/app.js'
+    'bundles/backend/plugins/datatables/dataTables.bootstrap.min.js'
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
