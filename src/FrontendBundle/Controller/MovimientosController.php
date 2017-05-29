@@ -77,7 +77,7 @@ class MovimientosController extends Controller
         $form = $this->createForm('FrontendBundle\Form\AccountantMoveType', $movimiento);
         $form->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
             'label' => 'Guardar',
-            'attr' => ['class' => 'btn btn-success flat'],
+            'attr' => ['class' => 'btn btn-success hidden flat'],
         ]);
 
         $form->handleRequest($request);
@@ -123,7 +123,7 @@ class MovimientosController extends Controller
         $form = $this->createForm('FrontendBundle\Form\AccountantMoveType', $movimiento);
         $form->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
             'label' => 'Guardar',
-            'attr' => ['class' => 'btn btn-success flat'],
+            'attr' => ['class' => 'btn btn-success hidden flat'],
         ]);
 
         $form->handleRequest($request);
