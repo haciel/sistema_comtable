@@ -84,6 +84,7 @@ fos_user:
                 sender_name:    ALEXSYS Registration
         form:
             type: app_user_registration
+            handler: app.form.handler.registration
 parameters:
     from_email: tomas@localhost.com
 assetic:

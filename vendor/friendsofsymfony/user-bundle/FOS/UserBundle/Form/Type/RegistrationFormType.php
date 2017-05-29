@@ -34,7 +34,7 @@ class RegistrationFormType extends AbstractType
             ->add('lastname', null, ['label' => 'user.lastname'])
             ->add('phone', null, ['label' => 'user.phone'])
             ->add('dni', null, ['label' => 'user.dni'])
-            ->add('institutionId', 'entity', array(
+            ->add('institutions', 'entity', array(
                 'class' => 'BackendBundle:Institution',
                 'query_builder' => function ($repository) {
                     return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC');
