@@ -7,13 +7,13 @@
                     <div class="col-sm-12">
                         <div class="box-body">
                             <ul id="myTab" class="nav nav-tabs">
-                                <li class="active"><a href="#" >Listado de Estudiantes</a></li>
-                                <li class=""><a href="{{ path('profesor_revision') }}" >Revisión</a></li>
+                                <li class=""><a href="{{ path('profesor') }}" >Listado de Estudiantes</a></li>
+                                <li class="active"><a href="#" >Revisión</a></li>
                                 <li class=""><a href="{{ path('profesor_tareas') }}" >Tareas</a></li>
                             </ul>
                             <div class="box-header">
                                 <h3 class="page-header">
-                                    Listado de estudiantes
+                                    Tareas Entregadas
                                 </h3>
                             </div>
                             <table id="datatable" class="table table-bordered ">
@@ -23,9 +23,8 @@
                                         <th>{{ '#' }}</th>
                                         <th>{{ 'user.dni'|trans|title }}</th>
                                         <th>{{ 'user.name'|trans|title }}</th>
-                                        <th>{{ 'user.educationallevelId'|trans|title }}</th>
-                                        <th>{{ 'Activado'|trans|title }}</th>
-                                        <th>{{ 'user.last_login'|trans|title }}</th>
+                                        <th>{{ 'answerTask.date'|trans|title }}</th>
+                                        <th>{{ 'answerTask.file'|trans|title }}</th>
                                         <th>{{ 'backend.action'|trans|title }}</th>
                                     </tr>
                                 {% endblock %}
@@ -34,26 +33,18 @@
                                 {{ block('thead') }}
                                 </tfoot>
                                 <tbody>
-                                {% for entity in estudiantes %}
+                                {% for entity in answerTasks %}
                                     <tr>
                                         <td>{{ loop.index }}</td>
-                                        <td>{{ entity.dni }}</td>
-                                        <td>{{ entity.name ~ " " ~ entity.lastname }}</td>
-                                        <td>{{ entity.educationallevelId.title }}</td>
+                                        <td>{{ entity.userId.dni }}</td>
+                                        <td>{{ entity.userId.name ~ " " ~ entity.userId.lastname }}</td>
+                                        <td>{{ entity.date|date('d/m/Y H:i') }}</td>
                                         <td>
-                                            {% set si=entity.enabled?'':'disabled-label' %}
-                                            {% set no=entity.enabled?'disabled-label':'' %}
-                                            {% if entity.enabled %}
-                                                <span class="label label-success {{ si }} flat label-right">Si</span>
-                                                <a href="{{ path('profesor_desactivar_estudiante',{'id':entity.id}) }}"
-                                                   class="label label-danger {{ no }} flat label-left">No</a>
-                                            {% else %}
-                                                <a href="{{ path('profesor_activar_estudiante',{'id':entity.id}) }}"
-                                                   class="label label-success {{ si }} flat label-right">Si</a>
-                                                <span class="label label-danger {{ no }} flat label-left">No</span>
-                                            {% endif %}
+                                        <a target="_blank" href="{{ asset('upload/answerTask/files/'~entity.file) }}">
+                                            {{ entity.file }}
+                                        </a>
                                         </td>
-                                        <td>{{ entity.lastLogin|date('d/m/Y') }}</td>
+
                                         <td class="action">
                                             <div class="btn-group">
                                                 {% form_theme delete_forms[entity.id] 'BackendBundle:CRUD:delete.html.twig' %}
@@ -61,8 +52,6 @@
                                                     {{ form(delete_forms[entity.id]) }}
                                                 </div>
                                             </div>
-
-
                                         </td>
                                     </tr>
                                 {% endfor %}

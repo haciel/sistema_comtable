@@ -56,33 +56,35 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-sm-7">
-                        <div class="box-body">
-                            <div class="box-header">
-                                <h3>
-                                    Tareas Pendientes
-                                </h3>
-                            </div>
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>{{ 'task.name'|trans|title }}</th>
-                                    <th>{{ 'task.desciption'|trans|title }}</th>
-                                    <th>{{ 'task.dateLimit'|trans|title }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for tarea in tareas %}
+                    {% if tareas is defined %}
+                        <div class="col-sm-7">
+                            <div class="box-body">
+                                <div class="box-header">
+                                    <h3>
+                                        Tareas Pendientes
+                                    </h3>
+                                </div>
+                                <table class="table table-hover">
+                                    <thead>
                                     <tr>
-                                        <td>{{ tarea.title }}</td>
-                                        <td>{{ tarea.desciption }}</td>
-                                        <td>{{ tarea.dateLimit|date('d/m/Y') }}</td>
+                                        <th>{{ 'task.name'|trans|title }}</th>
+                                        <th>{{ 'task.desciption'|trans|title }}</th>
+                                        <th>{{ 'task.dateLimit'|trans|title }}</th>
                                     </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {% for tarea in tareas %}
+                                        <tr>
+                                            <td>{{ tarea.title }}</td>
+                                            <td>{{ tarea.desciption }}</td>
+                                            <td>{{ tarea.dateLimit|date('d/m/Y') }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </section>

@@ -30,6 +30,7 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/user/document_upload, roles: [ROLE_ESTUDENT,ROLE_TEACHER] }
         - { path: ^/admin/, roles: [ROLE_SUPER_ADMIN] }
-        - { path: ^/estudiante, roles: [ROLE_SUPER_ADMIN,ROLE_ESTUDENT,ROLE_TEACHER] }
         - { path: ^/crear-empresa, roles: [ROLE_SUPER_ADMIN,ROLE_ESTUDENT,ROLE_TEACHER] }
         - { path: ^/profesor, roles: [ROLE_SUPER_ADMIN,ROLE_TEACHER] }
+        - { path: ^/plataforma-educativa, roles: [ROLE_SUPER_ADMIN,ROLE_TEACHER,ROLE_ESTUDENT] }
+        - { path: ^/reportes-contables/, roles: [ROLE_SUPER_ADMIN,ROLE_TEACHER,ROLE_ESTUDENT] }

@@ -1,6 +1,7 @@
 <?php
 namespace FrontendBundle\Controller;
 
+use BackendBundle\Entity\AnswerTask;
 use BackendBundle\Entity\Company;
 use BackendBundle\Entity\Task;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -165,6 +166,16 @@ class ProfesorController extends Controller
             ;
     }
 
+    private function createDeleteFormAnswer(AnswerTask $answerTask)
+    {
+        return $this->createFormBuilder()
+            ->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label' =>'backend.delete', 'attr' => array('class' => 'btn btn-sm btn-danger flat')))
+            ->setAction($this->generateUrl('profesor_delete_answer', array('id' => $answerTask->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
     /**
      * Deletes a Company entity.
      *
@@ -203,5 +214,44 @@ class ProfesorController extends Controller
         }
 
         return $this->redirectToRoute('profesor_tareas');
+    }
+
+    /**
+     * Deletes a Company entity.
+     *
+     * @Route("/{id}/profesor-delete-respuesta", name="profesor_delete_answer")
+     * @Method("DELETE")
+     */
+    public function deleteAnswerAction(Request $request, AnswerTask $answerTask)
+    {
+        $form = $this->createDeleteForm($answerTask);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($answerTask);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('profesor_revision');
+    }
+
+    /**
+     *
+     * @Route("/profesor/listado/revisiones", name="profesor_revision")
+     *
+     */
+    public function answerTaskAction(){
+        $em = $this->getDoctrine()->getManager();
+
+        $AnswerTasks = $em->getRepository('BackendBundle:AnswerTask')->findAll();
+        $delete_forms = array();
+        foreach ($AnswerTasks as $entity)
+            $delete_forms[$entity->getId()] = $this->createDeleteFormAnswer($entity)->createView();
+
+        return $this->render('FrontendBundle:Profesor:answerTask.html.twig', array(
+            'answerTasks' => $AnswerTasks,
+            'delete_forms'=>$delete_forms,
+        ));
     }
 }

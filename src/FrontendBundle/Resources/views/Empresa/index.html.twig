@@ -2,6 +2,8 @@
 {% block content %}
     {% set username = app.user.name is defined ? app.user.name~' '~app.user.lastname : app.user.username %}
     {% set institution = app.user.institutionId is defined ? app.user.institutionId.name: '' %}
+    {% set col = profe?3:4 %}
+    {% set label = profe?'Profesor':'Estudiante' %}
     <div class="jumbotron text-center">
         <h1>Menú Principal</h1>
         <p>
@@ -9,12 +11,12 @@
             <br>
             <strong>Colegio: </strong>{{ institution }}
             <br>
-            <strong>Estudiante: </strong>{{ username }}
+            <strong>{{ label }}: </strong>{{ username }}
         </p>
     </div>
     <section class="container padding-top-40 padding-bottom-40 text-white">
         <div class="row">
-            <a class="col-sm-4 row-modules" href="{{ path('movimientosContables_ver',{'id':empresa.id}) }}">
+            <a class="col-sm-{{ col }} row-modules" href="{{ path('movimientosContables_ver',{'id':empresa.id}) }}">
                 <div class="text-center">
                     <span class="fa fa-5x fa-archive"></span>
                 </div>
@@ -22,7 +24,7 @@
                     Movimientos Contables
                 </h3>
             </a>
-            <a class="col-sm-4 row-modules" href="{{ path('plan_ver',{'id':empresa.id}) }}">
+            <a class="col-sm-{{ col }} row-modules" href="{{ path('plan_ver',{'id':empresa.id}) }}">
                 <div class="text-center">
                     <span class="fa fa-5x fa-book"></span>
                 </div>
@@ -30,14 +32,24 @@
                     Plan de Cuentas
                 </h3>
             </a>
-            <div class="col-sm-4">
+            <a class="col-sm-{{ col }} row-modules" href="{{ path('reportesContables',{'id':empresa.id}) }}">
                 <div class="text-center">
                     <span class="fa fa-5x fa-bar-chart-o"></span>
                 </div>
                 <h3 class="text-center text-uppercase">
                     Reportes Contables
                 </h3>
-            </div>
+            </a>
+            {% if profe %}
+                <a class="col-sm-{{ col }} row-modules" href="{{ path('profesor') }}">
+                    <div class="text-center">
+                        <span class="fa fa-5x fa-user"></span>
+                    </div>
+                    <h3 class="text-center text-uppercase">
+                        Módulo Docente
+                    </h3>
+                </a>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

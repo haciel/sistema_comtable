@@ -50,6 +50,13 @@ class AnswerTask
     private $taskId;
 
     /**
+     * @var datetime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -127,5 +134,28 @@ class AnswerTask
     public function getTaskId()
     {
         return $this->taskId;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return AnswerTask
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

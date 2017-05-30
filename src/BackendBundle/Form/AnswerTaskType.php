@@ -3,6 +3,7 @@
 namespace BackendBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,6 +20,7 @@ class AnswerTaskType extends AbstractType
                 'url_show'=>'',
                 'acceptFileTypes'=>['doc','docx','pdf','xls','xlsx']
             ])
+            ->add('date','datetime',['label' => 'answerTask.date'])
             ->add('userId',null,['label' => 'answerTask.userId'])
             ->add('taskId',null,['label' => 'answerTask.taskId'])
             ->add('taskId', 'entity', array(

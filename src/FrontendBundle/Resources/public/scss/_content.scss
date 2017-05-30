@@ -181,3 +181,13 @@ body{
     }
   }
 }
+
+.btn-white{
+  background-color: #fff;
+  &:hover{
+    opacity: 0.7;
+  }
+}
+.btn-full{
+  width: 100%;
+}

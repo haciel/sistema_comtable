@@ -50,6 +50,13 @@ class AnswerTask
     private $taskId;
 
     /**
+     * @var datetime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -82,4 +89,50 @@ class AnswerTask
         return $this->file;
     }
 
+
+    /**
+     * Set userId
+     *
+     * @param \UserBundle\Entity\User $userId
+     * @return AnswerTask
+     */
+    public function setUserId(\UserBundle\Entity\User $userId = null)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \UserBundle\Entity\User 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set taskId
+     *
+     * @param \BackendBundle\Entity\Task $taskId
+     * @return AnswerTask
+     */
+    public function setTaskId(\BackendBundle\Entity\Task $taskId = null)
+    {
+        $this->taskId = $taskId;
+
+        return $this;
+    }
+
+    /**
+     * Get taskId
+     *
+     * @return \BackendBundle\Entity\Task 
+     */
+    public function getTaskId()
+    {
+        return $this->taskId;
+    }
 }

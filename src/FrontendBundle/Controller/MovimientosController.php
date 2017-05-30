@@ -33,7 +33,7 @@ class MovimientosController extends Controller
         $breadcrumb = array();
         $breadcrumb[] = array(
             'name' => 'Inicio',
-            'url' => $this->container->get('router')->generate('estudiante'),
+            'url' => $this->container->get('router')->generate('plataformaEducativa'),
         );
         $breadcrumb[] = array(
             'name' => $company->getName(),
@@ -93,7 +93,7 @@ class MovimientosController extends Controller
         $breadcrumb = array();
         $breadcrumb[] = array(
             'name' => 'Inicio',
-            'url' => $this->container->get('router')->generate('estudiante'),
+            'url' => $this->container->get('router')->generate('plataformaEducativa'),
         );
         $breadcrumb[] = array(
             'name' => $company->getName(),
@@ -138,7 +138,7 @@ class MovimientosController extends Controller
         }
         $breadcrumb[] = array(
             'name' => 'Inicio',
-            'url' => $this->container->get('router')->generate('estudiante'),
+            'url' => $this->container->get('router')->generate('plataformaEducativa'),
         );
         $breadcrumb[] = array(
             'name' => $company->getName(),

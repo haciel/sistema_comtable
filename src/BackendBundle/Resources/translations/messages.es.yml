@@ -113,6 +113,7 @@ answerTask:
     file: 'Archivo'
     userId: 'Usuario'
     taskId: 'Tarea'
+    date: 'Fecha'
     title_nav: 'Respuesta'
     title: 'Respuesta'
     create_successfull: 'Respuesta creada Satisfactoriamente'
