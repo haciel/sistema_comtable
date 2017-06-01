@@ -235,10 +235,15 @@
             $('.code-account').each(function(indes, item){
                 var value=$(item).val();
                 $(item).find('option').remove();
+                var exist=false;
                 cuentas.forEach(function(cuenta){
+                    if(cuenta.id==value){
+                        exist=true;
+                    }
                     $(item).append(new Option(cuenta.name,cuenta.id));
                 });
-                $(item).val(value);
+                var default_value=exist?value:cuentas[0].id;
+                $(item).val(default_value);
             })
         }
 

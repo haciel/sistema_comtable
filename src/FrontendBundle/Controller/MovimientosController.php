@@ -67,10 +67,12 @@ class MovimientosController extends Controller
         $movimiento = new AccountantMove();
         $movimiento->setCompanyId($company);
         $movimiento->setDate(new \DateTime('now'));
-        $operation = new Operations();
-        $operation->setDeve(0);
-        $operation->setHaber(0);
-        $movimiento->getOperations()->add($operation);
+        for($i=0;$i<6;$i++){
+            $operation = new Operations();
+            $operation->setDeve(0);
+            $operation->setHaber(0);
+            $movimiento->getOperations()->add($operation);
+        }
         $movimientos = $em->getRepository('BackendBundle:AccountantMove')->findBy(array('companyId'=>$company));
         $number += count($movimientos);
         $movimiento->setNumber($number);

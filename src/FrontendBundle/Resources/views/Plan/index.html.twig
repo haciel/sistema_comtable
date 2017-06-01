@@ -13,6 +13,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         {{ macroBreadcrumb.RenderBreadCrumbs(breadcrumb) }}
+                        <a href="{{ close }}" class="close btn-close" >&times;</a>
                         <div class="box-body">
                             <div class="box-header text-center">
                                 <h3>
@@ -81,7 +82,7 @@
     </div>
     <script>
         $(function(){
-            $('#datatable').DataTable({});
+//            $('#datatable').DataTable({});
         });
     </script>
 {% endblock %}
