@@ -125,6 +125,7 @@ class PlanController extends Controller
             'breadcrumb' => $breadcrumb,
             'form' => $editForm->createView(),
             'description_page'=>$trans->trans('account.title'),
+            'close'=>$this->container->get('router')->generate('plan_ver',array('id'=> $account->getCompanyId()->getId())),
         ));
     }
 

@@ -56,6 +56,10 @@ class EmpresaController extends Controller
             'name' => 'Inicio',
             'url' => $this->container->get('router')->generate('plataformaEducativa'),
         );
+        $breadcrumb[] = array(
+            'name' => $account->getCompanyId()->getName(),
+            'url' => $this->container->get('router')->generate('company_new_estudiante', array('id' => $account->getCompanyId()->getId())),
+        );
         return $this->render('FrontendBundle:Company:new.html.twig', array(
             'company' => $Company,
             'title'=>'Crear Empresa',
