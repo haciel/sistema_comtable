@@ -41,7 +41,7 @@ class PlanController extends Controller
         $em = $this->getDoctrine()->getManager();
         $cuentas = $em->getRepository('BackendBundle:Account')->findBy(array(
             'companyId' => $company,
-        ));
+        ),array('code'=>'ASC'));
         $delete_forms=array();
         foreach ($cuentas as $entity)
             $delete_forms[$entity->getId()] = $this->createDeleteForm($entity)->createView();
@@ -60,6 +60,7 @@ class PlanController extends Controller
             'breadcrumb' => $breadcrumb,
             'delete_forms'=>$delete_forms,
             'form' => $form->createView(),
+            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
         ));
     }
 

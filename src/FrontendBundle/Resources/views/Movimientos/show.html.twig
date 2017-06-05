@@ -48,8 +48,8 @@
                                 <tr>
                                     <th>Código</th>
                                     <th>Nombre de Cuenta</th>
-                                    <th>Debe</th>
-                                    <th>Haber</th>
+                                    <th class="text-right">Debe</th>
+                                    <th class="text-right">Haber</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -80,6 +80,9 @@
                                 </tbody>
                             </table>
                             <div class="pull-right padding-bottom-30">
+                                <a class="btn btn-warning limpiar flat">
+                                    Limpiar
+                                </a>
                                 <a class="btn btn-success validate-operations flat">
                                     Guardar
                                 </a>
@@ -87,7 +90,8 @@
                                 <a class="btn btn-primary add_operation flat">
                                     Nuevo
                                 </a>
-                                <a class="btn btn-warning flat" href="{{ path('movimientosContables_ver',{'id':empresa.id}) }}">
+                                <a class="btn btn-info flat"
+                                   href="{{ path('movimientosContables_ver',{'id':empresa.id}) }}">
                                     Ver listado
                                 </a>
                             </div>
@@ -110,17 +114,17 @@
         getAccounts();
         totales();
 
-        $.get('{{ path('getSlipNumber',{'id':empresa.id}) }}',function(data){
-            slipTypes=data;
-            var number=$('.slip-number').val();
-            var id=$('.slipe-type').val();
-            if(number!=0 && number!=''){
-                slipTypes[id]=number;
+        $.get('{{ path('getSlipNumber',{'id':empresa.id}) }}', function (data) {
+            slipTypes = data;
+            var number = $('.slip-number').val();
+            var id = $('.slipe-type').val();
+            if (number != 0 && number != '') {
+                slipTypes[id] = number;
             }
             $('.slip-number').val(slipTypes[id]);
         });
-        $('.slipe-type').change(function(){
-            var id=$(this).val();
+        $('.slipe-type').change(function () {
+            var id = $(this).val();
             $('.slip-number').val(slipTypes[id]);
         });
         jQuery(document).ready(function () {
@@ -128,20 +132,20 @@
             $collectionHolder = $('#table-form');
             disabledDebeHaber();
 
-            $('.debe-observe').each(function(){
-                var value=$(this).val();
-                if(value!=0 && value!=''){
-                    $(this).parent().parent().find('.haber-observe').attr('readonly',true);
-                }else{
-                    $(this).parent().parent().find('.haber-observe').attr('readonly',false);
+            $('.debe-observe').each(function () {
+                var value = $(this).val();
+                if (value != 0 && value != '') {
+                    $(this).parent().parent().find('.haber-observe').attr('readonly', true);
+                } else {
+                    $(this).parent().parent().find('.haber-observe').attr('readonly', false);
                 }
             });
-            $('.haber-observe').each(function(){
-                var value=$(this).val();
-                if(value!=0 && value!=''){
-                    $(this).parent().parent().find('.debe-observe').attr('readonly',true);
-                }else{
-                    $(this).parent().parent().find('.debe-observe').attr('readonly',false);
+            $('.haber-observe').each(function () {
+                var value = $(this).val();
+                if (value != 0 && value != '') {
+                    $(this).parent().parent().find('.debe-observe').attr('readonly', true);
+                } else {
+                    $(this).parent().parent().find('.debe-observe').attr('readonly', false);
                 }
             });
 
@@ -202,21 +206,21 @@
             });
         }
 
-        $('.debe-observe,.haber-observe').change(function(){
-           totales();
+        $('.debe-observe,.haber-observe').change(function () {
+            totales();
         });
-        function totales(){
-            var total_debe=0,total_haber=0;
-            $('.debe-observe').each(function(index,item){
-                var debe=parseInt($(this).val());
-                if(!isNaN(debe)){
-                    total_debe+=debe;
+        function totales() {
+            var total_debe = 0, total_haber = 0;
+            $('.debe-observe').each(function (index, item) {
+                var debe = parseInt($(this).val());
+                if (!isNaN(debe)) {
+                    total_debe += debe;
                 }
             });
-            $('.haber-observe').each(function(index,item){
-                var haber=parseInt($(this).val());
-                if(!isNaN(haber)){
-                    total_haber+=haber;
+            $('.haber-observe').each(function (index, item) {
+                var haber = parseInt($(this).val());
+                if (!isNaN(haber)) {
+                    total_haber += haber;
                 }
             });
             $('#total-debe').text(total_debe);
@@ -231,14 +235,19 @@
             })
         }
 
-        function selectUpdate(){
-            $('.code-account').each(function(indes, item){
-                var value=$(item).val();
+        function selectUpdate() {
+            $('.code-account').each(function (indes, item) {
+                var value = $(item).val();
                 $(item).find('option').remove();
-                cuentas.forEach(function(cuenta){
-                    $(item).append(new Option(cuenta.name,cuenta.id));
+                var exist = false;
+                cuentas.forEach(function (cuenta) {
+                    if (cuenta.id == value) {
+                        exist = true;
+                    }
+                    $(item).append(new Option(cuenta.name, cuenta.id));
                 });
-                $(item).val(value);
+                var default_value = exist ? value : cuentas[0].id;
+                $(item).val(default_value);
             })
         }
 
@@ -258,36 +267,36 @@
 
             // Display the form in the page in an li, before the "Add a paquete" link li
             var $newFormLi = $('<tr class="row-form"></tr>').append(newForm);
-            var debe=$($newFormLi).find('.debe-observe');
+            var debe = $($newFormLi).find('.debe-observe');
             $(debe).val(0);
-            var haber=$($newFormLi).find('.haber-observe');
+            var haber = $($newFormLi).find('.haber-observe');
             $(haber).val(0);
             $newLinkLi.before($newFormLi);
             // add a delete link to the new form
             addPaqueteFormDeleteLink($newFormLi);
             selectUpdate();
             getAccountName();
-            $('.debe-observe,.haber-observe').change(function(){
+            $('.debe-observe,.haber-observe').change(function () {
                 totales();
             });
             disabledDebeHaber();
         }
 
-        function disabledDebeHaber(){
-            $('.debe-observe').change(function(){
-                var value=$(this).val();
-                if(value!=0 && value!=''){
-                    $(this).parent().parent().find('.haber-observe').attr('readonly',true);
-                }else{
-                    $(this).parent().parent().find('.haber-observe').attr('readonly',false);
+        function disabledDebeHaber() {
+            $('.debe-observe').change(function () {
+                var value = $(this).val();
+                if (value != 0 && value != '') {
+                    $(this).parent().parent().find('.haber-observe').attr('readonly', true);
+                } else {
+                    $(this).parent().parent().find('.haber-observe').attr('readonly', false);
                 }
             });
-            $('.haber-observe').change(function(){
-                var value=$(this).val();
-                if(value!=0 && value!=''){
-                    $(this).parent().parent().find('.debe-observe').attr('readonly',true);
-                }else{
-                    $(this).parent().parent().find('.debe-observe').attr('readonly',false);
+            $('.haber-observe').change(function () {
+                var value = $(this).val();
+                if (value != 0 && value != '') {
+                    $(this).parent().parent().find('.debe-observe').attr('readonly', true);
+                } else {
+                    $(this).parent().parent().find('.debe-observe').attr('readonly', false);
                 }
             });
         }
@@ -305,24 +314,41 @@
             });
         }
 
-        $('.validate-operations').click(function(){
-            var debe=0;
-            var haber=0;
-            $('.debe-observe').each(function(index,item){
-                var value=$(item).val();
-                value=parseFloat(value);
-                debe+=value;
+        $('.validate-operations').click(function () {
+            var debe = 0;
+            var haber = 0;
+            $('.debe-observe').each(function (index, item) {
+                var value = $(item).val();
+                value = parseFloat(value);
+                debe += value;
             });
-            $('.haber-observe').each(function(index,item){
-                var value=$(item).val();
-                value=parseFloat(value);
-                haber+=value;
+            $('.haber-observe').each(function (index, item) {
+                var value = $(item).val();
+                value = parseFloat(value);
+                haber += value;
             });
-            if(debe-haber==0){
-                $('#form_movimientos').submit();
-            }else{
-                alertify.error("Las operaciones del debe y el haber son incorrectas");
+            if($('#backendbundle_accountantMove_description').val()==''){
+                alertify.error("Debe llenar el campo descripción.");
+            }else
+            if (debe == 0 && haber == 0) {
+                alertify.error("Deben existir como mínimo 2 operaciones.");
             }
+            else if (debe - haber == 0) {
+                $('#form_movimientos').submit();
+            }
+            else {
+                alertify.error("Las operaciones no están balanceadas.");
+            }
+        });
+
+        $('.limpiar').click(function(){
+            $('#backendbundle_accountantMove_description').val('');
+            $('.debe-observe,.haber-observe').each(function(index, item){
+                $(item).val(0);
+                $(item).attr('readonly', false);
+                $('#total-debe').text(0);
+                $('#total-haber').text(0);
+            });
         });
     </script>
 {% endblock %}
