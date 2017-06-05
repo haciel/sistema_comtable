@@ -247,6 +247,7 @@
                     $(item).append(new Option(cuenta.name, cuenta.id));
                 });
                 var default_value = exist ? value : cuentas[0].id;
+
                 $(item).val(default_value);
             })
         }
