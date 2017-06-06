@@ -15,7 +15,7 @@ class ProfesorController extends Controller
 {
 
     /**
-     * @Route("/profesor/listado/estudiantes", name="profesor")
+     * @Route("/profesor/{id}/listado/estudiante",name="profesor")
      */
     public function indexAction()
     {
