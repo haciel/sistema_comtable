@@ -44,6 +44,7 @@ class MovimientosController extends Controller
             'movimientos' => $movimientos,
             'delete_forms' => $delete_forms,
             'breadcrumb' => $breadcrumb,
+            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
         ));
     }
 

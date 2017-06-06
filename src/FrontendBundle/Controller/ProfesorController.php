@@ -33,10 +33,17 @@ class ProfesorController extends Controller
         $delete_forms = array();
         foreach ($estudiantes as $entity)
             $delete_forms[$entity->getId()] = $this->createDeleteForm($entity)->createView();
+        $breadcrumb = array();
+        $breadcrumb[] = array(
+            'name' => 'Inicio',
+            'url' => $this->container->get('router')->generate('plataformaEducativa'),
+        );
         return $this->render('FrontendBundle:Profesor:index.html.twig',array(
             'estudiantes' => $estudiantes,
             'delete_forms'=>$delete_forms,
             'active'=>'estudiantes',
+            'breadcrumb' => $breadcrumb
+
         ));
     }
 
@@ -69,12 +76,18 @@ class ProfesorController extends Controller
                 $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('task.create_successfull'));
                 return $this->redirectToRoute('profesor_tareas');
             }
+        $breadcrumb = array();
+        $breadcrumb[] = array(
+            'name' => 'Inicio',
+            'url' => $this->container->get('router')->generate('plataformaEducativa'),
+        );
 
         return $this->render('FrontendBundle:Profesor:tasks.html.twig',array(
             'tareas' => $tareas,
             'delete_forms'=>$delete_forms,
             'active'=>'task',
             'form' => $form->createView(),
+            'breadcrumb' => $breadcrumb
         ));
     }
 
@@ -107,13 +120,20 @@ class ProfesorController extends Controller
             return $this->redirectToRoute('profesor_tareas');
 
         }
-
+        $breadcrumb = array();
+        $breadcrumb[] = array(
+            'name' => 'Inicio',
+            'url' => $this->container->get('router')->generate('plataformaEducativa'),
+        );
         return $this->render('FrontendBundle:Profesor:formTask.html.twig', array(
             'task' => $tarea,
             'title'=>'Editar Tarea',
             'form' => $editForm->createView(),
             'description_page'=>$trans->trans('task.name'),
-            'active'=>'task'
+            'active'=>'task',
+            'breadcrumb' => $breadcrumb
+
+
         ));
     }
 
@@ -265,12 +285,18 @@ class ProfesorController extends Controller
         $tareas = $em->getRepository('BackendBundle:Task')->findBy(array(
             'userId' => $user,
         ));
+        $breadcrumb = array();
+        $breadcrumb[] = array(
+            'name' => 'Inicio',
+            'url' => $this->container->get('router')->generate('plataformaEducativa'),
+        );
         return $this->render('FrontendBundle:Profesor:answerTask.html.twig', array(
             'answerTasks' => $respuestas,
             'delete_forms'=>$delete_forms,
             'tareas'=>$tareas,
             'findEstudent'=>$findEstudent,
             'findTask'=>$findTask,
+            'breadcrumb' => $breadcrumb
         ));
     }
 

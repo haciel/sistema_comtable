@@ -1,10 +1,13 @@
 {% extends 'FrontendBundle::frontend_base.html.twig' %}
+{% import 'FrontendBundle:Macros:macro_breadcrumb.html.twig' as macroBreadcrumb %}
 {% block content %}
     <div class="container">
         <section class="content padding-top-30">
             <div class="box box-success">
                 <div class="row">
                     <div class="col-sm-12">
+                        {{ macroBreadcrumb.RenderBreadCrumbs(breadcrumb) }}
+
                         <div class="box-body">
                             <ul id="myTab" class="nav nav-tabs">
                                 <li class="active"><a href="#" >Listado de Estudiantes</a></li>
