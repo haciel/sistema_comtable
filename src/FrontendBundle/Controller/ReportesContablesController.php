@@ -31,6 +31,7 @@ class ReportesContablesController extends Controller
         return $this->render('FrontendBundle:ReportesContables:index.html.twig', array(
             'breadcrumb' => $breadcrumb,
             'empresa' => $company,
+            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
         ));
     }
 

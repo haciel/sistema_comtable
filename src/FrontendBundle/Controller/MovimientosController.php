@@ -110,6 +110,7 @@ class MovimientosController extends Controller
             'empresa' => $company,
             'breadcrumb' => $breadcrumb,
             'form' => $form->createView(),
+            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
         ));
     }
 
