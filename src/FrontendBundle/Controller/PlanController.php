@@ -37,11 +37,15 @@ class PlanController extends Controller
             return $this->redirectToRoute('plan_ver', array('id' => $company->getId()));
           }
         }
-
         $em = $this->getDoctrine()->getManager();
-        $cuentas = $em->getRepository('BackendBundle:Account')->findBy(array(
+        $cuentasAll = $em->getRepository('BackendBundle:Account')->findBy(array(
             'companyId' => $company,
-        ),array('code'=>'ASC'));
+        ));
+        $order=$this->orderString($cuentasAll);
+        $cuentas=array();
+        foreach ($order as $item){
+            $cuentas[]=$cuentasAll[$item['index']];
+        }
         $delete_forms=array();
         foreach ($cuentas as $entity)
             $delete_forms[$entity->getId()] = $this->createDeleteForm($entity)->createView();
@@ -62,6 +66,25 @@ class PlanController extends Controller
             'form' => $form->createView(),
             'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
         ));
+    }
+
+    public function orderString($accounts){
+        $data=array();
+        $maxLength=0;
+        foreach ($accounts as $account){
+            if($maxLength<strlen($account->getCode())){
+                $maxLength=strlen($account->getCode());
+            }
+        }
+        for($i=0;$i<count($accounts);$i++){
+            $code=$accounts[$i]->getCode();
+            $multiplo=$maxLength-strlen($accounts[$i]->getCode())?pow(10,$maxLength-strlen($accounts[$i]->getCode())):1;
+            $data[]=array(
+                'code'=>$multiplo!=1?$code*$multiplo:$code+1,
+                'index'=>$i);
+        }
+        sort($data);
+        return $data;
     }
 
   public function validateAccount(Account $account){
@@ -125,7 +148,6 @@ class PlanController extends Controller
             'breadcrumb' => $breadcrumb,
             'form' => $editForm->createView(),
             'description_page'=>$trans->trans('account.title'),
-            'close'=>$this->container->get('router')->generate('plan_ver',array('id'=> $account->getCompanyId()->getId())),
         ));
     }
 

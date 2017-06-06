@@ -14,7 +14,6 @@
                 <div class="row">
                     <div class="col-sm-12">
                         {{ macroBreadcrumb.RenderBreadCrumbs(breadcrumb) }}
-                        <a href="{{ close }}" class="close btn-close" >&times;</a>
                         <div class="box-body">
                             <div class="box-header text-center">
                                 <h3>
@@ -24,7 +23,7 @@
                             <div class="well flat">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <a class="btn btn-white btn-full"> Libro Diario</a>
+                                        <a class="btn btn-white btn-full" data-toggle="modal" href="#libroDiario"> Libro Diario</a>
                                     </div>
                                     <div class="col-sm-4">
                                         <a class="btn btn-primary btn-full"> Libro Mayor</a>
@@ -41,7 +40,8 @@
                                         <a class="btn btn-danger btn-full"> Estado de Situación</a>
                                     </div>
                                     <div class="col-sm-4">
-                                        <a class="btn btn-success btn-full">Plan de Cuentas</a>
+                                        <a href="{{ path('plan_ver',{'id':empresa.id}) }}"
+                                           class="btn btn-success btn-full">Plan de Cuentas</a>
                                     </div>
                                 </div>
                             </div>
@@ -51,6 +51,34 @@
                 </div>
             </div>
         </section>
+
+        <div id="libroDiario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Libro Diario</h4>
+                    </div>
+                    <form action="{{ path('librodiario',{'id':empresa.id}) }}" method="post">
+                        <div class="modal-body clearfix">
+                            <div class="form-group col-sm-4">
+                                <label>Fecha desde</label>
+                                <input type="date" required class="form-control" name="desde">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label>Fecha hasta</label>
+                                <input type="date" required class="form-control" name="hasta">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Visualizar</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
     </div>
 
 {% endblock %}

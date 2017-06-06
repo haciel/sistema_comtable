@@ -1,11 +1,8 @@
 {% extends 'FrontendBundle::frontend_base.html.twig' %}
-{% import 'FrontendBundle:Macros:macro_breadcrumb.html.twig' as macroBreadcrumb %}
 {% block content %}
     <div class="container">
         <section class="content padding-top-30">
             <div class="box box-success">
-                {{ macroBreadcrumb.RenderBreadCrumbs(breadcrumb) }}
-                <a href="{{ close }}" class="close btn-close" >&times;</a>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="box-body">

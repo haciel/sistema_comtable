@@ -76,7 +76,7 @@ class Task
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\Account", mappedBy="task_id" ,cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\AnswerTask", mappedBy="taskId" ,cascade={"persist"},orphanRemoval=true)
      */
     private $answers;
 
@@ -88,6 +88,11 @@ class Task
     public function getId()
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->getTitle();
     }
 
     /**
