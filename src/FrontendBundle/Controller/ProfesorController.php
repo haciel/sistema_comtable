@@ -15,9 +15,9 @@ class ProfesorController extends Controller
 {
 
     /**
-     * @Route("/profesor/listado/estudiantes", name="profesor")
+     * @Route("/profesor/{id}/listado/estudiantes", name="profesor")
      */
-    public function indexAction()
+    public function indexAction(Company $company)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -38,18 +38,23 @@ class ProfesorController extends Controller
             'name' => 'Inicio',
             'url' => $this->container->get('router')->generate('plataformaEducativa'),
         );
-
+        $breadcrumb[] = array(
+            'name' => $company->getName(),
+            'url' => $this->container->get('router')->generate('empresa_ver', array('id' => $company->getId())),
+        );
         return $this->render('FrontendBundle:Profesor:index.html.twig',array(
             'estudiantes' => $estudiantes,
             'breadcrumb' => $breadcrumb,
             'delete_forms'=>$delete_forms,
+            'company'=>$company,
+            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
         ));
     }
 
     /**
-     * @Route("/profesor/listado/tareas", name="profesor_tareas")
+     * @Route("/profesor/{id}/listado/tareas", name="profesor_tareas")
      */
-    public function tareasAction(Request $request)
+    public function tareasAction(Request $request,Company $company)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -62,6 +67,8 @@ class ProfesorController extends Controller
 
         $task=new Task();
         $task->setUserId($user);
+        $task->setInstitutionId($user->getInstitutionId());
+        $task->setEducationallevelId($user->getEducationallevelId());
         $form = $this->createForm('FrontendBundle\Form\TaskType', $task);
         $form->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', ['label' => 'Guardar', 'attr' => ['class' => 'btn btn-success flat']]);
 
@@ -78,13 +85,18 @@ class ProfesorController extends Controller
             'name' => 'Inicio',
             'url' => $this->container->get('router')->generate('plataformaEducativa'),
         );
-
+        $breadcrumb[] = array(
+            'name' => $company->getName(),
+            'url' => $this->container->get('router')->generate('empresa_ver', array('id' => $company->getId())),
+        );
         return $this->render('FrontendBundle:Profesor:tasks.html.twig',array(
             'tareas' => $tareas,
             'breadcrumb' => $breadcrumb,
             'delete_forms'=>$delete_forms,
             'active'=>'task',
             'form' => $form->createView(),
+            'company'=>$company,
+            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
         ));
     }
 
@@ -98,10 +110,10 @@ class ProfesorController extends Controller
     /**
      * Displays a form to edit an existing Company entity.
      *
-     * @Route("/profesor/editar/tarea/{id}", name="profesor_editar_tarea")
+     * @Route("/profesor/{idCompany}/editar/tarea/{id}", name="profesor_editar_tarea")
      * @Method({"GET", "POST"})
      */
-    public function editTaskAction(Request $request, Task $tarea)
+    public function editTaskAction(Request $request,Company $company, Task $tarea)
     {
         $this->is_access($tarea->getUserId());
         $editForm = $this->createForm('FrontendBundle\Form\TaskType', $tarea);
@@ -114,7 +126,7 @@ class ProfesorController extends Controller
             $this->getDoctrine()->getManager()->flush();
             $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('task.edit_successfull'));
 
-            return $this->redirectToRoute('profesor_tareas');
+            return $this->redirectToRoute('profesor_tareas', array('id' => $company->getId()));
 
         }
         $breadcrumb = array();
@@ -122,12 +134,21 @@ class ProfesorController extends Controller
             'name' => 'Inicio',
             'url' => $this->container->get('router')->generate('plataformaEducativa'),
         );
+        $breadcrumb[] = array(
+            'name' => $company->getName(),
+            'url' => $this->container->get('router')->generate('empresa_ver', array('id' => $company->getId())),
+        );
+        $breadcrumb[] = array(
+            'name' => 'Tareas',
+            'url' => $this->container->get('router')->generate('profesor_tareas', array('id' => $company->getId())),
+        );
         return $this->render('FrontendBundle:Profesor:formTask.html.twig', array(
             'task' => $tarea,
             'title'=>'Editar Tarea',
             'breadcrumb' => $breadcrumb,
             'form' => $editForm->createView(),
             'description_page'=>$trans->trans('task.name'),
+            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId())),
             'active'=>'task'
         ));
     }
@@ -141,6 +162,7 @@ class ProfesorController extends Controller
         $user->setEnabled(true);
         $em->persist($user);
         $em->flush();
+        $this->get('session')->getFlashBag()->add('success', 'El estudiante '.$user->getName().' '.$user->getLastname().' ha sido activado.');
         return $this->redirectToRoute('profesor');
     }
 
@@ -153,6 +175,7 @@ class ProfesorController extends Controller
         $user->setEnabled(false);
         $em->persist($user);
         $em->flush();
+        $this->get('session')->getFlashBag()->add('warning', 'El estudiante '.$user->getName().' '.$user->getLastname().' ha sido desactivado.');
         return $this->redirectToRoute('profesor');
     }
 
@@ -221,7 +244,7 @@ class ProfesorController extends Controller
      */
     public function deleteTaskAction(Request $request, Task $task)
     {
-        $form = $this->createDeleteForm($task);
+        $form = $this->createDeleteFormTask($task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -241,7 +264,7 @@ class ProfesorController extends Controller
      */
     public function deleteAnswerAction(Request $request, AnswerTask $answerTask)
     {
-        $form = $this->createDeleteForm($answerTask);
+        $form = $this->createDeleteFormAnswer($answerTask);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -258,23 +281,57 @@ class ProfesorController extends Controller
      * @Route("/profesor/listado/revisiones", name="profesor_revision")
      *
      */
-    public function answerTaskAction(){
+    public function answerTaskAction(Request $request){
         $em = $this->getDoctrine()->getManager();
-
+        $findEstudent=$request->get('estudiante');
+        $findTask=$request->get('tarea');
         $AnswerTasks = $em->getRepository('BackendBundle:AnswerTask')->findAll();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $respuestas=array();
+        foreach ($AnswerTasks as $answerTask){
+            if($answerTask->getUserId()->getInstitutionId()==$user->getInstitutionId() &&
+            $answerTask->getUserId()->getEducationallevelId()==$user->getEducationallevelId() &&
+            $this->findAnswer($findEstudent,$findTask,$answerTask)){
+                $respuestas[]=$answerTask;
+            }
+        }
         $delete_forms = array();
         foreach ($AnswerTasks as $entity)
             $delete_forms[$entity->getId()] = $this->createDeleteFormAnswer($entity)->createView();
+
 
         $breadcrumb = array();
         $breadcrumb[] = array(
             'name' => 'Inicio',
             'url' => $this->container->get('router')->generate('plataformaEducativa'),
         );
+
+
+        $tareas = $em->getRepository('BackendBundle:Task')->findBy(array('userId' => $user));
         return $this->render('FrontendBundle:Profesor:answerTask.html.twig', array(
-            'answerTasks' => $AnswerTasks,
-            'breadcrumb' => $breadcrumb,
+            'answerTasks' => $respuestas,
             'delete_forms'=>$delete_forms,
+            'tareas'=>$tareas,
+            'breadcrumb' => $breadcrumb,
+            'findEstudent'=>$findEstudent,
+            'findTask'=>$findTask,
         ));
+    }
+
+    public function findAnswer($findEstudent,$findTask,AnswerTask $answerTask){
+        if($findEstudent!=''){
+            $fullname=$answerTask->getUserId()->getName().$answerTask->getUserId()->getLastname();
+            $aux=str_replace($findEstudent,'',$fullname);
+            if($fullname!=$aux){
+                if($findTask!=''){
+                    return $answerTask->getTaskId()->getId()==$findTask;
+                }
+                return true;
+            }
+            return false;
+        }else if($findTask!=''){
+            return $answerTask->getTaskId()->getId()==$findTask;
+        }
+        return true;
     }
 }

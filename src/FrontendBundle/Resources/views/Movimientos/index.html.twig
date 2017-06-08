@@ -33,15 +33,19 @@
                                     <th>No.</th>
                                     <th>Fecha</th>
                                     <th>Tipo de comprobante</th>
+                                    <th>No. de comprobante</th>
+                                    <th>Descripción</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for movimiento in movimientos %}
                                     <tr>
-                                        <td>{{ movimiento.number }}</td>
+                                        <td>{{ loop.index }}</td>
                                         <td>{{ movimiento.date|date('d/m/Y') }}</td>
                                         <td>{{ movimiento.slipeId.name }}</td>
+                                        <td>{{ movimiento.number }}</td>
+                                        <td>{{ movimiento.description }}</td>
                                         <td class="action">
                                             <div class="btn-group">
                                                 <div class="btn-group">

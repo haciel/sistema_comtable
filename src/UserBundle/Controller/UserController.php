@@ -85,7 +85,7 @@ class UserController extends Controller
         $city_id=$user->getCityId()?$user->getCityId()->getId():null;
         $province_id=$user->getCityId()?$user->getCityId()->getProvinceId()->getId():null;
         $province=$user->getCityId()?$user->getCityId()->getProvinceId():null;
-        $editForm = $this->createForm('UserBundle\Form\UserType', $user,[
+        $editForm = $this->createForm('UserBundle\Form\UserEditType', $user,[
           'value'=>$city_id,
           'city'=>$this->getDoctrine()->getRepository('BackendBundle:City')->findBy(['provinceId'=>$province]),
           'province'=>$this->getDoctrine()->getRepository('BackendBundle:Province')->findAll(),
@@ -95,10 +95,14 @@ class UserController extends Controller
         $editForm->handleRequest($request);
         $trans=$this->get('translator');
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $factory = $this->container->get('security.encoder_factory');
-            $encoder = $factory->getEncoder($user);
-            $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
-            $user->setPassword($password);
+            $pass=$request->get('contrasenha');
+            if($pass!='') {
+                $user->setPassword($pass);
+                $factory = $this->container->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($user);
+                $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+                $user->setPassword($password);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('user.edit_successfull'));

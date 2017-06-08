@@ -57,6 +57,36 @@ class MovimientosController extends Controller
     }
 
     /**
+     * @Route("/movimiento-contable-buscar/{id}/", name="movimientosContables_buscar")
+     */
+    public function findAction(Request $request,Company $company){
+        $search=$request->get('search');
+        $em = $this->getDoctrine()->getManager();
+        $idC=$company->getId();
+        $movimientos = $em->createQuery("SELECT m FROM BackendBundle:AccountantMove m WHERE m.companyId=$idC AND m.description LIKE '%$search%'")->getResult();
+        $breadcrumb = array();
+        $breadcrumb[] = array(
+            'name' => 'Inicio',
+            'url' => $this->container->get('router')->generate('plataformaEducativa'),
+        );
+        $breadcrumb[] = array(
+            'name' => $company->getName(),
+            'url' => $this->container->get('router')->generate('empresa_ver', array('id' => $company->getId())),
+        );
+        $breadcrumb[] = array(
+            'name' => 'Nuevo Movimiento Contable',
+            'url' => $this->container->get('router')->generate('movimientosContables_crear', array('id' => $company->getId())),
+        );
+        return $this->render('FrontendBundle:Movimientos:search.html.twig', array(
+            'empresa' => $company,
+            'search'=>$search,
+            'movimientos'=>$movimientos,
+            'breadcrumb' => $breadcrumb,
+            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
+        ));
+    }
+
+    /**
      * @Route("/movimiento-contable-nuevo/{id}", name="movimientosContables_crear")
      */
     public function newAction(Company $company, Request $request)
