@@ -39,7 +39,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="Buscar...">
+                                                    <input type="text" class="form-control search-field" placeholder="Buscar...">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-primary btn-search"><span
                                                                     class="fa fa-search"></span></button>
@@ -126,7 +126,8 @@
 
         var pathSearch='{{ path('movimientosContables_buscar',{id:empresa.id}) }}';
         $('.btn-search').click(function(){
-
+            var param=$('.search-field').val();
+            window.open(pathSearch+'?search='+param);
         });
         $.get('{{ path('getSlipNumber',{'id':empresa.id}) }}', function (data) {
             slipTypes = data;

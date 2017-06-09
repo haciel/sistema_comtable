@@ -22,7 +22,7 @@ class AnswerTaskType extends AbstractType
             ])
             ->add('date','datetime',['label' => 'answerTask.date'])
             ->add('userId',null,['label' => 'answerTask.userId'])
-            ->add('taskId',null,['label' => 'answerTask.taskId'])
+            ->add('nota',null,['label' => 'Nota'])
             ->add('taskId', 'entity', array(
                 'class' => 'BackendBundle:task',
                 'query_builder' => function ($repository) {

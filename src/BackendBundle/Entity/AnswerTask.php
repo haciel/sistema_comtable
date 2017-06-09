@@ -57,6 +57,13 @@ class AnswerTask
     private $date;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="nota", type="integer",nullable=true)
+     */
+    private $nota;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -157,5 +164,28 @@ class AnswerTask
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set nota
+     *
+     * @param integer $nota
+     * @return AnswerTask
+     */
+    public function setNota($nota)
+    {
+        $this->nota = $nota;
+
+        return $this;
+    }
+
+    /**
+     * Get nota
+     *
+     * @return integer 
+     */
+    public function getNota()
+    {
+        return $this->nota;
     }
 }

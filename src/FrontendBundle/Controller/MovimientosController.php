@@ -82,7 +82,7 @@ class MovimientosController extends Controller
             'search'=>$search,
             'movimientos'=>$movimientos,
             'breadcrumb' => $breadcrumb,
-            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
+            'close'=>$this->container->get('router')->generate('movimientosContables_crear',array('id'=>$company->getId()))
         ));
     }
 
