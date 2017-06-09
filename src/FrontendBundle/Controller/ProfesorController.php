@@ -17,7 +17,7 @@ class ProfesorController extends Controller
     /**
      * @Route("/profesor/{id}/listado/estudiante",name="profesor")
      */
-    public function indexAction()
+    public function indexAction(Company $company)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -42,13 +42,14 @@ class ProfesorController extends Controller
             'estudiantes' => $estudiantes,
             'delete_forms'=>$delete_forms,
             'active'=>'estudiantes',
-            'breadcrumb' => $breadcrumb
+            'breadcrumb' => $breadcrumb,
+            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
 
         ));
     }
 
     /**
-     * @Route("/profesor/{id}/listado/tareas", name="profesor_tareas")
+     * @Route("/profesor/listado/tareas", name="profesor_tareas")
      */
     public function tareasAction(Request $request)
     {
