@@ -39,6 +39,13 @@ class Account
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="valor", type="decimal", precision=10, scale=0)
+     */
+    private $valor;
+
+    /**
      * @var AccountType
      *
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\AccountType", inversedBy="accounts", cascade={"persist"})
@@ -209,5 +216,28 @@ class Account
     public function getOperations()
     {
         return $this->operations;
+    }
+
+    /**
+     * Set valor
+     *
+     * @param string $valor
+     * @return Account
+     */
+    public function setValor($valor)
+    {
+        $this->valor = $valor;
+
+        return $this;
+    }
+
+    /**
+     * Get valor
+     *
+     * @return string 
+     */
+    public function getValor()
+    {
+        return $this->valor;
     }
 }

@@ -15,7 +15,11 @@ class ProfesorController extends Controller
 {
 
     /**
+<<<<<<< HEAD
      * @Route("/profesor/{id}/listado/estudiantes", name="profesor")
+=======
+     * @Route("/profesor/{id}/listado/estudiante",name="profesor")
+>>>>>>> 00fd3ae66473f82f4f5bce2bb72595f31ce6c928
      */
     public function indexAction(Company $company)
     {

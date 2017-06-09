@@ -164,6 +164,7 @@ account:
     create_new: 'Crear Cuenta'
     code: 'Código'
     name: 'Nombre'
+    valor: 'Valor'
     accounttypeId: 'Tipo de cuenta'
     companyId: 'Empresa'
     title_nav: 'Cuenta'

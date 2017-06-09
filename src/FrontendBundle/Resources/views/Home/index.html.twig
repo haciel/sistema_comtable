@@ -1,5 +1,4 @@
 {% extends 'FrontendBundle::frontend_base.html.twig' %}
-{% import 'FrontendBundle:Macros:macro_breadcrumb.html.twig' as macroBreadcrumb %}
 {% block content %}
     {% set username = app.user.name is defined ? app.user.name : app.user.username %}
     <div class="container">

@@ -15,6 +15,7 @@ class AccountType extends AbstractType
     {
         $builder->add('code',null,['label' => 'account.code'])
             ->add('name',null,['label' => 'account.name'])
+            ->add('valor',null,['label' => 'account.valor'])
             ->add('accounttypeId', 'entity', array(
                 'class' => 'BackendBundle:AccountType',
                 'query_builder' => function ($repository) {

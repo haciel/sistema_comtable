@@ -4,10 +4,10 @@
     <div class="container">
         <section class="content padding-top-30">
             <div class="box box-success">
-                {{ macroBreadcrumb.RenderBreadCrumbs(breadcrumb) }}
-                <a href="{{ close }}" class="close btn-close" >&times;</a>
                 <div class="row">
                     <div class="col-sm-12">
+                        {{ macroBreadcrumb.RenderBreadCrumbs(breadcrumb) }}
+
                         <div class="box-body">
                             <ul id="myTab" class="nav nav-tabs">
                                 <li class=""><a href="{{ path('profesor',{id:company.id}) }}" >Listado de Estudiantes</a></li>
