@@ -217,7 +217,11 @@
                     return item.id == code;
                 });
                 var cuenta = $(item).find('.cuenta-name')[0];
-                $(cuenta).text(name[0].code);
+                if(code!='') {
+                    $(cuenta).text(name[0].code);
+                }else{
+                    $(cuenta).text("");
+                }
             });
         }
 
@@ -254,6 +258,7 @@
             $('.code-account').each(function (indes, item) {
                 var value = $(item).val();
                 $(item).find('option').remove();
+                $(item).append(new Option("- Seleccione -", ""));
                 var exist = false;
                 cuentas.forEach(function (cuenta) {
                     if (cuenta.id == value) {
@@ -261,7 +266,7 @@
                     }
                     $(item).append(new Option(cuenta.name, cuenta.id));
                 });
-                var default_value = exist ? value : cuentas[0].id;
+                var default_value = exist ? value : "";
 
                 $(item).val(default_value);
             })
@@ -333,20 +338,31 @@
         $('.validate-operations').click(function () {
             var debe = 0;
             var haber = 0;
+            var selectOk=true;
             $('.debe-observe').each(function (index, item) {
                 var value = $(item).val();
                 value = parseFloat(value);
                 debe += value;
+                var selectValue=$($(item).parent().parent().find('.code-account')[0]).val();
+                if(value>0 && selectValue==''){
+                    selectOk=false;
+                }
             });
             $('.haber-observe').each(function (index, item) {
                 var value = $(item).val();
                 value = parseFloat(value);
                 haber += value;
+                var selectValue=$($(item).parent().parent().find('.code-account')[0]).val();
+                if(value>0 && selectValue==''){
+                    selectOk=false;
+                }
             });
             if ($('#backendbundle_accountantMove_description').val() == '') {
                 alertify.error("Debe llenar el campo descripción.");
             } else if (debe == 0 && haber == 0) {
                 alertify.error("Deben existir como mínimo 2 operaciones.");
+            }else if(!selectOk){
+                alertify.error("Debe elegir una cuenta para realizar la operación.");
             }
             else if (debe - haber == 0) {
                 $('#form_movimientos').submit();
@@ -361,8 +377,15 @@
             $('.debe-observe,.haber-observe').each(function (index, item) {
                 $(item).val(0);
                 $(item).attr('readonly', false);
-                $('#total-debe').text(0);
-                $('#total-haber').text(0);
+
+            });
+            $('#total-debe').text(0);
+            $('#total-haber').text(0);
+            $('.code-account').each(function(index,item){
+                $(item).val('');
+            });
+            $('.cuenta-name').each(function(index,item){
+                $(item).text('');
             });
         });
     </script>

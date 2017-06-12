@@ -117,6 +117,17 @@ class MovimientosController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             foreach ($movimiento->getOperations() as &$operation) {
                 $operation->setAccountmoveId($movimiento);
+                $debe=$operation->getDeve();
+                $haber=$operation->getHaber();
+                $account=$operation->getAccountId();
+                if($account!=null) {
+                    $valor = $account->getValor();
+                    $account->setValor($valor + $debe - $haber);
+                    $em->persist($account);
+                    $em->flush();
+                }else{
+                    $movimiento->removeOperation($operation);
+                }
             }
             $em->persist($movimiento);
             $em->flush();
@@ -140,7 +151,7 @@ class MovimientosController extends Controller
             'empresa' => $company,
             'breadcrumb' => $breadcrumb,
             'form' => $form->createView(),
-            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
+            'close'=>$this->container->get('router')->generate('movimientosContables_ver', array('id' => $company->getId()))
         ));
     }
 
@@ -164,6 +175,15 @@ class MovimientosController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             foreach ($movimiento->getOperations() as &$operation) {
                 $operation->setAccountmoveId($movimiento);
+                $debe=$operation->getDeve();
+                $haber=$operation->getHaber();
+                $account=$operation->getAccountId();
+                if($account!=null) {
+                    $valor = $account->getValor();
+                    $account->setValor($valor + $debe - $haber);
+                    $em->persist($account);
+                    $em->flush();
+                }
             }
             $em->persist($movimiento);
             $em->flush();
@@ -187,6 +207,7 @@ class MovimientosController extends Controller
             'numero' => $number,
             'breadcrumb' => $breadcrumb,
             'form' => $form->createView(),
+            'close'=>$this->container->get('router')->generate('movimientosContables_ver', array('id' => $company->getId()))
         ));
     }
 

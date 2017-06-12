@@ -32,14 +32,16 @@
         {% set totalDebe=0 %}
         {% set totalHaber=0 %}
         {% for operation in asiento.operations %}
-            <tr>
-                <td colspan="3"> {{ operation.accountId.code }}</td>
-                <td colspan="5"> {{ operation.accountId.name }}</td>
-                <td colspan="2"> {{ operation.deve }}</td>
-                <td colspan="2"> {{ operation.haber }}</td>
-                {% set totalDebe = totalDebe + operation.deve %}
-                {% set totalHaber = totalHaber + operation.haber %}
-            </tr>
+            {% if operation.accountId %}
+                <tr>
+                    <td colspan="3"> {{ operation.accountId.code }}</td>
+                    <td colspan="5"> {{ operation.accountId.name }}</td>
+                    <td colspan="2"> {{ operation.deve }}</td>
+                    <td colspan="2"> {{ operation.haber }}</td>
+                    {% set totalDebe = totalDebe + operation.deve %}
+                    {% set totalHaber = totalHaber + operation.haber %}
+                </tr>
+            {% endif %}
         {% endfor %}
         <tr>
             <td colspan="8"> Detalle: {{ asiento.description }}</td>
