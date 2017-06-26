@@ -21,6 +21,7 @@ class PlanController extends Controller
        $this->is_access($company->getUserId());
         $Account = new Account();
         $Account->setCompanyId($company);
+        $Account->setValor(0);
         $form = $this->createForm('FrontendBundle\Form\AccountType', $Account);
         $form->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', ['label' => 'Guardar', 'attr' => ['class' => 'btn btn-success flat']]);
 
@@ -102,7 +103,7 @@ class PlanController extends Controller
 
     public function is_access(User $user){
         $account = $this->container->get('security.context')->getToken()->getUser();
-        if($account->getId()!= $user->getId()){
+        if($account=='anon.' || $account->getId()!= $user->getId()){
             throw $this->createAccessDeniedException('No tiene permisos para acceder a esta página!');
         }
     }
@@ -148,6 +149,7 @@ class PlanController extends Controller
             'breadcrumb' => $breadcrumb,
             'form' => $editForm->createView(),
             'description_page'=>$trans->trans('account.title'),
+            'close' => $this->container->get('router')->generate('plan_ver', array('id' => $account->getCompanyId()->getId())),
         ));
     }
 

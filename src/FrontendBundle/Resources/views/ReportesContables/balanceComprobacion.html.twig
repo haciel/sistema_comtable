@@ -1,0 +1,52 @@
+<style>
+    .text-center {
+        text-align: center;
+    }
+    .text-right{
+        text-align: right;
+    }
+
+    td {
+        line-height: 2px;
+    }
+</style>
+<h3 class="text-center">BALANCE DE COMPROBACIÓN</h3>
+<h3 class="text-center">EMPRESA {{ company.name }}</h3>
+<span class="text-center">
+    Desde {{ desde }} Hasta {{ hasta }}
+</span>
+
+<br>
+<br>
+<table border="1px">
+    <tbody>
+    <tr>
+        <td> Código</td>
+        <td colspan="2"> Descripción</td>
+        <td> Débito</td>
+        <td> Crédito</td>
+        <td> Saldo Actual</td>
+    </tr>
+    {% set totalDebe=0 %}
+    {% set totalHaber=0 %}
+    {% set saldo=0 %}
+    {% for cuenta in cuentas %}
+        <tr>
+            <td> {{ cuenta.code }}</td>
+            <td colspan="2"> {{ cuenta.name }}</td>
+            <td class="text-right">{{ cuenta.debe }} </td>
+            <td class="text-right">{{ cuenta.haber }} </td>
+            <td class="text-right">{{ cuenta.valor }} </td>
+            {% set totalDebe = totalDebe + cuenta.debe %}
+            {% set totalHaber = totalHaber + cuenta.haber %}
+            {% set saldo = saldo + cuenta.valor %}
+        </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="3"></td>
+        <td class="text-right">{{ totalDebe }} </td>
+        <td class="text-right">{{ totalHaber }} </td>
+        <td class="text-right">{{ saldo }} </td>
+    </tr>
+    </tbody>
+</table>

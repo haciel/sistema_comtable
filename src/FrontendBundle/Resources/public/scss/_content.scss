@@ -207,6 +207,11 @@ body{
       border-bottom-width: 1px !important;
       border-right-width: 1px !important;
     }
+    &.action{
+      .form-group{
+        margin-bottom: 0 !important;
+      }
+    }
   }
 }
 
