@@ -42,6 +42,7 @@ class ReportesContablesController extends Controller
      * @Route("/libro-diario", name="librodiario")
      */
     public function libroDiario(Request $request,Company $company)
+
     {
         $l = Array();
 
