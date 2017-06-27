@@ -55,7 +55,7 @@
                                     <tr>
                                         <td>{{ loop.index }}</td>
                                         <td>{{ cuenta.code }}</td>
-                                        <td>{{ cuenta.name }}</td>
+                                        <td class="white-space">{{ cuenta.name|raw }}</td>
                                         <td>{{ cuenta.valor }}</td>
                                         <td>{{ cuenta.accounttypeId.name }}</td>
                                         <td class="action">

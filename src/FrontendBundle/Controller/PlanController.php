@@ -45,7 +45,15 @@ class PlanController extends Controller
         $order=$this->orderString($cuentasAll);
         $cuentas=array();
         foreach ($order as $item){
-            $cuentas[]=$cuentasAll[$item['index']];
+          $aux=$cuentasAll[$item['index']];
+          $auxName='<span class="word_white">';
+          for($i=1;$i<strlen($aux->getCode());$i++){
+            $auxName.='_';
+          }
+          $auxName.="</span>";
+          /** @var Account $aux */
+          $aux->setName($auxName.$aux->getName());
+            $cuentas[]=$aux;
         }
         $delete_forms=array();
         foreach ($cuentas as $entity)
