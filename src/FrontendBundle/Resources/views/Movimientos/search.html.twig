@@ -1,10 +1,10 @@
-{% extends 'FrontendBundle::frontend_base.html.twig' %}
+{% extends 'FrontendBundle::frontend_base_blue.html.twig' %}
 {% import 'FrontendBundle:Macros:macro_breadcrumb.html.twig' as macroBreadcrumb %}
 {% block content %}
     {% set username = app.user.name is defined ? app.user.name : app.user.username %}
     <div class="container">
         <section class="content-header text-center">
-            <h1 class="text-success">
+            <h1 class="text-white">
                 Asientos Contables
             </h1>
         </section>

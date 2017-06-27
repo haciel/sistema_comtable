@@ -135,7 +135,7 @@ body{
 }
 
 .body-blue{
-  background: $brand-primary;
+  background: rgba(80, 162, 246, 0.6);
 }
 
 .text-white{
@@ -227,4 +227,8 @@ body{
 
 .word_white{
   color: transparent;
+}
+
+.text-white{
+  color: #fff;
 }

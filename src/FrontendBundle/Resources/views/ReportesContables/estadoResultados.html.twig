@@ -2,12 +2,17 @@
     .text-center {
         text-align: center;
     }
-    .text-right{
+
+    .text-right {
         text-align: right;
     }
 
     td {
         line-height: 2px;
+    }
+    .row-black{
+        background-color: #333;
+        color:#fff;
     }
 </style>
 <h3 class="text-center">ESTADO DE RESULTADOS</h3>
@@ -27,11 +32,13 @@
     </tr>
     {% set saldo=0 %}
     {% for cuenta in cuentas %}
-        <tr>
+        <tr class="{% if cuenta.code==4 or cuenta.code==5 or cuenta.code==6 %}row-black {% endif %}">
             <td> {{ cuenta.code }}</td>
             <td colspan="2"> {{ cuenta.name }}</td>
-            <td class="text-right">{{ cuenta.valor }} </td>
-            {% set saldo = saldo + cuenta.valor %}
+            <td class="text-right">{{ cuenta.debe - cuenta.haber }} </td>
+            {% if cuenta.code==4 or cuenta.code==5 or cuenta.code==6 %}
+                {% set saldo = saldo + cuenta.debe - cuenta.haber %}
+            {% endif %}
         </tr>
     {% endfor %}
     <tr>
@@ -39,7 +46,7 @@
             {% if saldo>0 %}
                 Utilidad del ejercicio
             {% else %}
-            Pérdida del ejercicio
+                Pérdida del ejercicio
             {% endif %}
         </td>
         <td class="text-right">{{ saldo }} </td>

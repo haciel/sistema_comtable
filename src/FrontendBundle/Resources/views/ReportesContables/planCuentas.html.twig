@@ -1,0 +1,38 @@
+<style>
+    .text-center {
+        text-align: center;
+    }
+    .text-right{
+        text-align: right;
+    }
+
+    td {
+        line-height: 2px;
+    }
+</style>
+<h3 class="text-center">PLAN DE CUENTAS</h3>
+<h3 class="text-center">EMPRESA {{ company.name }}</h3>
+<span class="text-center">
+    Desde {{ desde }} Hasta {{ hasta }}
+</span>
+
+<br>
+<br>
+<table border="1px">
+    <tbody>
+    <tr>
+        <td> Código</td>
+        <td colspan="2"> Nombre</td>
+        <td> Saldo</td>
+        <td> Tipo de Cuenta</td>
+    </tr>
+    {% for cuenta in cuentas %}
+        <tr>
+            <td> {{ cuenta.code }}</td>
+            <td colspan="2"> {{ cuenta.name }}</td>
+            <td> {{ cuenta.debe - cuenta.haber }} </td>
+           <td> {{ cuenta.accounttypeId.name }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
