@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         {{ macroBreadcrumb.RenderBreadCrumbs(breadcrumb) }}
-                        <a href="{{ close }}" class="close btn-close" >&times;</a>
+                        <a href="{{ close }}" class="close btn-close">&times;</a>
                         <div class="box-body">
                             <div class="box-header text-center">
                                 <h3>
@@ -36,6 +36,15 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 {{ form_row(form.slipeId,{attr:{class:'slipe-type'}}) }}
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control search-field" placeholder="Buscar...">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary btn-search"><span
+                                                                    class="fa fa-search"></span></button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -115,6 +124,11 @@
         getAccounts();
         totales();
 
+        var pathSearch='{{ path('movimientosContables_buscar',{id:empresa.id}) }}';
+        $('.btn-search').click(function(){
+            var param=$('.search-field').val();
+            window.open(pathSearch+'?search='+param);
+        });
         $.get('{{ path('getSlipNumber',{'id':empresa.id}) }}', function (data) {
             slipTypes = data;
             var number = $('.slip-number').val();
@@ -329,10 +343,9 @@
                 value = parseFloat(value);
                 haber += value;
             });
-            if($('#backendbundle_accountantMove_description').val()==''){
+            if ($('#backendbundle_accountantMove_description').val() == '') {
                 alertify.error("Debe llenar el campo descripción.");
-            }else
-            if (debe == 0 && haber == 0) {
+            } else if (debe == 0 && haber == 0) {
                 alertify.error("Deben existir como mínimo 2 operaciones.");
             }
             else if (debe - haber == 0) {
@@ -343,9 +356,9 @@
             }
         });
 
-        $('.limpiar').click(function(){
+        $('.limpiar').click(function () {
             $('#backendbundle_accountantMove_description').val('');
-            $('.debe-observe,.haber-observe').each(function(index, item){
+            $('.debe-observe,.haber-observe').each(function (index, item) {
                 $(item).val(0);
                 $(item).attr('readonly', false);
                 $('#total-debe').text(0);

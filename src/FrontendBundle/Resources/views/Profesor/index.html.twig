@@ -11,8 +11,8 @@
                         <div class="box-body">
                             <ul id="myTab" class="nav nav-tabs">
                                 <li class="active"><a href="#" >Listado de Estudiantes</a></li>
-                                <li class=""><a href="{{ path('profesor_revision') }}" >Revisión</a></li>
-                                <li class=""><a href="{{ path('profesor_tareas') }}" >Tareas</a></li>
+                                <li class=""><a href="{{ path('profesor_revision',{id:company.id}) }}" >Revisión</a></li>
+                                <li class=""><a href="{{ path('profesor_tareas',{id:company.id}) }}" >Tareas</a></li>
                             </ul>
                             <div class="box-header">
                                 <h3 class="page-header">
