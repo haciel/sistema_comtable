@@ -30,12 +30,12 @@
                                         <a class="btn btn-primary btn-full"> Libro Mayor</a>
                                     </div>
                                     <div class="col-sm-4">
-                                        <a class="btn btn-warning btn-full">Balance de Comprobación</a>
+                                        <a class="btn btn-warning btn-full" data-toggle="modal" href="#balanceComprobacion">Balance de Comprobación</a>
                                     </div>
                                 </div>
                                 <div class="row padding-top-20">
                                     <div class="col-sm-4">
-                                        <a class="btn btn-info btn-full"> Estado de Resultados</a>
+                                        <a class="btn btn-info btn-full" data-toggle="modal" href="#estadoResultados"> Estado de Resultados</a>
                                     </div>
                                     <div class="col-sm-4">
                                         <a class="btn btn-danger btn-full"> Estado de Situación</a>
@@ -63,6 +63,62 @@
                         <h4 class="modal-title" id="myModalLabel">Libro Diario</h4>
                     </div>
                     <form action="{{ path('librodiario',{'id':empresa.id}) }}" method="post">
+                        <div class="modal-body clearfix">
+                            <div class="form-group col-sm-4">
+                                <label>Fecha desde</label>
+                                <input type="date" required class="form-control" name="desde">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label>Fecha hasta</label>
+                                <input type="date" required class="form-control" name="hasta">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Visualizar</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+        <div id="balanceComprobacion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Balance de Comprobación</h4>
+                    </div>
+                    <form action="{{ path('balanceComprobacion',{'id':empresa.id}) }}" method="post">
+                        <div class="modal-body clearfix">
+                            <div class="form-group col-sm-4">
+                                <label>Fecha desde</label>
+                                <input type="date" required class="form-control" name="desde">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label>Fecha hasta</label>
+                                <input type="date" required class="form-control" name="hasta">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Visualizar</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+        <div id="estadoResultados" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Estado de Resultados</h4>
+                    </div>
+                    <form action="{{ path('estadoResultados',{'id':empresa.id}) }}" method="post">
                         <div class="modal-body clearfix">
                             <div class="form-group col-sm-4">
                                 <label>Fecha desde</label>

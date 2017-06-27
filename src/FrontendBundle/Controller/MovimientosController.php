@@ -117,6 +117,24 @@ class MovimientosController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             foreach ($movimiento->getOperations() as &$operation) {
                 $operation->setAccountmoveId($movimiento);
+                $debe=$operation->getDeve();
+                $haber=$operation->getHaber();
+                $account=$operation->getAccountId();
+                if($account!=null) {
+                    $cuentasAll = $em->getRepository('BackendBundle:Account')->findBy(array(
+                      'companyId' => $company,
+                    ));
+                    $father=$this->getFather($cuentasAll,$account);
+                    $valor = $account->getValor();
+                    $valorFather = $father->getValor();
+                    $account->setValor($valor + $debe - $haber);
+                    $father->setValor($valorFather + $debe - $haber);
+                    $em->persist($account);
+                    $em->persist($father);
+                    $em->flush();
+                }else{
+                    $movimiento->removeOperation($operation);
+                }
             }
             $em->persist($movimiento);
             $em->flush();
@@ -140,7 +158,7 @@ class MovimientosController extends Controller
             'empresa' => $company,
             'breadcrumb' => $breadcrumb,
             'form' => $form->createView(),
-            'close'=>$this->container->get('router')->generate('empresa_ver',array('id'=>$company->getId()))
+            'close'=>$this->container->get('router')->generate('movimientosContables_ver', array('id' => $company->getId()))
         ));
     }
 
@@ -164,6 +182,22 @@ class MovimientosController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             foreach ($movimiento->getOperations() as &$operation) {
                 $operation->setAccountmoveId($movimiento);
+                $debe=$operation->getDeve();
+                $haber=$operation->getHaber();
+                $account=$operation->getAccountId();
+                if($account!=null) {
+                    $cuentasAll = $em->getRepository('BackendBundle:Account')->findBy(array(
+                      'companyId' => $company,
+                    ));
+                    $father=$this->getFather($cuentasAll,$account);
+                    $valor = $account->getValor();
+                    $valorFather = $father->getValor();
+                    $account->setValor($valor + $debe - $haber);
+                    $father->setValor($valorFather + $debe - $haber);
+                    $em->persist($account);
+                    $em->persist($father);
+                    $em->flush();
+                }
             }
             $em->persist($movimiento);
             $em->flush();
@@ -187,7 +221,31 @@ class MovimientosController extends Controller
             'numero' => $number,
             'breadcrumb' => $breadcrumb,
             'form' => $form->createView(),
+            'close'=>$this->container->get('router')->generate('movimientosContables_ver', array('id' => $company->getId()))
         ));
+    }
+
+    public function getFather($cuentas,Account $cuenta){
+        $father=$cuenta;
+        $codeFather=$cuenta->getCode()."";
+        $code=$cuenta->getCode()."";
+        foreach($cuentas as $item){
+            /** @var Account $item */
+            $codeAux=$item->getCode()."";
+            if(strlen($codeAux)<strlen($code)){
+                $ok=true;
+                for($i=0;$i<strlen($codeAux);$i++){
+                    if($codeAux[$i]!=$code[$i]){
+                        $ok=false;
+                    }
+                }
+                if($ok && $codeFather>$codeAux){
+                    $codeFather=$codeAux;
+                    $father=$item;
+                }
+            }
+        }
+        return $father;
     }
 
     /**
@@ -196,9 +254,14 @@ class MovimientosController extends Controller
     public function getAccountName(Company $company)
     {
         $em = $this->getDoctrine()->getManager();
-        $cuentas = $em->getRepository('BackendBundle:Account')->findBy(array(
+        $cuentasAll = $em->getRepository('BackendBundle:Account')->findBy(array(
             'companyId' => $company,
         ));
+        $order=$this->orderString($cuentasAll);
+        $cuentas=array();
+        foreach ($order as $item){
+            $cuentas[]=$cuentasAll[$item['index']];
+        }
         $response = array();
         foreach ($cuentas as $item) {
             $response[] = array(
@@ -210,6 +273,24 @@ class MovimientosController extends Controller
         return new JsonResponse($response);
     }
 
+    public function orderString($accounts){
+        $data=array();
+        $maxLength=0;
+        foreach ($accounts as $account){
+            if($maxLength<strlen($account->getCode())){
+                $maxLength=strlen($account->getCode());
+            }
+        }
+        for($i=0;$i<count($accounts);$i++){
+            $code=$accounts[$i]->getCode();
+            $multiplo=$maxLength-strlen($accounts[$i]->getCode())?pow(10,$maxLength-strlen($accounts[$i]->getCode())):1;
+            $data[]=array(
+                'code'=>$multiplo!=1?$code*$multiplo:$code+1,
+                'index'=>$i);
+        }
+        sort($data);
+        return $data;
+    }
     /**
      * @Route("/get-slipNumber/{id}", name="getSlipNumber")
      */
@@ -244,6 +325,24 @@ class MovimientosController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $cuentasAll = $em->getRepository('BackendBundle:Account')->findBy(array(
+                'companyId' => $AccountantMove->getCompanyId(),
+            ));
+            foreach ($AccountantMove->getOperations() as $operation){
+                /** @var Operations $operation */
+               if(!empty($operation->getAccountId())){
+                   $debe=$operation->getDeve();
+                   $haber=$operation->getHaber();
+                   $valor=$operation->getAccountId()->getValor()+$haber-$debe;
+                   $operation->getAccountId()->setValor($valor);
+
+                   $father=$this->getFather($cuentasAll,$operation->getAccountId());
+                   $valorFather = $father->getValor();
+                   $father->setValor($valorFather - $debe + $haber);
+                   $em->persist($father);
+                   $em->flush();
+               }
+            }
             $em->remove($AccountantMove);
             $em->flush();
         }
