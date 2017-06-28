@@ -46,6 +46,7 @@ class AccountController extends Controller
     public function newAction(Request $request)
     {
         $Account = new Account();
+        $Account->setValor(0);
         $form = $this->createForm('BackendBundle\Form\AccountType', $Account);
         $form->add('submit','Symfony\Component\Form\Extension\Core\Type\SubmitType',['label'=>'backend.create','attr'=>['class'=>'btn btn-success btn-flat']]);
 
