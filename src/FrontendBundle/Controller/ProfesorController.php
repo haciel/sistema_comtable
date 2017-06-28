@@ -52,7 +52,7 @@ class ProfesorController extends Controller
     }
 
     /**
-     * @Route("/profesor/listado/tareas", name="profesor_tareas")
+     * @Route("/profesor/{id}/listado/tareas", name="profesor_tareas")
      */
     public function tareasAction(Request $request, Company $company)
     {
