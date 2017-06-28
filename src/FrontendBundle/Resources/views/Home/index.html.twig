@@ -1,9 +1,9 @@
-{% extends 'FrontendBundle::frontend_base.html.twig' %}
+{% extends 'FrontendBundle::frontend_base_blue.html.twig' %}
 {% block content %}
     {% set username = app.user.name is defined ? app.user.name : app.user.username %}
     <div class="container">
         <section class="content-header">
-            <h1 class="text-success">
+            <h1 class="text-white">
                 Empresas
                 <small class="pull-right">Bienvenido: {{ username }}</small>
             </h1>

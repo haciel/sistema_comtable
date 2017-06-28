@@ -36,7 +36,7 @@
             <td colspan="2"> {{ cuenta.name }}</td>
             <td class="text-right">{{ cuenta.debe }} </td>
             <td class="text-right">{{ cuenta.haber }} </td>
-            <td class="text-right">{{ cuenta.valor }} </td>
+            <td class="text-right">{{ cuenta.debe - cuenta.haber }} </td>
             {% set totalDebe = totalDebe + cuenta.debe %}
             {% set totalHaber = totalHaber + cuenta.haber %}
             {% set saldo = saldo + cuenta.valor %}
