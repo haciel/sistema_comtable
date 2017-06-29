@@ -21,7 +21,6 @@ class PlanController extends Controller
        $this->is_access($company->getUserId());
         $Account = new Account();
         $Account->setCompanyId($company);
-        $Account->setValor(0);
         $form = $this->createForm('FrontendBundle\Form\AccountType', $Account);
         $form->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', ['label' => 'Guardar', 'attr' => ['class' => 'btn btn-success flat']]);
 
