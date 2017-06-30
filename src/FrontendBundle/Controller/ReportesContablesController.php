@@ -132,6 +132,8 @@ class ReportesContablesController extends Controller {
     // TRANSLATIONS --------------------------------------
     $l['w_page'] = 'page';
 
+    $nivel = $request->get('nivel');
+    $tipo = $request->get('tipo');
     $desde = $request->get('desde');
     $hasta = $request->get('hasta');
     $em = $this->getDoctrine()->getManager();
@@ -176,19 +178,23 @@ class ReportesContablesController extends Controller {
     $fathers = $this->getFathers($cuentasAll, $codes);
     $cuentas = array();
     foreach ($order as $item) {
-      $cuentaAux = $cuentasAll[$item['index']];
-      if (in_array($cuentaAux->getCode(), $codes)) {
-        $debe = 0;
-        $credito = 0;
-        $childrens = $this->getChildrens($cuentaAux->getCode() . "", $cuentasAll);
-        foreach ($childrens as $children) {
-          $debe += $children->debe;
-          $credito += $children->haber;
+        $cuentaAux = $cuentasAll[$item['index']];
+        if (strlen($cuentaAux->getCode() . "") <= $nivel) {
+            if (in_array($cuentaAux->getCode(), $codes)) {
+                $debe = 0;
+                $credito = 0;
+                $childrens = $this->getChildrens($cuentaAux->getCode() . "", $cuentasAll);
+                foreach ($childrens as $children) {
+                    $debe += $children->debe;
+                    $credito += $children->haber;
+                }
+                $cuentaAux->debe = $debe;
+                $cuentaAux->haber = $credito;
+            }
+            $cuentaAux->debe=number_format($cuentaAux->debe,2);
+            $cuentaAux->haber=number_format($cuentaAux->haber,2);
+            $cuentas[] = $cuentaAux;
         }
-        $cuentaAux->debe = $debe;
-        $cuentaAux->haber = $credito;
-      }
-      $cuentas[] = $cuentaAux;
     }
     $html = $this->render('FrontendBundle:ReportesContables:balanceComprobacion.html.twig', array(
       'cuentas' => $cuentas,
@@ -531,68 +537,33 @@ class ReportesContablesController extends Controller {
     // TRANSLATIONS --------------------------------------
     $l['w_page'] = 'page';
 
-    $desde = $request->get('desde');
-    $hasta = $request->get('hasta');
+    $codigoInicial = $request->get('codigoInicial');
+    $codigoFinal = $request->get('codigoFinal');
     $em = $this->getDoctrine()->getManager();
-    $asientosAll = $em->getRepository('BackendBundle:AccountantMove')->findBy(array(
-      'companyId' => $company,
-    ));
-    $asientos = array();
-    foreach ($asientosAll as $item) {
-      /** @var AccountantMove $item */
-      if ($desde <= $item->getDate()->format('Y-m-d') && $hasta >= $item->getDate()->format('Y-m-d')) {
-        foreach ($item->getOperations() as $operation) {
-          /** @var Operations $operation */
-          if (!empty($operation->getAccountId())) {
-            if (isset($asientos[$operation->getAccountId()->getId()]['debe'])) {
-              $asientos[$operation->getAccountId()->getId()]['debe'] += $operation->getDeve();
-              $asientos[$operation->getAccountId()->getId()]['haber'] += $operation->getHaber();
-            }
-            else {
-              $asientos[$operation->getAccountId()->getId()]['debe'] = $operation->getDeve();
-              $asientos[$operation->getAccountId()->getId()]['haber'] = $operation->getHaber();
-            }
-          }
-        }
-      }
-    }
     $cuentasAll = $em->getRepository('BackendBundle:Account')->findBy(array(
       'companyId' => $company,
     ));
-    foreach ($cuentasAll as &$cuenta) {
-      /** @var Account $cuenta */
-      if (isset($asientos[$cuenta->getId()])) {
-        $cuenta->{'debe'} = $asientos[$cuenta->getId()]['debe'];
-        $cuenta->{'haber'} = $asientos[$cuenta->getId()]['haber'];
-      }
-      else {
-        $cuenta->{'debe'} = 0;
-        $cuenta->{'haber'} = 0;
-      }
-    }
     $order = $this->orderString($cuentasAll);
-    $codes = [];
-    $fathers = $this->getFathers($cuentasAll, $codes);
     $cuentas = array();
     foreach ($order as $item) {
+        /** @var Account $cuentaAux */
       $cuentaAux = $cuentasAll[$item['index']];
-      if (in_array($cuentaAux->getCode(), $codes)) {
-        $debe = 0;
-        $credito = 0;
-        $childrens = $this->getChildrens($cuentaAux->getCode() . "", $cuentasAll);
-        foreach ($childrens as $children) {
-          $debe += $children->debe;
-          $credito += $children->haber;
-        }
-        $cuentaAux->debe = $debe;
-        $cuentaAux->haber = $credito;
+      $code=$cuentaAux->getCode()."";
+      if($code[0]>=$codigoInicial && $code[0]<=$codigoFinal){
+          $auxName='<span class="word-white">';
+          for($i=1;$i<strlen($code);$i++){
+              $auxName.='__';
+          }
+          $auxName.='</span>'.$cuentaAux->getName();
+          if(strlen($code)==1){
+              $cuentaAux->{'padre'}=true;
+          }
+          $cuentaAux->setName($auxName);
+          $cuentas[] = $cuentaAux;
       }
-      $cuentas[] = $cuentaAux;
     }
     $html = $this->render('FrontendBundle:ReportesContables:planCuentas.html.twig', array(
       'cuentas' => $cuentas,
-      'desde' => $desde,
-      'hasta' => $hasta,
       'company' => $company,
     ));
 

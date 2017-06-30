@@ -36,14 +36,14 @@ class Operations
     /**
      * @var string
      *
-     * @ORM\Column(name="deve", type="decimal", precision=10, scale=0)
+     * @ORM\Column(name="deve", type="decimal", precision=10, scale=2)
      */
     private $deve;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="haber", type="decimal", precision=10, scale=0)
+     * @ORM\Column(name="haber", type="decimal", precision=10, scale=2)
      */
     private $haber;
 
